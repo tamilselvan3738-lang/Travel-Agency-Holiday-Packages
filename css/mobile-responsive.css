@@ -106,6 +106,156 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
 }
 
 /* ==========================================================================
+   NEST HUB MAX & MID-SIZE LAPTOPS / DESKTOPS (1025px - 1366px)
+   Specifically optimizes 1280px x 800px (Nest Hub Max) and 1366px displays.
+   Ensures perfect 3-column symmetry: Logo Left, Links Dead Center, Actions Right.
+   Zero crowding, zero clipping, flawless vertical and horizontal alignment.
+   ========================================================================== */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .app {
+    padding: 0.75rem 1.25rem !important;
+    max-width: 100% !important;
+  }
+
+  .navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0.38rem 1.15rem !important;
+    border-radius: 2.5rem !important;
+    top: 0.85rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 0.75rem !important;
+  }
+
+  /* 3-Column Symmetry: Left Slot */
+  .logo {
+    flex: 1 0 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 9px !important;
+    min-width: 0 !important;
+  }
+
+  .logo-badge,
+  .logo-svg {
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .logo-text {
+    font-size: 1.18rem !important;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+  }
+
+  .logo-subtitle {
+    font-size: 0.52rem !important;
+    letter-spacing: 0.08em !important;
+    white-space: nowrap !important;
+  }
+
+  /* 3-Column Symmetry: Center Slot (Dead Center) */
+  .nav-center {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.15rem !important;
+    margin: 0 auto !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .nav-link {
+    font-size: 0.77rem !important;
+    padding: 0.36rem 0.55rem !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.2 !important;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.55rem !important;
+  }
+
+  /* 3-Column Symmetry: Right Slot */
+  .nav-right {
+    flex: 1 0 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.45rem !important;
+    min-width: 0 !important;
+  }
+
+  .icon-btn {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 0.95rem !important;
+    padding: 0.35rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .login-btn {
+    font-size: 0.77rem !important;
+    padding: 0.42rem 1rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Hamburger strictly hidden on Nest Hub Max */
+  .hamburger {
+    display: none !important;
+  }
+
+  /* Dashboard Topbars on Nest Hub Max */
+  .admin-navbar,
+  .user-navbar {
+    padding: 0 1.25rem !important;
+    height: 68px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .nav-center-slot {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+
+  .nav-search-bar {
+    width: min(260px, 22vw) !important;
+  }
+
+  .admin-profile-pill,
+  .user-profile-pill {
+    padding: 0.3rem 0.65rem 0.3rem 0.35rem !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* RTL Support on Nest Hub Max */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  body.rtl-mode .navbar {
+    flex-direction: row-reverse !important;
+  }
+  body.rtl-mode .logo {
+    justify-content: flex-start !important;
+  }
+  body.rtl-mode .nav-right {
+    justify-content: flex-end !important;
+  }
+  body.rtl-mode .nav-center {
+    margin: 0 auto !important;
+  }
+}
+
+/* ==========================================================================
    BREAKPOINT 1: <= 1024px (Tablets Landscape & Small Laptops)
    ========================================================================== */
 @media (max-width: 1024px) {
