@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 · Uncharted Territory · WanderLux Luxury Travel</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="images/favicon.svg">
+  <!-- Universal Mobile Responsive Engine (320px, 480px, 768px, 1024px) -->
+  <link rel="stylesheet" href="css/mobile-responsive.css">
+
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Framer Motion via ESM CDN -->
+  <script type="module">
+    import { motion, animate, stagger, spring } from 'https://cdn.skypack.dev/framer-motion@11.0.2';
+    window.motion = motion;
+    window.framerAnimate = animate;
+    window.framerStagger = stagger;
+    window.framerSpring = spring;
+  </script>
+  <style>
+    /* ---------- COLOR PALETTE & SYSTEM VARIABLES ---------- */
+    :root {
+      --primary-ocean: #0284c7;
+      --primary-azure: #0ea5e9;
+      --primary-cyan: #06b6d4;
+      --accent-gold: #f59e0b;
+      --accent-sunset: #f97316;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --page-bg: #f0f7fd;
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(14, 165, 233, 0.22);
+      --card-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.2), 0 4px 20px rgba(15, 23, 42, 0.05);
+      --input-bg: rgba(248, 250, 252, 0.95);
+      --input-border: rgba(203, 213, 225, 0.85);
+      --input-focus: #0ea5e9;
+      --input-text: #0f172a;
+      --control-btn-bg: rgba(255, 255, 255, 0.75);
+      --control-btn-border: rgba(14, 165, 233, 0.22);
+      --radar-color: rgba(14, 165, 233, 0.22);
+    }
+
+    body.dark-mode {
+      --text-main: #f0f9ff;
+      --text-muted: #94a3b8;
+      --page-bg: #06111f;
+      --card-bg: rgba(13, 27, 46, 0.85);
+      --card-border: rgba(56, 189, 248, 0.28);
+      --card-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 32px rgba(14, 165, 233, 0.16);
+      --input-bg: rgba(15, 23, 42, 0.75);
+      --input-border: rgba(56, 189, 248, 0.22);
+      --input-focus: #38bdf8;
+      --input-text: #f8fafc;
+      --control-btn-bg: rgba(15, 23, 42, 0.75);
+      --control-btn-border: rgba(56, 189, 248, 0.25);
+      --radar-color: rgba(56, 189, 248, 0.25);
+    }
+
+    /* ---------- ZERO SCROLLBAR RESET ---------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden !important;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--page-bg);
+      color: var(--text-main);
+      transition: background-color 0.4s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Full-screen wrapper layout */
+    .lost-viewport-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    /* ---------- UNIQUE ANIMATED BACKGROUND LAYERS ---------- */
+    .ambient-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* 1. Interactive Flight & Radar Canvas */
+    #lostRadarCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 2. Undulating Aurora Ribbons */
+    .aurora-ribbon {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.75;
+      transition: opacity 0.5s ease;
+    }
+    .aurora-1 {
+      top: -20%;
+      left: 15%;
+      width: 800px;
+      height: 520px;
+      background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.26) 0%, rgba(6, 182, 212, 0.12) 50%, transparent 75%);
+      animation: auroraFloat1 20s ease-in-out infinite alternate;
+    }
+    .aurora-2 {
+      bottom: -20%;
+      right: 10%;
+      width: 780px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.15) 0%, rgba(249, 115, 22, 0.08) 50%, transparent 70%);
+      animation: auroraFloat2 24s ease-in-out infinite alternate;
+    }
+    body.dark-mode .aurora-1 {
+      background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.35) 0%, rgba(2, 132, 199, 0.18) 55%, transparent 75%);
+      opacity: 0.95;
+    }
+
+    @keyframes auroraFloat1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(60px, 50px) scale(1.12); }
+    }
+    @keyframes auroraFloat2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-60px, -45px) scale(1.08); }
+    }
+
+    /* 3. Coordinate Grid Watermark */
+    .bg-meridian-lines {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+        linear-gradient(to right, rgba(14, 165, 233, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 165, 233, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px, 80px 80px, 80px 80px;
+      mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+      pointer-events: none;
+    }
+
+    /* 4. Astrolabe Range System */
+    .astrolabe-system {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 780px;
+      height: 780px;
+      pointer-events: none;
+      opacity: 0.45;
+      z-index: 2;
+    }
+    .astrolabe-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .astro-dial-slow {
+      transform-origin: center;
+      animation: dialSpin 120s linear infinite;
+    }
+    .astro-dial-rev {
+      transform-origin: center;
+      animation: dialSpinRev 85s linear infinite;
+    }
+    @keyframes dialSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes dialSpinRev {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    /* Floating Uncharted Waypoints */
+    .waypoint-node {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(14, 165, 233, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--primary-ocean);
+      letter-spacing: 0.06em;
+      pointer-events: none;
+      animation: waypointBob 6s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+    body.dark-mode .waypoint-node {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(56, 189, 248, 0.28);
+      color: #38bdf8;
+    }
+    .wp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f43f5e;
+      box-shadow: 0 0 8px #f43f5e;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.45; }
+    }
+    @keyframes waypointBob {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-14px); }
+    }
+    .wp-1 { top: 16%; left: 15%; animation-delay: 0s; }
+    .wp-2 { top: 22%; right: 14%; animation-delay: 1.5s; }
+    .wp-3 { bottom: 18%; left: 16%; animation-delay: 3s; }
+    .wp-4 { bottom: 20%; right: 16%; animation-delay: 4.5s; }
+
+    /* ---------- TOP-RIGHT CONTROLS: DARK MODE & RTL (NO NAVBAR / NO FOOTER) ---------- */
+    .top-right-bar {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      z-index: 30;
+    }
+    body.rtl-mode .top-right-bar {
+      right: auto;
+      left: 1.75rem;
+    }
+    .nav-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--control-btn-border);
+      background: var(--control-btn-bg);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    body.dark-mode .nav-icon-btn {
+      color: #e0f2fe;
+    }
+    .nav-icon-btn:hover {
+      color: var(--primary-ocean);
+      border-color: var(--primary-azure);
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);
+    }
+    body.dark-mode .nav-icon-btn:hover {
+      color: #38bdf8;
+      border-color: #38bdf8;
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+    }
+    .nav-icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* ---------- MAIN 404 STAGE (NO SCROLL BAR) ---------- */
+    .lost-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1.5rem;
+      overflow: hidden;
+      position: relative;
+      perspective: 1200px;
+    }
+
+    /* THE 404 CARD (WITH 3D PARALLAX TILT & GLASS SHEEN) */
+    .lost-card {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: var(--card-shadow);
+      padding: 1.85rem 2.4rem;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      position: relative;
+      z-index: 10;
+      transform-style: preserve-3d;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Interactive Specular Glare/Sheen */
+    .card-sheen {
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      pointer-events: none;
+      z-index: 2;
+      transition: background 0.15s ease;
+      mix-blend-mode: overlay;
+    }
+
+    /* ---------- EXACT NAVBAR LOGO FROM INDEX.HTML ---------- */
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      transform: translateZ(20px);
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 8px 18px -4px rgba(2, 132, 199, 0.4),
+        0 2px 6px rgba(245, 158, 11, 0.15),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.12);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .logo:hover .logo-badge {
+      transform: translateY(-2px) rotate(4deg) scale(1.06);
+      box-shadow: 
+        0 12px 24px -4px rgba(2, 132, 199, 0.5),
+        0 4px 10px rgba(245, 158, 11, 0.3),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .logo-svg {
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
+
+    .logo-svg .logo-plane {
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      animation: logoPlaneBob 3.5s ease-in-out infinite alternate;
+    }
+
+    .logo-svg .flight-trail {
+      animation: flightTrailDash 3s linear infinite;
+    }
+
+    .logo-svg .logo-sun-aura {
+      animation: sunAuraBreath 4s ease-in-out infinite alternate;
+      transform-origin: 28px 13px;
+    }
+
+    @keyframes logoPlaneBob {
+      0% { transform: translate(29px, 11px) rotate(42deg) scale(0.7); }
+      100% { transform: translate(31px, 9px) rotate(48deg) scale(0.76); }
+    }
+
+    @keyframes flightTrailDash {
+      to { stroke-dashoffset: -20; }
+    }
+
+    @keyframes sunAuraBreath {
+      0% { transform: scale(1); opacity: 0.25; }
+      100% { transform: scale(1.35); opacity: 0.65; }
+    }
+
+    .logo-title-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      text-align: left;
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.32rem;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 40%, #0c4a6e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: filter 0.3s ease;
+    }
+
+    .logo:hover .logo-text {
+      filter: drop-shadow(0 2px 8px rgba(14, 165, 233, 0.35));
+    }
+
+    body.dark-mode .logo-text {
+      background: linear-gradient(135deg, #f0f9ff 0%, #38bdf8 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-subtitle {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #f59e0b;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    .logo-subtitle i {
+      font-size: 0.62rem;
+      color: #0ea5e9;
+      display: inline-block;
+      animation: umbrellaSway 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes umbrellaSway {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    /* ---------- CREATIVE 404 CODE WITH COMPASS NEEDLE & ORBITING JET ---------- */
+    .lost-code-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      margin-bottom: 0.45rem;
+      line-height: 1;
+      transform: translateZ(25px);
+    }
+    .code-digit {
+      font-size: 5.2rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 8px 16px rgba(2, 132, 199, 0.25));
+    }
+    body.dark-mode .code-digit {
+      background: linear-gradient(135deg, #f0f9ff 0%, #38bdf8 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 8px 24px rgba(56, 189, 248, 0.3));
+    }
+
+    /* Spinning Astrolabe & Compass Centerpiece for the "0" */
+    .code-compass-orb {
+      width: 76px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 0 0.15rem;
+    }
+    .compass-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .compass-needle {
+      transform-origin: 50px 50px;
+      animation: needleWobble 4.5s ease-in-out infinite alternate;
+    }
+    @keyframes needleWobble {
+      0% { transform: rotate(-35deg); }
+      30% { transform: rotate(45deg); }
+      60% { transform: rotate(-15deg); }
+      100% { transform: rotate(18deg); }
+    }
+
+    .orbit-plane-wrap {
+      transform-origin: 50px 50px;
+      animation: orbitJet 6s linear infinite;
+    }
+    @keyframes orbitJet {
+      from { transform: rotate(0deg) translate(38px) rotate(90deg); }
+      to { transform: rotate(360deg) translate(38px) rotate(90deg); }
+    }
+
+    /* Badge & Headings */
+    .lost-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.85rem;
+      border-radius: 9999px;
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.28);
+      color: #f43f5e;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+      transform: translateZ(15px);
+    }
+    body.dark-mode .lost-status-badge {
+      background: rgba(244, 63, 94, 0.18);
+      border-color: rgba(251, 113, 133, 0.4);
+      color: #fb7185;
+    }
+
+    .lost-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.35rem;
+      transform: translateZ(20px);
+    }
+    .lost-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 480px;
+      margin-bottom: 1.25rem;
+      transform: translateZ(15px);
+    }
+
+    /* Action Buttons Row */
+    .lost-actions-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.15rem;
+      transform: translateZ(20px);
+      width: 100%;
+    }
+    .btn-action-primary {
+      height: 42px;
+      padding: 0 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 0 10px 22px -6px rgba(2, 132, 199, 0.45);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .btn-action-primary::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 80%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: rotate(25deg);
+      animation: btnShimmer 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes btnShimmer {
+      0%, 75% { left: -100%; }
+      100% { left: 160%; }
+    }
+    .btn-action-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -6px rgba(2, 132, 199, 0.6);
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    }
+
+    .btn-action-secondary {
+      height: 42px;
+      padding: 0 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1.5px solid rgba(245, 158, 11, 0.35);
+      color: #d97706;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    body.dark-mode .btn-action-secondary {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: #fbbf24;
+    }
+    .btn-action-secondary:hover {
+      background: rgba(245, 158, 11, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-action-tertiary {
+      height: 42px;
+      padding: 0 1.15rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(14, 165, 233, 0.08);
+      border: 1.5px solid rgba(14, 165, 233, 0.28);
+      color: var(--primary-ocean);
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    body.dark-mode .btn-action-tertiary {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+    }
+    .btn-action-tertiary:hover {
+      background: rgba(14, 165, 233, 0.18);
+      border-color: var(--primary-ocean);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(14, 165, 233, 0.25);
+    }
+
+    /* Popular Destination Pills */
+    .lost-quick-links-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding-top: 0.95rem;
+      border-top: 1px dashed rgba(203, 213, 225, 0.7);
+      width: 100%;
+      transform: translateZ(15px);
+    }
+    body.dark-mode .lost-quick-links-wrap {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    .quick-links-title {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .quick-links-pills {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+    .q-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.22s ease;
+    }
+    body.dark-mode .q-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(56, 189, 248, 0.2);
+      color: #e2e8f0;
+    }
+    .q-pill:hover {
+      color: var(--primary-ocean);
+      border-color: var(--primary-azure);
+      background: rgba(14, 165, 233, 0.12);
+      transform: translateY(-2px);
+    }
+    body.dark-mode .q-pill:hover {
+      color: #38bdf8;
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    /* ---------- RTL STYLING SUPPORT ---------- */
+    body.rtl-mode {
+      direction: rtl;
+    }
+    body.rtl-mode .logo-title-group {
+      text-align: right;
+    }
+    body.rtl-mode .btn-action-primary i {
+      transform: rotate(180deg);
+    }
+
+    /* ---------- RESPONSIVE TUNING (ALWAYS FIT 100VH) ---------- */
+    @media (max-height: 760px) {
+      .top-right-bar {
+        top: 0.8rem;
+        right: 1.2rem;
+      }
+      body.rtl-mode .top-right-bar {
+        right: auto;
+        left: 1.2rem;
+      }
+      .nav-icon-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+      }
+      .lost-card {
+        padding: 1.3rem 1.8rem;
+        max-width: 520px;
+      }
+      .logo {
+        margin-bottom: 0.4rem;
+      }
+      .code-digit {
+        font-size: 4.2rem;
+      }
+      .code-compass-orb {
+        width: 62px;
+        height: 62px;
+      }
+      .lost-title {
+        font-size: 1.35rem;
+      }
+      .lost-desc {
+        font-size: 0.82rem;
+        margin-bottom: 0.95rem;
+      }
+      .lost-actions-grid {
+        gap: 0.5rem;
+        margin-bottom: 0.85rem;
+      }
+      .btn-action-primary,
+      .btn-action-secondary,
+      .btn-action-tertiary {
+        height: 38px;
+        font-size: 0.82rem;
+        padding: 0 1rem;
+      }
+      .lost-quick-links-wrap {
+        padding-top: 0.75rem;
+      }
+      .q-pill {
+        font-size: 0.72rem;
+        padding: 0.25rem 0.65rem;
+      }
+      .astrolabe-system {
+        width: 600px;
+        height: 600px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .top-right-bar {
+        top: 0.8rem;
+        right: 1rem;
+      }
+      body.rtl-mode .top-right-bar {
+        right: auto;
+        left: 1rem;
+      }
+      .logo-subtitle {
+        display: none;
+      }
+      .lost-card {
+        padding: 1.35rem 1.25rem;
+        border-radius: 22px;
+      }
+      .code-digit {
+        font-size: 3.6rem;
+      }
+      .code-compass-orb {
+        width: 54px;
+        height: 54px;
+      }
+      .lost-actions-grid {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-action-primary,
+      .btn-action-secondary,
+      .btn-action-tertiary {
+        width: 100%;
+      }
+      .waypoint-node {
+        display: none;
+      }
+    }
+  
+    /* ==========================================================================
+       UNIVERSAL MOBILE RESPONSIVE ENGINE (320px, 480px, 768px, 1024px)
+       Strict Overflow Prevention · Fluid Media · Equal Spacing · Zero Clipping
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      max-width: 100% !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      max-width: 100% !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+      width: 100% !important;
+      position: relative;
+    }
+
+    /* Universal Sticky Navbar Engine across all screen sizes */
+    .navbar {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, top 0.3s ease !important;
+    }
+
+    .admin-navbar,
+    .user-navbar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1000 !important;
+    }
+
+    .navbar.scrolled,
+    .navbar.is-sticky {
+      background: rgba(255, 255, 255, 0.94) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-color: rgba(2, 132, 199, 0.3) !important;
+      box-shadow: 0 16px 38px -10px rgba(2, 132, 199, 0.28), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.dark-mode .navbar.scrolled,
+    body.dark-mode .navbar.is-sticky {
+      background: rgba(15, 23, 42, 0.94) !important;
+      border-color: rgba(56, 189, 248, 0.4) !important;
+      box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.22) !important;
+    }
+
+    img, svg, video, canvas {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    /* Prevent Decorative Background Overflows */
+    .travel-background-aurora,
+    .admin-ambient-aurora,
+    .user-ambient-aurora,
+    .ambient-aurora-nebula,
+    .flight-trail-decor,
+    .bg-celestial-canvas,
+    .flight-route-map,
+    .astrolabe-system,
+    .shooting-star,
+    .sky-stars {
+      max-width: 100vw !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* Container safety */
+    .app,
+    .container,
+    .main-wrapper,
+    .login-viewport-wrapper,
+    .lost-viewport-wrapper,
+    .admin-app-layout,
+    .user-app-layout {
+      width: 100% !important;
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Breakpoint 1: <= 1024px */
+    @media (max-width: 1024px) {
+      .app {
+        max-width: 100% !important;
+        padding: 0.85rem 1.25rem !important;
+      }
+      .trending-grid,
+      .hill-stations-grid,
+      .asian-destinations-grid,
+      .packages-grid,
+      .offers-grid,
+      .category-grid,
+      .features-grid,
+      .stats-grid,
+      .destinations-grid,
+      .kpi-grid-8,
+      .kpi-grid-6,
+      .module-cards-grid,
+      .user-cards-grid,
+      .philosophy-grid,
+      .honeymoon-hero-grid,
+      .deal-ticket-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.25rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+      }
+    }
+
+    /* Breakpoint 2: <= 768px */
+    @media (max-width: 768px) {
+      .app {
+        padding: 0.65rem 1rem !important;
+      }
+      .navbar {
+        position: sticky !important;
+        top: 0.5rem !important;
+        padding: 0.4rem 0.85rem !important;
+        border-radius: 2rem !important;
+        z-index: 1000 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .nav-center {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .mobile-menu {
+        position: fixed !important;
+        top: 4.8rem !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        width: auto !important;
+        max-width: calc(100vw - 2rem) !important;
+        max-height: calc(85vh - 5rem) !important;
+        z-index: 1001 !important;
+      }
+      h1, .hero-title, .dossier-hero-title, .inter-hero-title, .about-hero-title {
+        font-size: clamp(1.85rem, 6.5vw, 2.6rem) !important;
+        line-height: 1.18 !important;
+      }
+      h2, .section-heading, .title-block h2 {
+        font-size: clamp(1.45rem, 5vw, 2rem) !important;
+        line-height: 1.25 !important;
+      }
+      h3, .card-title, .item-card-title, .module-title-group h1 {
+        font-size: 1.2rem !important;
+        line-height: 1.3 !important;
+      }
+      .hero-description, .about-hero-desc, .inter-hero-desc {
+        font-size: 0.95rem !important;
+        line-height: 1.55 !important;
+      }
+      .trending-grid,
+      .hill-stations-grid,
+      .asian-destinations-grid,
+      .packages-grid,
+      .offers-grid,
+      .category-grid,
+      .features-grid,
+      .stats-grid,
+      .destinations-grid,
+      .module-cards-grid,
+      .user-cards-grid,
+      .philosophy-grid,
+      .honeymoon-hero-grid,
+      .deal-ticket-grid,
+      .footer-grid,
+      .testimonial-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      .pkg-horizontal-card,
+      .asian-card-wide,
+      .deal-ticket-card,
+      .hero-card,
+      .partner-card-horizontal {
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .pkg-horizontal-card img,
+      .asian-card-wide img,
+      .deal-ticket-card img,
+      .card-media img,
+      .subcard-img-wrap img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 220px !important;
+        object-fit: cover !important;
+      }
+      .search-form,
+      .hero-search-box,
+      .filter-search-container,
+      .dossier-search-bar {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+      }
+      .search-form input,
+      .search-form select,
+      .search-form button,
+      .hero-search-box input,
+      .hero-search-box select,
+      .hero-search-box button {
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      .exp-card-footer,
+      .guide-card-footer,
+      .offer-card-footer,
+      .asian-footer-row,
+      .card-footer-row {
+        flex-wrap: wrap !important;
+        gap: 0.65rem !important;
+        justify-content: space-between !important;
+      }
+      .table-responsive {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: block !important;
+      }
+      .table-head-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+      }
+      .table-actions {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .admin-main-viewport,
+      .user-main-viewport {
+        padding: 1.25rem 0.85rem !important;
+      }
+      .module-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.85rem !important;
+      }
+      .module-actions-row {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .login-viewport-wrapper {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding: 5rem 1rem 2rem 1rem !important;
+      }
+      .login-stage {
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      .login-card {
+        width: 100% !important;
+        max-width: 440px !important;
+        margin: 0 auto !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .input-row-duo {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+      .lost-viewport-wrapper {
+        padding: 1.5rem 1rem !important;
+      }
+      .lost-card {
+        padding: 1.75rem 1.25rem !important;
+        max-width: 100% !important;
+      }
+      .action-row {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      .btn-action-primary,
+      .btn-action-secondary,
+      .btn-action-tertiary {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* Breakpoint 3: <= 480px */
+    @media (max-width: 480px) {
+      .app {
+        padding: 0.5rem 0.75rem !important;
+      }
+      .navbar {
+        top: 0.4rem !important;
+        padding: 0.35rem 0.65rem !important;
+      }
+      .logo-text {
+        font-size: 1.05rem !important;
+      }
+      .logo-subtitle {
+        display: none !important;
+      }
+      .logo-badge {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .logo-svg {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .mobile-menu {
+        top: 4.2rem !important;
+        left: 0.65rem !important;
+        right: 0.65rem !important;
+        padding: 1rem 0.85rem !important;
+        max-width: calc(100vw - 1.3rem) !important;
+      }
+      .kpi-grid-8,
+      .kpi-grid-6,
+      .kpi-grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      .kpi-card {
+        padding: 1rem 0.85rem !important;
+      }
+      .btn-action,
+      .btn-book,
+      .btn-submit-login,
+      .btn-create-account {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .social-auth-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.55rem !important;
+      }
+      .user-modal-box,
+      .admin-modal-box {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        padding: 1.25rem 0.95rem !important;
+        border-radius: 16px !important;
+      }
+      .form-group-duo {
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+      }
+      .filter-pills,
+      .quick-filters,
+      .tag-cloud {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+      }
+      .filter-pill,
+      .q-pill {
+        font-size: 0.76rem !important;
+        padding: 0.35rem 0.75rem !important;
+      }
+      section,
+      .section-block {
+        margin-bottom: 2rem !important;
+        padding: 1.5rem 0 !important;
+      }
+    }
+
+    /* Breakpoint 4: <= 320px */
+    @media (max-width: 320px) {
+      .app {
+        padding: 0.35rem 0.45rem !important;
+      }
+      .navbar {
+        top: 0.25rem !important;
+        padding: 0.3rem 0.5rem !important;
+        border-radius: 1.5rem !important;
+      }
+      .logo {
+        gap: 6px !important;
+      }
+      .logo-badge,
+      .logo-svg {
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 10px !important;
+      }
+      .logo-text {
+        font-size: 0.92rem !important;
+        letter-spacing: -0.02em !important;
+      }
+      .mobile-menu {
+        top: 3.8rem !important;
+        left: 0.35rem !important;
+        right: 0.35rem !important;
+        padding: 0.85rem 0.65rem !important;
+        max-width: calc(100vw - 0.7rem) !important;
+      }
+      .mobile-menu .nav-link {
+        font-size: 0.88rem !important;
+        padding: 0.6rem 0.65rem !important;
+      }
+      .admin-sidebar,
+      .user-sidebar {
+        width: 280px !important;
+        max-width: 88vw !important;
+        padding: 1rem 0.65rem !important;
+      }
+      .admin-main-viewport,
+      .user-main-viewport {
+        padding: 0.75rem 0.45rem !important;
+      }
+      h1, .hero-title, .about-hero-title {
+        font-size: 1.45rem !important;
+      }
+      h2, .section-heading {
+        font-size: 1.25rem !important;
+      }
+      .code-digit {
+        font-size: 3.2rem !important;
+      }
+      .card,
+      .item-admin-card,
+      .item-user-card,
+      .login-card,
+      .lost-card {
+        padding: 1rem 0.75rem !important;
+        border-radius: 14px !important;
+      }
+      button, input, select, textarea {
+        font-size: 0.82rem !important;
+      }
+    }
+
+    /* RTL Layout Compatibility */
+    body.rtl-mode .navbar {
+      flex-direction: row-reverse !important;
+    }
+    body.rtl-mode .mobile-menu .nav-link {
+      text-align: right !important;
+      border-left: none !important;
+      border-right: 4px solid transparent;
+    }
+    body.rtl-mode .mobile-menu .nav-link.active {
+      border-right-color: var(--primary-ocean) !important;
+      padding-right: calc(1rem - 4px) !important;
+    }
+    body.rtl-mode .nav-item-link {
+      flex-direction: row-reverse !important;
+      text-align: right !important;
+    }
+    body.rtl-mode .admin-sidebar,
+    body.rtl-mode .user-sidebar {
+      left: 0 !important;
+      right: auto !important;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Unique Ambient Canvas: Radar Sweep, Auroras & Celestial Astrolabe -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <!-- Moving Aurora Ribbons -->
+    <div class="aurora-ribbon aurora-1"></div>
+    <div class="aurora-ribbon aurora-2"></div>
+
+    <!-- Coordinate Grid Lines -->
+    <div class="bg-meridian-lines"></div>
+
+    <!-- Interactive HTML5 Lost Radar & Constellation Canvas -->
+    <canvas id="lostRadarCanvas"></canvas>
+
+    <!-- Animated Celestial Astrolabe Navigation Rings -->
+    <div class="astrolabe-system" id="astrolabeSystem">
+      <svg class="astrolabe-svg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="astroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.38"/>
+            <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.18"/>
+          </linearGradient>
+          <linearGradient id="astroGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#0284c7" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Outer Rotating Astrolabe Ring -->
+        <g class="astro-dial-slow">
+          <circle cx="400" cy="400" r="370" stroke="url(#astroGrad1)" stroke-width="1.5" stroke-dasharray="6 8"/>
+          <circle cx="400" cy="400" r="350" stroke="rgba(14, 165, 233, 0.22)" stroke-width="1" stroke-dasharray="2 12"/>
+        </g>
+
+        <!-- Middle Counter-Rotating Dial -->
+        <g class="astro-dial-rev">
+          <circle cx="400" cy="400" r="280" stroke="url(#astroGrad2)" stroke-width="1.2" stroke-dasharray="16 10"/>
+          <circle cx="400" cy="400" r="240" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" stroke-dasharray="4 8"/>
+        </g>
+
+        <!-- Cardinal Navigation Axis Lines -->
+        <line x1="20" y1="400" x2="780" y2="400" stroke="rgba(14, 165, 233, 0.12)" stroke-width="1" stroke-dasharray="10 8"/>
+        <line x1="400" y1="20" x2="400" y2="780" stroke="rgba(14, 165, 233, 0.12)" stroke-width="1" stroke-dasharray="10 8"/>
+      </svg>
+
+      <!-- Floating Uncharted Waypoints -->
+      <div class="waypoint-node wp-1"><span class="wp-dot"></span><span>BERMUDA · ??°N</span></div>
+      <div class="waypoint-node wp-2"><span class="wp-dot"></span><span>ATLANTIS · ??°W</span></div>
+      <div class="waypoint-node wp-3"><span class="wp-dot"></span><span>AVALON · ??°E</span></div>
+      <div class="waypoint-node wp-4"><span class="wp-dot"></span><span>SHANGRI-LA · ??°S</span></div>
+    </div>
+  </div>
+
+  <!-- Viewport Flex Container (Guaranteed 100vh with Zero Scroll Bar) -->
+  <div class="lost-viewport-wrapper">
+
+    <!-- TOP-RIGHT CONTROLS: DARK MODE AND RTL ICONS (No Navbar, No Footer) -->
+    <header class="top-right-bar" id="topRightBar" aria-label="Page controls">
+      <button class="nav-icon-btn" id="darkModeToggle" aria-label="Toggle Dark Mode" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="nav-icon-btn" id="rtlToggle" aria-label="Toggle RTL Direction" title="Toggle RTL/LTR Direction">
+        <i class="fas fa-arrow-right-arrow-left"></i>
+      </button>
+    </header>
+
+    <!-- 2. MAIN 404 STAGE -->
+    <main class="lost-stage">
+      <div class="lost-card" id="lostCard">
+        <!-- Interactive 3D Card Sheen Glare -->
+        <div class="card-sheen" id="cardSheen" aria-hidden="true"></div>
+        
+        <!-- EXACT NAVBAR LOGO FROM INDEX.HTML ON TOP (Click redirects to index.html) -->
+        <a href="index.html" class="logo" id="logo" aria-label="WanderLux Travel Agency and Holidays">
+          <div class="logo-badge" id="logoBadge">
+            <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="travelBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0284c7"/>
+                  <stop offset="50%" stop-color="#0ea5e9"/>
+                  <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+                <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fef08a"/>
+                  <stop offset="100%" stop-color="#f59e0b"/>
+                </linearGradient>
+                <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="100%" stop-color="#ffffff"/>
+                </linearGradient>
+              </defs>
+              <!-- Rounded squircle badge base -->
+              <rect width="40" height="40" rx="13" fill="url(#travelBadgeGrad)"/>
+              <rect x="0.5" y="0.5" width="39" height="39" rx="12.5" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+              <!-- Tropical golden sun with warm aura -->
+              <circle class="logo-sun-aura" cx="28" cy="13" r="8.5" fill="url(#sunGrad)"/>
+              <circle cx="28" cy="13" r="6" fill="url(#sunGrad)"/>
+              <!-- Globe latitude/navigation meridian -->
+              <path d="M 6 22 A 16 16 0 0 1 34 22" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" stroke-dasharray="2 2" fill="none"/>
+              <!-- Tropical ocean wave layers -->
+              <path d="M0 27 C 8 23, 14 31, 22 27 C 30 23, 34 29, 40 26 L 40 40 L 0 40 Z" fill="url(#waveGrad)" opacity="0.45"/>
+              <path d="M0 31 C 8 28, 16 34, 24 30 C 32 27, 36 32, 40 29 L 40 40 L 0 40 Z" fill="#ffffff" opacity="0.85"/>
+              <!-- Dashed flight trajectory -->
+              <path class="flight-trail" d="M 5 35 Q 16 23 29 11" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-dasharray="2.5 2.5" fill="none"/>
+              <!-- Miniature supersonic passenger jet taking off -->
+              <g class="logo-plane" transform="translate(29, 11) rotate(45) scale(0.72)">
+                <path d="M0 -9 L4 3 L10 5 L10 7 L4 6 L2 11 L5 14 L5 15 L0 14 L-5 15 L-5 14 L-2 11 L-4 6 L-10 7 L-10 5 L-4 3 Z" fill="#ffffff" filter="drop-shadow(0 2px 3px rgba(0,20,50,0.35))"/>
+              </g>
+            </svg>
+          </div>
+          <div class="logo-title-group">
+            <span class="logo-text">WanderLux</span>
+            <span class="logo-subtitle"><i class="fas fa-umbrella-beach"></i> HOLIDAYS &amp; TRAVEL</span>
+          </div>
+        </a>
+
+        <!-- CREATIVE 404 DISPLAY: "4", SPINNING COMPASS & ORBIT JET "0", "4" -->
+        <div class="lost-code-display">
+          <span class="code-digit">4</span>
+          
+          <div class="code-compass-orb">
+            <svg class="compass-svg" viewBox="0 0 100 100" fill="none">
+              <defs>
+                <linearGradient id="compassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0284c7"/>
+                  <stop offset="50%" stop-color="#0ea5e9"/>
+                  <stop offset="100%" stop-color="#f59e0b"/>
+                </linearGradient>
+              </defs>
+              <!-- Outer Compass Dial -->
+              <circle cx="50" cy="50" r="46" stroke="url(#compassGrad)" stroke-width="2.5" stroke-dasharray="3 3"/>
+              <circle cx="50" cy="50" r="37" stroke="rgba(14, 165, 233, 0.3)" stroke-width="1.2"/>
+              <!-- Compass Rose Needle -->
+              <g class="compass-needle">
+                <polygon points="50,15 56,50 50,46" fill="#f43f5e" filter="drop-shadow(0 0 6px rgba(244,63,94,0.7))"/>
+                <polygon points="50,85 56,50 50,46" fill="#38bdf8" filter="drop-shadow(0 0 6px rgba(56,189,248,0.7))"/>
+                <polygon points="50,15 44,50 50,46" fill="#fb7185"/>
+                <polygon points="50,85 44,50 50,46" fill="#0284c7"/>
+                <circle cx="50" cy="50" r="4.5" fill="#f59e0b"/>
+              </g>
+              <!-- Orbiting Supersonic Jet -->
+              <g class="orbit-plane-wrap">
+                <path d="M0 -6 L3 2 L7 3 L7 4.5 L3 4 L1.5 7 L3.5 9 L3.5 9.5 L0 9 L-3.5 9.5 L-3.5 9 L-1.5 7 L-3 4 L-7 4.5 L-7 3 L-3 2 Z" fill="#ffffff" filter="drop-shadow(0 0 4px #38bdf8)"/>
+              </g>
+            </svg>
+          </div>
+
+          <span class="code-digit">4</span>
+        </div>
+
+        <!-- Status Badge -->
+        <div class="lost-status-badge">
+          <i class="fas fa-compass-drafting"></i> Uncharted Coordinates · Waypoint Unknown
+        </div>
+
+        <!-- Headlines -->
+        <h1 class="lost-title">Lost in Paradise, Voyager?</h1>
+        <p class="lost-desc">
+          Your flight trajectory has drifted beyond our charted expeditions. Even the most seasoned world travelers occasionally uncover secret horizons. Let us guide your compass back to extraordinary itineraries.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="lost-actions-grid">
+          <a href="index.html" class="btn-action-primary" id="returnHomeBtn">
+            <i class="fas fa-compass"></i>
+            <span>Return to Safe Harbor (Home)</span>
+          </a>
+          <a href="special-offers.html" class="btn-action-secondary" id="specialOffersBtn">
+            <i class="fas fa-tags"></i>
+            <span>Explore Exclusive Offers</span>
+          </a>
+          <a href="contact.html" class="btn-action-tertiary" id="conciergeBtn">
+            <i class="fas fa-headset"></i>
+            <span>Contact Concierge</span>
+          </a>
+        </div>
+
+        <!-- Popular Destination Rescue Links -->
+        <div class="lost-quick-links-wrap">
+          <span class="quick-links-title">Quick Rescue Routes</span>
+          <div class="quick-links-pills">
+            <a href="experiences.html" class="q-pill"><i class="fas fa-umbrella-beach"></i> Luxury Experiences</a>
+            <a href="family-tours.html" class="q-pill"><i class="fas fa-users"></i> Family Expeditions</a>
+            <a href="home-2.html" class="q-pill"><i class="fas fa-earth-americas"></i> World Pavilion</a>
+            <a href="guide.html" class="q-pill"><i class="fas fa-book-atlas"></i> Travel Guide</a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Interactive Logic & Radar Canvas Simulator Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. UNIQUE RADAR & FLIGHT TRAIL CANVAS ANIMATION
+      const canvas = document.getElementById('lostRadarCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        // Interactive mouse coordinate tracking
+        let mouseX = -1000;
+        let mouseY = -1000;
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+          mouseX = -1000;
+          mouseY = -1000;
+        });
+
+        // Star / Starlight Particles
+        let stars = [];
+        const starCount = 50;
+        for (let i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 1.5 + 0.6,
+            alpha: Math.random() * 0.7 + 0.2,
+            pulseSpeed: Math.random() * 0.02 + 0.01,
+            pulseOffset: Math.random() * Math.PI * 2
+          });
+        }
+
+        // Radar Sweep Angle & Blip Coordinates
+        let radarAngle = 0;
+        const radarBlips = [
+          { distRatio: 0.28, angle: 0.6, pulse: 0 },
+          { distRatio: 0.42, angle: 2.1, pulse: 0 },
+          { distRatio: 0.55, angle: 3.8, pulse: 0 },
+          { distRatio: 0.35, angle: 5.2, pulse: 0 }
+        ];
+
+        let animTime = 0;
+        function animateRadarCanvas() {
+          ctx.clearRect(0, 0, width, height);
+          const isDark = document.body.classList.contains('dark-mode');
+          animTime += 0.02;
+
+          const centerX = width / 2;
+          const centerY = height / 2;
+          const maxRadarRadius = Math.min(width, height) * 0.45;
+
+          // 1. Draw Star Constellations
+          for (let star of stars) {
+            const dist = Math.hypot(star.x - mouseX, star.y - mouseY);
+            let glowAlpha = star.alpha * (0.6 + 0.4 * Math.sin(animTime + star.pulseOffset));
+            if (dist < 140) {
+              glowAlpha = Math.min(1, glowAlpha + (1 - dist / 140) * 0.6);
+            }
+
+            ctx.fillStyle = isDark 
+              ? `rgba(224, 242, 254, ${glowAlpha})` 
+              : `rgba(2, 132, 199, ${glowAlpha * 0.75})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // 2. Concentric Radar Rings
+          ctx.save();
+          ctx.lineWidth = 1;
+          for (let r = 1; r <= 3; r++) {
+            const ringRadius = (maxRadarRadius / 3) * r;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.08)' : 'rgba(2, 132, 199, 0.06)';
+            ctx.setLineDash([4, 6]);
+            ctx.stroke();
+          }
+          ctx.setLineDash([]);
+
+          // 3. Radar Beam Sweep
+          radarAngle += 0.015;
+          if (radarAngle > Math.PI * 2) radarAngle -= Math.PI * 2;
+
+          const sweepGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadarRadius);
+          sweepGradient.addColorStop(0, isDark ? 'rgba(56, 189, 248, 0.15)' : 'rgba(14, 165, 233, 0.12)');
+          sweepGradient.addColorStop(1, 'transparent');
+
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.arc(centerX, centerY, maxRadarRadius, radarAngle - 0.45, radarAngle);
+          ctx.closePath();
+          ctx.fillStyle = sweepGradient;
+          ctx.fill();
+
+          // Radar Sweep Line
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.lineTo(centerX + Math.cos(radarAngle) * maxRadarRadius, centerY + Math.sin(radarAngle) * maxRadarRadius);
+          ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(2, 132, 199, 0.25)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // 4. Radar Blips (Lost signals)
+          for (let blip of radarBlips) {
+            const blipX = centerX + Math.cos(blip.angle) * (maxRadarRadius * blip.distRatio);
+            const blipY = centerY + Math.sin(blip.angle) * (maxRadarRadius * blip.distRatio);
+
+            const angleDiff = Math.abs(radarAngle - blip.angle);
+            if (angleDiff < 0.15) {
+              blip.pulse = 1.0;
+            } else {
+              blip.pulse *= 0.96;
+            }
+
+            if (blip.pulse > 0.05) {
+              ctx.beginPath();
+              ctx.arc(blipX, blipY, 4 + (1 - blip.pulse) * 8, 0, Math.PI * 2);
+              ctx.strokeStyle = `rgba(244, 63, 94, ${blip.pulse * 0.8})`;
+              ctx.lineWidth = 1.2;
+              ctx.stroke();
+
+              ctx.beginPath();
+              ctx.arc(blipX, blipY, 2.5, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(244, 63, 94, ${blip.pulse})`;
+              ctx.fill();
+            }
+          }
+          ctx.restore();
+
+          requestAnimationFrame(animateRadarCanvas);
+        }
+        animateRadarCanvas();
+      }
+
+      // 2. Dark Mode Toggle with persistence
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const darkIcon = darkModeToggle ? darkModeToggle.querySelector('i') : null;
+
+      const savedTheme = localStorage.getItem('wanderlux_theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        if (darkIcon) {
+          darkIcon.classList.remove('fa-moon');
+          darkIcon.classList.add('fa-sun');
+        }
+      }
+
+      function handleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('wanderlux_theme', isDark ? 'dark' : 'light');
+        if (darkIcon) {
+          if (isDark) {
+            darkIcon.classList.remove('fa-moon');
+            darkIcon.classList.add('fa-sun');
+          } else {
+            darkIcon.classList.remove('fa-sun');
+            darkIcon.classList.add('fa-moon');
+          }
+        }
+        if (window.framerAnimate && darkModeToggle) {
+          window.framerAnimate(darkModeToggle, { scale: [1, 1.25, 1], rotate: [0, 20, 0] }, { duration: 0.35 });
+        }
+      }
+
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', handleDarkMode);
+      }
+
+      // 3. RTL Toggle with persistence
+      const rtlToggle = document.getElementById('rtlToggle');
+
+      const savedRTL = localStorage.getItem('wanderlux_rtl');
+      if (savedRTL === 'true') {
+        document.body.classList.add('rtl-mode');
+        document.documentElement.dir = 'rtl';
+      }
+
+      function handleRTL() {
+        document.body.classList.toggle('rtl-mode');
+        const isRtl = document.body.classList.contains('rtl-mode');
+        document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+        localStorage.setItem('wanderlux_rtl', isRtl ? 'true' : 'false');
+        if (window.framerAnimate && rtlToggle) {
+          window.framerAnimate(rtlToggle, { scale: [1, 1.25, 1], rotateY: [0, 180, 0] }, { duration: 0.4 });
+        }
+      }
+
+      if (rtlToggle) {
+        rtlToggle.addEventListener('click', handleRTL);
+      }
+
+      // 4. 3D GYROSCOPE / PARALLAX TILT & SPECULAR SHEEN ANIMATION
+      const card = document.getElementById('lostCard');
+      const stage = document.querySelector('.lost-stage');
+      const sheen = document.getElementById('cardSheen');
+
+      if (stage && card) {
+        let isHovered = false;
+
+        stage.addEventListener('mouseenter', () => {
+          isHovered = true;
+          card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+        });
+
+        stage.addEventListener('mousemove', (e) => {
+          if (!isHovered) return;
+          const rect = card.getBoundingClientRect();
+          const cardCenterX = rect.left + rect.width / 2;
+          const cardCenterY = rect.top + rect.height / 2;
+          const mouseX = e.clientX - cardCenterX;
+          const mouseY = e.clientY - cardCenterY;
+          
+          const rotateX = (-(mouseY / (rect.height / 2)) * 5.5).toFixed(2);
+          const rotateY = ((mouseX / (rect.width / 2)) * 5.5).toFixed(2);
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          
+          if (sheen) {
+            const sheenX = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+            const sheenY = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
+            sheen.style.background = `radial-gradient(circle at ${sheenX}% ${sheenY}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 65%)`;
+          }
+        });
+
+        stage.addEventListener('mouseleave', () => {
+          isHovered = false;
+          card.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease';
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+          if (sheen) sheen.style.background = 'transparent';
+        });
+      }
+
+      // 5. FRAMER MOTION ENTRANCE CHOREOGRAPHY
+      if (window.framerAnimate) {
+        if (card) {
+          window.framerAnimate(
+            card,
+            { opacity: [0, 1], scale: [0.9, 1], y: [30, 0] },
+            { duration: 0.8, easing: window.framerSpring ? window.framerSpring({ stiffness: 95, damping: 14 }) : 'ease-out' }
+          );
+        }
+
+        const astrolabe = document.getElementById('astrolabeSystem');
+        if (astrolabe) {
+          window.framerAnimate(astrolabe, { opacity: [0, 0.45], scale: [0.85, 1] }, { duration: 1.2, easing: 'ease-out' });
+        }
+
+        const topBar = document.getElementById('topRightBar');
+        if (topBar) {
+          window.framerAnimate(topBar, { opacity: [0, 1], y: [-15, 0] }, { duration: 0.5, delay: 0.2, easing: 'ease-out' });
+        }
+
+        const actionBtns = document.querySelectorAll('.lost-actions-grid a, .q-pill');
+        if (actionBtns.length && window.framerStagger) {
+          window.framerAnimate(
+            actionBtns,
+            { opacity: [0, 1], y: [12, 0] },
+            { delay: window.framerStagger(0.04, { start: 0.3 }), duration: 0.4, easing: 'ease-out' }
+          );
+        }
+      }
+    });
+  </script>
+</body>
+</html>

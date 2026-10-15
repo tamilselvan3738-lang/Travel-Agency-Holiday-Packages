@@ -1,0 +1,3597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Admin Dashboard · WanderLux Luxury Travel</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="images/favicon.svg">
+  <!-- Universal Mobile Responsive Engine (320px, 480px, 768px, 1024px) -->
+  <link rel="stylesheet" href="css/mobile-responsive.css">
+
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Framer Motion via ESM CDN -->
+  <script type="module">
+    import { motion, animate, stagger, spring } from 'https://cdn.skypack.dev/framer-motion@11.0.2';
+    window.motion = motion;
+    window.framerAnimate = animate;
+    window.framerStagger = stagger;
+    window.framerSpring = spring;
+  </script>
+  <style>
+    /* ---------- COLOR PALETTE & DESIGN SYSTEM ---------- */
+    :root {
+      --primary-ocean: #0284c7;
+      --primary-azure: #0ea5e9;
+      --primary-cyan: #06b6d4;
+      --accent-gold: #f59e0b;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-purple: #8b5cf6;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --page-bg: #f8fafc;
+      --topbar-bg: rgba(255, 255, 255, 0.92);
+      --topbar-border: rgba(14, 165, 233, 0.2);
+      --sidebar-bg: rgba(255, 255, 255, 0.94);
+      --sidebar-border: rgba(226, 232, 240, 0.85);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(226, 232, 240, 0.9);
+      --card-shadow: 0 8px 24px -3px rgba(15, 23, 42, 0.06);
+      --input-bg: #f8fafc;
+      --input-border: #cbd5e1;
+      --table-header: rgba(241, 245, 249, 0.88);
+      --table-hover: rgba(248, 250, 252, 0.7);
+      --sidebar-width: 300px;
+      --topbar-height: 70px;
+    }
+
+    body.dark-mode {
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --page-bg: #070e1a;
+      --topbar-bg: rgba(10, 20, 36, 0.92);
+      --topbar-border: rgba(56, 189, 248, 0.22);
+      --sidebar-bg: rgba(11, 23, 40, 0.95);
+      --sidebar-border: rgba(56, 189, 248, 0.16);
+      --card-bg: rgba(14, 28, 48, 0.90);
+      --card-border: rgba(56, 189, 248, 0.2);
+      --card-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.55);
+      --input-bg: rgba(7, 16, 30, 0.85);
+      --input-border: rgba(56, 189, 248, 0.25);
+      --table-header: rgba(11, 25, 46, 0.9);
+      --table-hover: rgba(19, 39, 66, 0.75);
+    }
+
+    /* ---------- RESET & BASE ---------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--page-bg);
+      color: var(--text-main);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip; overflow-y: visible;
+    }
+
+    /* ---------- CREATIVE BACKGROUND ANIMATIONS ---------- */
+    .admin-bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+      transition: opacity 0.5s ease;
+    }
+    body.dark-mode .admin-bg-canvas {
+      opacity: 0.95;
+    }
+
+    /* Ambient Auroral Glow Orbs */
+    .admin-ambient-aurora {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(85px);
+      -webkit-filter: blur(85px);
+      pointer-events: none;
+      animation: auroraFloat 24s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    .orb-1 {
+      top: -12%;
+      right: -10%;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.16) 0%, rgba(245, 158, 11, 0.02) 70%, transparent 100%);
+      animation-duration: 25s;
+    }
+    .orb-2 {
+      bottom: -15%;
+      left: 10%;
+      width: 680px;
+      height: 680px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.16) 0%, rgba(14, 165, 233, 0.03) 70%, transparent 100%);
+      animation-duration: 30s;
+      animation-delay: -8s;
+    }
+    .orb-3 {
+      top: 38%;
+      left: 45%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.02) 70%, transparent 100%);
+      animation-duration: 28s;
+      animation-delay: -14s;
+    }
+    body.dark-mode .orb-1 {
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0.03) 70%, transparent 100%);
+    }
+    body.dark-mode .orb-2 {
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(2, 132, 199, 0.04) 70%, transparent 100%);
+    }
+    body.dark-mode .orb-3 {
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(56, 189, 248, 0.03) 70%, transparent 100%);
+    }
+
+    @keyframes auroraFloat {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(45px, -35px) scale(1.1); }
+      66% { transform: translate(-30px, 40px) scale(0.92); }
+      100% { transform: translate(20px, -20px) scale(1.05); }
+    }
+
+    .admin-app-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* ---------- TOP NAVBAR ---------- */
+    .admin-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--topbar-height);
+      background: var(--topbar-bg);
+      border-bottom: 1px solid var(--topbar-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.75rem;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    /* EXACT NAVBAR LOGO FROM INDEX.HTML */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px -2px rgba(2, 132, 199, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      flex-shrink: 0;
+    }
+    .logo:hover .logo-badge {
+      transform: translateY(-2px) rotate(4deg) scale(1.05);
+    }
+    .logo-svg {
+      width: 38px;
+      height: 38px;
+      display: block;
+    }
+    .logo-svg .logo-plane {
+      animation: logoPlaneBob 3.5s ease-in-out infinite alternate;
+    }
+    .logo-svg .flight-trail {
+      animation: flightTrailDash 3s linear infinite;
+    }
+    .logo-svg .logo-sun-aura {
+      animation: sunAuraBreath 4s ease-in-out infinite alternate;
+      transform-origin: 28px 13px;
+    }
+    @keyframes logoPlaneBob {
+      0% { transform: translate(29px, 11px) rotate(42deg) scale(0.7); }
+      100% { transform: translate(31px, 9px) rotate(48deg) scale(0.76); }
+    }
+    @keyframes flightTrailDash {
+      to { stroke-dashoffset: -20; }
+    }
+    @keyframes sunAuraBreath {
+      0% { transform: scale(1); opacity: 0.25; }
+      100% { transform: scale(1.35); opacity: 0.65; }
+    }
+    .logo-title-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+    }
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 40%, #0c4a6e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    body.dark-mode .logo-text {
+      background: linear-gradient(135deg, #f0f9ff 0%, #38bdf8 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .logo-subtitle {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #f59e0b;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    /* Desktop Center & Actions in Navbar */
+    .nav-center-slot {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .nav-breadcrumb .active-crumb {
+      color: var(--primary-ocean);
+      font-weight: 700;
+    }
+    body.dark-mode .nav-breadcrumb .active-crumb {
+      color: #38bdf8;
+    }
+    .nav-search-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 280px;
+    }
+    .nav-search-bar i {
+      position: absolute;
+      left: 0.85rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .nav-search-input {
+      width: 100%;
+      height: 38px;
+      padding: 0 1rem 0 2.3rem;
+      border-radius: 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      font-size: 0.84rem;
+      outline: none;
+      transition: all 0.25s;
+    }
+    .nav-search-input:focus {
+      border-color: var(--primary-azure);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+    }
+
+    .nav-desktop-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .icon-ctrl-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--topbar-border);
+      background: var(--input-bg);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .icon-ctrl-btn:hover {
+      color: var(--primary-ocean);
+      border-color: var(--primary-azure);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+    body.dark-mode .icon-ctrl-btn:hover {
+      color: #38bdf8;
+      border-color: #38bdf8;
+    }
+
+    .admin-profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.35rem 0.85rem 0.35rem 0.45rem;
+      border-radius: 9999px;
+      background: var(--input-bg);
+      border: 1px solid var(--topbar-border);
+      cursor: pointer;
+    }
+    .admin-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #f59e0b);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .admin-info {
+      text-align: left;
+      line-height: 1.2;
+    }
+    .admin-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .admin-role {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    /* HAMBURGER BUTTON (Hidden on desktop, strictly shown on tablet/mobile) */
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--input-bg);
+      border: 1.5px solid var(--topbar-border);
+      cursor: pointer;
+      gap: 5px;
+      padding: 8px;
+      transition: all 0.25s ease;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2.2px;
+      background: var(--text-main);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hamburger-btn.open span:nth-child(1) {
+      transform: translateY(7.2px) rotate(45deg);
+    }
+    .hamburger-btn.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger-btn.open span:nth-child(3) {
+      transform: translateY(-7.2px) rotate(-45deg);
+    }
+
+    /* ---------- SIDEBAR NAVIGATION (DESKTOP) ---------- */
+    .admin-sidebar {
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      overflow-y: auto;
+      padding: 1.25rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 90;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s;
+    }
+    .admin-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .admin-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(14, 165, 233, 0.28);
+      border-radius: 4px;
+    }
+    .admin-sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .sidebar-category {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .sidebar-cat-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 0 0.75rem;
+      margin-bottom: 0.3rem;
+    }
+    .nav-item-link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.65rem;
+      padding: 0.62rem 0.85rem;
+      border-radius: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: all 0.22s ease;
+      cursor: pointer;
+    }
+    .nav-item-link .icon-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .nav-item-link i {
+      font-size: 0.95rem;
+      width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .nav-item-link .icon-label span {
+      line-height: 1.32;
+      word-break: normal;
+    }
+    .nav-item-link:hover {
+      color: var(--primary-ocean);
+      background: rgba(14, 165, 233, 0.08);
+      transform: translateX(3px);
+    }
+    body.dark-mode .nav-item-link:hover {
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+    }
+    .nav-item-link.active {
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%) !important;
+      box-shadow: 0 6px 16px -2px rgba(2, 132, 199, 0.4);
+    }
+    .nav-item-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 9999px;
+      background: rgba(14, 165, 233, 0.15);
+      color: var(--primary-ocean);
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 2px;
+      line-height: 1.2;
+    }
+    .nav-item-link.active .nav-item-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    /* ---------- MAIN CONTENT AREA ---------- */
+    .admin-main-viewport {
+      margin-left: var(--sidebar-width);
+      margin-top: var(--topbar-height);
+      flex: 1;
+      padding: 2rem;
+      transition: margin 0.35s ease;
+      max-width: 1600px;
+    }
+
+    /* Views Container (Dynamic Tab Switching) */
+    .admin-view-panel {
+      display: none;
+      animation: fadeInView 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .admin-view-panel.active {
+      display: block;
+    }
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Module Header */
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .module-title-group h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .module-title-group p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* SUB-ITEMS ACTION TOOLBAR (CRITICAL: PROVIDES DIRECT ACCESS TO EVERY SUB-ITEM) */
+    .subitems-deck-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .deck-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+    .deck-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--table-header);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .deck-btn:hover, .deck-btn.active {
+      background: rgba(14, 165, 233, 0.12);
+      border-color: var(--primary-azure);
+      color: var(--primary-ocean);
+      transform: translateY(-1px);
+    }
+    body.dark-mode .deck-btn:hover, body.dark-mode .deck-btn.active {
+      color: #38bdf8;
+      border-color: #38bdf8;
+    }
+
+    /* Action Buttons */
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.45);
+    }
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      border-color: var(--primary-azure);
+      color: var(--primary-ocean);
+      transform: translateY(-2px);
+    }
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: var(--accent-rose);
+    }
+    .btn-danger:hover {
+      background: var(--accent-rose);
+      color: #fff;
+    }
+
+    /* KPI STATS CARDS GRID (DASHBOARD OVERVIEW) */
+    .kpi-grid-8 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1.25rem 1.4rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px -4px rgba(2, 132, 199, 0.18);
+    }
+    .kpi-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+    .kpi-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+    }
+    .kpi-trend {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .trend-up {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10b981;
+    }
+    .trend-amber {
+      background: rgba(245, 158, 11, 0.12);
+      color: #f59e0b;
+    }
+    .trend-rose {
+      background: rgba(244, 63, 94, 0.12);
+      color: #f43f5e;
+    }
+    .kpi-val {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+    .kpi-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* DATA TABLES */
+    .table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .table-head-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .table-head-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.84rem;
+    }
+    .admin-table th {
+      background: var(--table-header);
+      padding: 0.85rem 1.25rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+    }
+    .admin-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+    .admin-table tr:hover td {
+      background: var(--table-hover);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .status-confirmed {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+    }
+    .status-pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+    }
+    .status-departed {
+      background: rgba(14, 165, 233, 0.15);
+      color: #0ea5e9;
+    }
+    .status-cancelled {
+      background: rgba(244, 63, 94, 0.15);
+      color: #f43f5e;
+    }
+
+    /* CARD GRIDS FOR PACKAGES, EXPERIENCES & ITINERARIES */
+    .module-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .item-admin-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: all 0.3s;
+    }
+    .item-admin-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px -6px rgba(2, 132, 199, 0.18);
+    }
+    .item-card-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .item-card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+    .item-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+    .meta-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: var(--table-header);
+      color: var(--text-muted);
+    }
+    .item-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 1rem;
+    }
+    .item-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--card-border);
+    }
+    .item-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-ocean);
+    }
+    body.dark-mode .item-price {
+      color: #38bdf8;
+    }
+
+    /* INTERACTIVE FORMS & MODALS */
+    .admin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+    }
+    .admin-modal-backdrop.open {
+      display: flex;
+    }
+    .admin-modal-box {
+      width: 100%;
+      max-width: 600px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .modal-head h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .form-group-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      text-align: left;
+    }
+    .form-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary-azure);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.16);
+    }
+    .modal-foot {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      background: var(--table-header);
+    }
+
+    /* TOAST NOTIFICATION */
+    .admin-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .admin-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* RTL SUPPORT */
+    body.rtl-mode {
+      direction: rtl;
+    }
+    body.rtl-mode .admin-sidebar {
+      left: auto;
+      right: 0;
+      border-right: none;
+      border-left: 1px solid var(--sidebar-border);
+    }
+    body.rtl-mode .admin-main-viewport {
+      margin-left: 0;
+      margin-right: var(--sidebar-width);
+    }
+    body.rtl-mode .admin-table {
+      text-align: right;
+    }
+    body.rtl-mode .form-group {
+      text-align: right;
+    }
+    body.rtl-mode .nav-item-link:hover {
+      transform: translateX(-3px);
+    }
+    body.rtl-mode .nav-search-bar i {
+      left: auto;
+      right: 0.85rem;
+    }
+    body.rtl-mode .nav-search-input {
+      padding: 0 2.3rem 0 1rem;
+    }
+    body.rtl-mode .admin-toast {
+      right: auto;
+      left: 24px;
+    }
+
+    /* ---------- RESPONSIVE SPECIFICATION (CRITICAL REQUIREMENT) ---------- */
+    /* "in mobile view and tab view in navbar i need only logo in left and hamburger menu in right all other this inside hamburger menu" */
+    @media (max-width: 1024px) {
+      .admin-navbar {
+        height: 66px;
+        padding: 0 1.25rem;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+      /* Hide all desktop middle & right actions from navbar */
+      .nav-center-slot,
+      .nav-desktop-actions {
+        display: none !important;
+      }
+      /* Force ONLY Logo on Left and Hamburger on Right, aligned vertically */
+      .navbar-logo-left {
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+        flex-shrink: 0;
+      }
+      .hamburger-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        flex-shrink: 0;
+      }
+
+      /* Sidebar transforms into Slide-out Drawer OPENING ON THE RIGHT SIDE */
+      .admin-sidebar {
+        top: 0;
+        bottom: 0;
+        left: auto;
+        right: 0;
+        width: 340px;
+        max-width: 90vw;
+        transform: translateX(100%);
+        box-shadow: -15px 0 50px rgba(0, 0, 0, 0.45);
+        padding: 1.25rem 0.85rem;
+        z-index: 150;
+        border-left: 1px solid var(--sidebar-border);
+        border-right: none;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s;
+      }
+      .admin-sidebar.open {
+        transform: translateX(0) !important;
+      }
+      body.rtl-mode .admin-sidebar {
+        left: 0;
+        right: auto;
+        transform: translateX(-100%);
+        border-right: 1px solid var(--sidebar-border);
+        border-left: none;
+        box-shadow: 15px 0 50px rgba(0, 0, 0, 0.45);
+      }
+      body.rtl-mode .admin-sidebar.open {
+        transform: translateX(0) !important;
+      }
+
+      /* Mobile Drawer Header with Profile & Controls */
+      .sidebar-mobile-header {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.85rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--sidebar-border);
+        margin-bottom: 0.75rem;
+      }
+
+      .sidebar-drawer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.15rem;
+      }
+      .drawer-brand-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.84rem;
+        font-weight: 800;
+        color: var(--primary-ocean);
+        letter-spacing: -0.01em;
+      }
+      body.dark-mode .drawer-brand-badge {
+        color: #38bdf8;
+      }
+      .drawer-brand-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #0284c7, #0ea5e9);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+      .sidebar-drawer-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid var(--sidebar-border);
+        background: var(--input-bg);
+        color: var(--text-main);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.05rem;
+        transition: all 0.2s;
+      }
+      .sidebar-drawer-close:hover {
+        background: rgba(244, 63, 94, 0.15);
+        color: var(--accent-rose);
+        border-color: var(--accent-rose);
+      }
+
+      .sidebar-user-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 0.85rem;
+        border-radius: 12px;
+        background: var(--input-bg);
+        border: 1px solid var(--sidebar-border);
+        position: relative;
+      }
+      .user-status-dot {
+        position: absolute;
+        top: 0.85rem;
+        right: 0.85rem;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 2px var(--card-bg), 0 0 8px #10b981;
+      }
+      body.rtl-mode .user-status-dot {
+        right: auto;
+        left: 0.85rem;
+      }
+
+      .sidebar-controls-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+      .drawer-ctrl-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.6rem 0.75rem;
+        border-radius: 10px;
+        border: 1px solid var(--sidebar-border);
+        background: var(--input-bg);
+        color: var(--text-main);
+        font-size: 0.78rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .drawer-ctrl-pill:hover {
+        border-color: var(--primary-azure);
+        color: var(--primary-ocean);
+      }
+      body.dark-mode .drawer-ctrl-pill:hover {
+        color: #38bdf8;
+      }
+
+      /* Main viewport takes full width and prevents horizontal scroll */
+      .admin-main-viewport {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box;
+        padding: 1.25rem 1rem !important;
+      }
+
+      .kpi-grid-8 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .module-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .kpi-grid-8 {
+        grid-template-columns: 1fr;
+      }
+      .form-group-duo {
+        grid-template-columns: 1fr;
+      }
+      .admin-navbar {
+        padding: 0 1rem;
+        height: 62px;
+      }
+      .logo-subtitle {
+        display: none;
+      }
+      .admin-sidebar {
+        width: 100%;
+        max-width: 100vw;
+      }
+    }
+
+    /* Sidebar Mobile Header default hidden on Desktop */
+    .sidebar-mobile-header {
+      display: none;
+    }
+
+    /* Mobile Backdrop Overlay */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 140;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .sidebar-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  
+    /* ==========================================================================
+       UNIVERSAL MOBILE RESPONSIVE ENGINE (320px, 480px, 768px, 1024px)
+       Strict Overflow Prevention · Fluid Media · Equal Spacing · Zero Clipping
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      max-width: 100% !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      max-width: 100% !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+      width: 100% !important;
+      position: relative;
+    }
+
+    /* Universal Sticky Navbar Engine across all screen sizes */
+    .navbar {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, top 0.3s ease !important;
+    }
+
+    .admin-navbar,
+    .user-navbar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1000 !important;
+    }
+
+    .navbar.scrolled,
+    .navbar.is-sticky {
+      background: rgba(255, 255, 255, 0.94) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-color: rgba(2, 132, 199, 0.3) !important;
+      box-shadow: 0 16px 38px -10px rgba(2, 132, 199, 0.28), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.dark-mode .navbar.scrolled,
+    body.dark-mode .navbar.is-sticky {
+      background: rgba(15, 23, 42, 0.94) !important;
+      border-color: rgba(56, 189, 248, 0.4) !important;
+      box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.22) !important;
+    }
+
+    img, svg, video, canvas {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    /* Prevent Decorative Background Overflows */
+    .travel-background-aurora,
+    .admin-ambient-aurora,
+    .user-ambient-aurora,
+    .ambient-aurora-nebula,
+    .flight-trail-decor,
+    .bg-celestial-canvas,
+    .flight-route-map,
+    .astrolabe-system,
+    .shooting-star,
+    .sky-stars {
+      max-width: 100vw !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* Container safety */
+    .app,
+    .container,
+    .main-wrapper,
+    .login-viewport-wrapper,
+    .lost-viewport-wrapper,
+    .admin-app-layout,
+    .user-app-layout {
+      width: 100% !important;
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Breakpoint 1: <= 1024px */
+    @media (max-width: 1024px) {
+      .app {
+        max-width: 100% !important;
+        padding: 0.85rem 1.25rem !important;
+      }
+      .trending-grid,
+      .hill-stations-grid,
+      .asian-destinations-grid,
+      .packages-grid,
+      .offers-grid,
+      .category-grid,
+      .features-grid,
+      .stats-grid,
+      .destinations-grid,
+      .kpi-grid-8,
+      .kpi-grid-6,
+      .module-cards-grid,
+      .user-cards-grid,
+      .philosophy-grid,
+      .honeymoon-hero-grid,
+      .deal-ticket-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.25rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+      }
+    }
+
+    /* Breakpoint 2: <= 768px */
+    @media (max-width: 768px) {
+      .app {
+        padding: 0.65rem 1rem !important;
+      }
+      .navbar {
+        position: sticky !important;
+        top: 0.5rem !important;
+        padding: 0.4rem 0.85rem !important;
+        border-radius: 2rem !important;
+        z-index: 1000 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .nav-center {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .mobile-menu {
+        position: fixed !important;
+        top: 4.8rem !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        width: auto !important;
+        max-width: calc(100vw - 2rem) !important;
+        max-height: calc(85vh - 5rem) !important;
+        z-index: 1001 !important;
+      }
+      h1, .hero-title, .dossier-hero-title, .inter-hero-title, .about-hero-title {
+        font-size: clamp(1.85rem, 6.5vw, 2.6rem) !important;
+        line-height: 1.18 !important;
+      }
+      h2, .section-heading, .title-block h2 {
+        font-size: clamp(1.45rem, 5vw, 2rem) !important;
+        line-height: 1.25 !important;
+      }
+      h3, .card-title, .item-card-title, .module-title-group h1 {
+        font-size: 1.2rem !important;
+        line-height: 1.3 !important;
+      }
+      .hero-description, .about-hero-desc, .inter-hero-desc {
+        font-size: 0.95rem !important;
+        line-height: 1.55 !important;
+      }
+      .trending-grid,
+      .hill-stations-grid,
+      .asian-destinations-grid,
+      .packages-grid,
+      .offers-grid,
+      .category-grid,
+      .features-grid,
+      .stats-grid,
+      .destinations-grid,
+      .module-cards-grid,
+      .user-cards-grid,
+      .philosophy-grid,
+      .honeymoon-hero-grid,
+      .deal-ticket-grid,
+      .footer-grid,
+      .testimonial-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      .pkg-horizontal-card,
+      .asian-card-wide,
+      .deal-ticket-card,
+      .hero-card,
+      .partner-card-horizontal {
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .pkg-horizontal-card img,
+      .asian-card-wide img,
+      .deal-ticket-card img,
+      .card-media img,
+      .subcard-img-wrap img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 220px !important;
+        object-fit: cover !important;
+      }
+      .search-form,
+      .hero-search-box,
+      .filter-search-container,
+      .dossier-search-bar {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+      }
+      .search-form input,
+      .search-form select,
+      .search-form button,
+      .hero-search-box input,
+      .hero-search-box select,
+      .hero-search-box button {
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      .exp-card-footer,
+      .guide-card-footer,
+      .offer-card-footer,
+      .asian-footer-row,
+      .card-footer-row {
+        flex-wrap: wrap !important;
+        gap: 0.65rem !important;
+        justify-content: space-between !important;
+      }
+      .table-responsive {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: block !important;
+      }
+      .table-head-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+      }
+      .table-actions {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .admin-main-viewport,
+      .user-main-viewport {
+        padding: 1.25rem 0.85rem !important;
+      }
+      .module-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.85rem !important;
+      }
+      .module-actions-row {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .login-viewport-wrapper {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding: 5rem 1rem 2rem 1rem !important;
+      }
+      .login-stage {
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      .login-card {
+        width: 100% !important;
+        max-width: 440px !important;
+        margin: 0 auto !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .input-row-duo {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+      .lost-viewport-wrapper {
+        padding: 1.5rem 1rem !important;
+      }
+      .lost-card {
+        padding: 1.75rem 1.25rem !important;
+        max-width: 100% !important;
+      }
+      .action-row {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      .btn-action-primary,
+      .btn-action-secondary,
+      .btn-action-tertiary {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* Breakpoint 3: <= 480px */
+    @media (max-width: 480px) {
+      .app {
+        padding: 0.5rem 0.75rem !important;
+      }
+      .navbar {
+        top: 0.4rem !important;
+        padding: 0.35rem 0.65rem !important;
+      }
+      .logo-text {
+        font-size: 1.05rem !important;
+      }
+      .logo-subtitle {
+        display: none !important;
+      }
+      .logo-badge {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .logo-svg {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .mobile-menu {
+        top: 4.2rem !important;
+        left: 0.65rem !important;
+        right: 0.65rem !important;
+        padding: 1rem 0.85rem !important;
+        max-width: calc(100vw - 1.3rem) !important;
+      }
+      .kpi-grid-8,
+      .kpi-grid-6,
+      .kpi-grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      .kpi-card {
+        padding: 1rem 0.85rem !important;
+      }
+      .btn-action,
+      .btn-book,
+      .btn-submit-login,
+      .btn-create-account {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .social-auth-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.55rem !important;
+      }
+      .user-modal-box,
+      .admin-modal-box {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        padding: 1.25rem 0.95rem !important;
+        border-radius: 16px !important;
+      }
+      .form-group-duo {
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+      }
+      .filter-pills,
+      .quick-filters,
+      .tag-cloud {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+      }
+      .filter-pill,
+      .q-pill {
+        font-size: 0.76rem !important;
+        padding: 0.35rem 0.75rem !important;
+      }
+      section,
+      .section-block {
+        margin-bottom: 2rem !important;
+        padding: 1.5rem 0 !important;
+      }
+    }
+
+    /* Breakpoint 4: <= 320px */
+    @media (max-width: 320px) {
+      .app {
+        padding: 0.35rem 0.45rem !important;
+      }
+      .navbar {
+        top: 0.25rem !important;
+        padding: 0.3rem 0.5rem !important;
+        border-radius: 1.5rem !important;
+      }
+      .logo {
+        gap: 6px !important;
+      }
+      .logo-badge,
+      .logo-svg {
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 10px !important;
+      }
+      .logo-text {
+        font-size: 0.92rem !important;
+        letter-spacing: -0.02em !important;
+      }
+      .mobile-menu {
+        top: 3.8rem !important;
+        left: 0.35rem !important;
+        right: 0.35rem !important;
+        padding: 0.85rem 0.65rem !important;
+        max-width: calc(100vw - 0.7rem) !important;
+      }
+      .mobile-menu .nav-link {
+        font-size: 0.88rem !important;
+        padding: 0.6rem 0.65rem !important;
+      }
+      .admin-sidebar,
+      .user-sidebar {
+        width: 280px !important;
+        max-width: 88vw !important;
+        padding: 1rem 0.65rem !important;
+      }
+      .admin-main-viewport,
+      .user-main-viewport {
+        padding: 0.75rem 0.45rem !important;
+      }
+      h1, .hero-title, .about-hero-title {
+        font-size: 1.45rem !important;
+      }
+      h2, .section-heading {
+        font-size: 1.25rem !important;
+      }
+      .code-digit {
+        font-size: 3.2rem !important;
+      }
+      .card,
+      .item-admin-card,
+      .item-user-card,
+      .login-card,
+      .lost-card {
+        padding: 1rem 0.75rem !important;
+        border-radius: 14px !important;
+      }
+      button, input, select, textarea {
+        font-size: 0.82rem !important;
+      }
+    }
+
+    /* RTL Layout Compatibility */
+    body.rtl-mode .navbar {
+      flex-direction: row-reverse !important;
+    }
+    body.rtl-mode .mobile-menu .nav-link {
+      text-align: right !important;
+      border-left: none !important;
+      border-right: 4px solid transparent;
+    }
+    body.rtl-mode .mobile-menu .nav-link.active {
+      border-right-color: var(--primary-ocean) !important;
+      padding-right: calc(1rem - 4px) !important;
+    }
+    body.rtl-mode .nav-item-link {
+      flex-direction: row-reverse !important;
+      text-align: right !important;
+    }
+    body.rtl-mode .admin-sidebar,
+    body.rtl-mode .user-sidebar {
+      left: 0 !important;
+      right: auto !important;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Interactive Global Flight Radar & Constellation Canvas -->
+  <canvas id="adminBgCanvas" class="admin-bg-canvas"></canvas>
+
+  <!-- Ambient Glowing Auroral Nebulae -->
+  <div class="admin-ambient-aurora">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+  </div>
+
+  <!-- Full Application Wrapper -->
+  <div class="admin-app-layout">
+
+    <!-- 1. TOP NAVBAR -->
+    <!-- Mobile/Tab View: ONLY Logo on left, Hamburger on right! -->
+    <header class="admin-navbar" id="adminNavbar">
+      
+      <!-- EXACT NAVBAR LOGO (Left Slot) -->
+      <a href="index.html" class="logo navbar-logo-left" id="adminLogo" aria-label="WanderLux Travel Agency and Holidays">
+        <div class="logo-badge" id="logoBadge">
+          <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="travelBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0284c7"/>
+                <stop offset="50%" stop-color="#0ea5e9"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+              <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fef08a"/>
+                <stop offset="100%" stop-color="#f59e0b"/>
+              </linearGradient>
+              <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#ffffff"/>
+              </linearGradient>
+            </defs>
+            <rect width="40" height="40" rx="13" fill="url(#travelBadgeGrad)"/>
+            <rect x="0.5" y="0.5" width="39" height="39" rx="12.5" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+            <circle class="logo-sun-aura" cx="28" cy="13" r="8.5" fill="url(#sunGrad)" opacity="0.3"/>
+            <circle cx="28" cy="13" r="6" fill="url(#sunGrad)"/>
+            <path d="M 6 22 A 16 16 0 0 1 34 22" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" stroke-dasharray="2 2" fill="none"/>
+            <path d="M0 27 C 8 23, 14 31, 22 27 C 30 23, 34 29, 40 26 L 40 40 L 0 40 Z" fill="url(#waveGrad)" opacity="0.45"/>
+            <path d="M0 31 C 8 28, 16 34, 24 30 C 32 27, 36 32, 40 29 L 40 40 L 0 40 Z" fill="#ffffff" opacity="0.85"/>
+            <path class="flight-trail" d="M 5 35 Q 16 23 29 11" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-dasharray="2.5 2.5" fill="none"/>
+            <g class="logo-plane" transform="translate(29, 11) rotate(45) scale(0.72)">
+              <path d="M0 -9 L4 3 L10 5 L10 7 L4 6 L2 11 L5 14 L5 15 L0 14 L-5 15 L-5 14 L-2 11 L-4 6 L-10 7 L-10 5 L-4 3 Z" fill="#ffffff" filter="drop-shadow(0 2px 3px rgba(0,20,50,0.35))"/>
+            </g>
+          </svg>
+        </div>
+        <div class="logo-title-group">
+          <span class="logo-text">WanderLux</span>
+          <span class="logo-subtitle"><i class="fas fa-umbrella-beach"></i> HOLIDAYS &amp; TRAVEL</span>
+        </div>
+      </a>
+
+      <!-- Desktop Center: Breadcrumbs & Quick Search (Hidden on Mobile/Tablet) -->
+      <div class="nav-center-slot">
+        <div class="nav-breadcrumb">
+          <span>Portal</span>
+          <i class="fas fa-chevron-right" style="font-size: 0.65rem;"></i>
+          <span class="active-crumb" id="activeBreadcrumb">Dashboard Overview</span>
+        </div>
+        <div class="nav-search-bar">
+          <i class="fas fa-magnifying-glass"></i>
+          <input type="text" class="nav-search-input" id="globalAdminSearch" placeholder="Search bookings, travelers, packages...">
+        </div>
+      </div>
+
+      <!-- Desktop Right Controls: Dark Mode, RTL, Profile (Hidden on Mobile/Tablet) -->
+      <div class="nav-desktop-actions">
+        <button class="icon-ctrl-btn" id="darkModeToggle" aria-label="Toggle Dark Mode" title="Toggle Dark/Light Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="icon-ctrl-btn" id="rtlToggle" aria-label="Toggle RTL Direction" title="Toggle RTL/LTR Direction">
+          <i class="fas fa-arrow-right-arrow-left"></i>
+        </button>
+        <button class="icon-ctrl-btn" id="notificationBtn" aria-label="Notifications" title="Notifications">
+          <i class="fas fa-bell"></i>
+        </button>
+        <div class="admin-profile-pill" id="adminProfileTrigger">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-info">
+            <div class="admin-name">Alexandre Dubois</div>
+            <div class="admin-role">Executive Director</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HAMBURGER MENU (Shown strictly on Mobile & Tablet View on the Right) -->
+      <button class="hamburger-btn" id="adminHamburgerBtn" aria-label="Open Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </header>
+
+    <!-- Mobile Drawer Overlay Backdrop -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- 2. SIDEBAR WITH ALL 14 MODULES -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      
+      <!-- Mobile Drawer Header (Opens from RIGHT side, holds profile, dark mode, RTL & search) -->
+      <div class="sidebar-mobile-header">
+        <div class="sidebar-drawer-top">
+          <a href="index.html" class="drawer-brand-badge" style="text-decoration: none;">
+            <span class="drawer-brand-icon"><i class="fas fa-compass"></i></span>
+            <span>WanderLux Portal</span>
+          </a>
+          <button class="sidebar-drawer-close" id="sidebarDrawerClose" aria-label="Close Navigation Drawer">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-user-card">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-info">
+            <div class="admin-name">Alexandre Dubois</div>
+            <div class="admin-role">Executive Director</div>
+          </div>
+          <span class="user-status-dot" title="Active Session"></span>
+        </div>
+
+        <div class="sidebar-controls-grid">
+          <button class="drawer-ctrl-pill" id="mobileDarkToggle" aria-label="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+            <span class="ctrl-pill-text">Dark Mode</span>
+          </button>
+          <button class="drawer-ctrl-pill" id="mobileRtlToggle" aria-label="Toggle RTL Direction">
+            <i class="fas fa-arrow-right-arrow-left"></i>
+            <span class="ctrl-pill-text">RTL Layout</span>
+          </button>
+        </div>
+
+        <div class="nav-search-bar" style="width: 100%;">
+          <i class="fas fa-magnifying-glass"></i>
+          <input type="text" class="nav-search-input" id="mobileSearchInput" placeholder="Search dashboard...">
+        </div>
+      </div>
+
+      <!-- CATEGORY 1: OVERVIEW & INTELLIGENCE -->
+      <div class="sidebar-category">
+        <span class="sidebar-cat-title">Command Center</span>
+        <a class="nav-item-link active" data-view="view-overview">
+          <span class="icon-label"><i class="fas fa-gauge-high"></i> <span>Dashboard Overview</span></span>
+          <span class="nav-item-badge">Live</span>
+        </a>
+        <a class="nav-item-link" data-view="view-reports">
+          <span class="icon-label"><i class="fas fa-chart-line"></i> <span>Reports &amp; Analytics</span></span>
+        </a>
+      </div>
+
+      <!-- CATEGORY 2: PACKAGE PORTFOLIOS -->
+      <div class="sidebar-category">
+        <span class="sidebar-cat-title">Package Portfolios</span>
+        <a class="nav-item-link" data-view="view-domestic">
+          <span class="icon-label"><i class="fas fa-map-location-dot"></i> <span>Domestic Package Management</span></span>
+          <span class="nav-item-badge">124</span>
+        </a>
+        <a class="nav-item-link" data-view="view-international">
+          <span class="icon-label"><i class="fas fa-plane-up"></i> <span>International Package Management</span></span>
+          <span class="nav-item-badge">124</span>
+        </a>
+        <a class="nav-item-link" data-view="view-honeymoon-family">
+          <span class="icon-label"><i class="fas fa-heart"></i> <span>Honeymoon &amp; Family Tour Management</span></span>
+        </a>
+        <a class="nav-item-link" data-view="view-adventure">
+          <span class="icon-label"><i class="fas fa-mountain"></i> <span>Adventure &amp; Experience Management</span></span>
+        </a>
+      </div>
+
+      <!-- CATEGORY 3: EXPEDITION OPERATIONS -->
+      <div class="sidebar-category">
+        <span class="sidebar-cat-title">Operations &amp; Travel</span>
+        <a class="nav-item-link" data-view="view-travelers">
+          <span class="icon-label"><i class="fas fa-users-gear"></i> <span>Traveler Management</span></span>
+        </a>
+        <a class="nav-item-link" data-view="view-bookings">
+          <span class="icon-label"><i class="fas fa-calendar-check"></i> <span>Booking Management</span></span>
+          <span class="nav-item-badge" style="background: rgba(245,158,11,0.2); color: #f59e0b;">42 New</span>
+        </a>
+        <a class="nav-item-link" data-view="view-itineraries">
+          <span class="icon-label"><i class="fas fa-route"></i> <span>Itinerary Management</span></span>
+        </a>
+        <a class="nav-item-link" data-view="view-documents">
+          <span class="icon-label"><i class="fas fa-passport"></i> <span>Ticket &amp; Document Management</span></span>
+        </a>
+      </div>
+
+      <!-- CATEGORY 4: COMMERCIAL & MARKETING -->
+      <div class="sidebar-category">
+        <span class="sidebar-cat-title">Commercial &amp; Growth</span>
+        <a class="nav-item-link" data-view="view-payments">
+          <span class="icon-label"><i class="fas fa-file-invoice-dollar"></i> <span>Payment &amp; Invoice Management</span></span>
+        </a>
+        <a class="nav-item-link" data-view="view-offers">
+          <span class="icon-label"><i class="fas fa-tags"></i> <span>Special Offers Management</span></span>
+        </a>
+        <a class="nav-item-link" data-view="view-destinations">
+          <span class="icon-label"><i class="fas fa-images"></i> <span>Destination &amp; Gallery Management</span></span>
+        </a>
+        <a class="nav-item-link" data-view="view-reviews">
+          <span class="icon-label"><i class="fas fa-comments"></i> <span>Reviews &amp; Enquiries Management</span></span>
+        </a>
+      </div>
+
+      <!-- CATEGORY 5: SESSION & LOGOUT -->
+      <div class="sidebar-category" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--sidebar-border);">
+        <a href="login.html" class="nav-item-link" id="sidebarLogoutBtn" style="color: var(--accent-rose);">
+          <span class="icon-label"><i class="fas fa-arrow-right-from-bracket"></i> <span>Logout</span></span>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- 3. MAIN DASHBOARD CONTENT AREA -->
+    <main class="admin-main-viewport">
+
+      <!-- ========================================== -->
+      <!-- MODULE 1: DASHBOARD OVERVIEW (ALL 8 SUB-ITEMS) -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel active" id="view-overview">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-gauge-high" style="color: var(--primary-ocean);"></i> Dashboard Overview</h1>
+            <p>Live telemetry, booking performance, departure schedules, and executive luxury revenue summary</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-secondary" onclick="exportData('Overview Telemetry')"><i class="fas fa-download"></i> Export Data</button>
+            <button class="btn-action btn-primary" onclick="openModal('quickBookingModal')"><i class="fas fa-plus"></i> New Reservation</button>
+          </div>
+        </div>
+
+        <!-- 8 Core Metrics Grid -->
+        <div class="kpi-grid-8">
+          <!-- 1. Total Travelers -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9;">
+                <i class="fas fa-users"></i>
+              </div>
+              <span class="kpi-trend trend-up"><i class="fas fa-arrow-trend-up"></i> +18.4%</span>
+            </div>
+            <div class="kpi-val">14,820</div>
+            <div class="kpi-label">Total Travelers</div>
+          </div>
+
+          <!-- 2. Total Holiday Packages -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                <i class="fas fa-suitcase-rolling"></i>
+              </div>
+              <span class="kpi-trend trend-up">248 Active</span>
+            </div>
+            <div class="kpi-val">248</div>
+            <div class="kpi-label">Total Holiday Packages</div>
+          </div>
+
+          <!-- 3. New Booking Requests -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+                <i class="fas fa-envelope-open-text"></i>
+              </div>
+              <span class="kpi-trend trend-amber">42 Action Req.</span>
+            </div>
+            <div class="kpi-val">42</div>
+            <div class="kpi-label">New Booking Requests</div>
+          </div>
+
+          <!-- 4. Confirmed Bookings -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(2, 132, 199, 0.15); color: #0284c7;">
+                <i class="fas fa-circle-check"></i>
+              </div>
+              <span class="kpi-trend trend-up">+8.2%</span>
+            </div>
+            <div class="kpi-val">1,280</div>
+            <div class="kpi-label">Confirmed Bookings</div>
+          </div>
+
+          <!-- 5. Upcoming Departures -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">
+                <i class="fas fa-plane-departure"></i>
+              </div>
+              <span class="kpi-trend trend-up">Next 7 Days</span>
+            </div>
+            <div class="kpi-val">68</div>
+            <div class="kpi-label">Upcoming Departures</div>
+          </div>
+
+          <!-- 6. Pending Payments -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+                <i class="fas fa-hourglass-half"></i>
+              </div>
+              <span class="kpi-trend trend-amber">Follow Up</span>
+            </div>
+            <div class="kpi-val">$84,200</div>
+            <div class="kpi-label">Pending Payments</div>
+          </div>
+
+          <!-- 7. Cancellation Requests -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e;">
+                <i class="fas fa-ban"></i>
+              </div>
+              <span class="kpi-trend trend-rose">6 Under Review</span>
+            </div>
+            <div class="kpi-val">6</div>
+            <div class="kpi-label">Cancellation Requests</div>
+          </div>
+
+          <!-- 8. Booking Revenue Summary -->
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                <i class="fas fa-vault"></i>
+              </div>
+              <span class="kpi-trend trend-up"><i class="fas fa-arrow-trend-up"></i> +24.8% YoY</span>
+            </div>
+            <div class="kpi-val">$4,892,500</div>
+            <div class="kpi-label">Booking Revenue Summary</div>
+          </div>
+        </div>
+
+        <!-- Live Bookings Telemetry Table -->
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-list-check" style="color: var(--primary-ocean);"></i> Recent Booking Requests &amp; Departures</div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn-action btn-secondary" onclick="showToast('Refreshing live telemetry...', 'fa-rotate')"><i class="fas fa-rotate"></i> Refresh</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking Ref</th>
+                  <th>Traveler</th>
+                  <th>Package &amp; Destination</th>
+                  <th>Departure Date</th>
+                  <th>Total Amount</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>#WL-9821</strong></td>
+                  <td>Lady Eleanor Vance</td>
+                  <td>Maldives Overwater Sanctuary</td>
+                  <td>Oct 28, 2026</td>
+                  <td><strong>$12,450</strong></td>
+                  <td><span class="status-badge status-confirmed"><i class="fas fa-check"></i> Paid Full</span></td>
+                  <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                  <td><button class="btn-action btn-secondary" style="padding: 0.35rem 0.75rem;" onclick="viewBooking('#WL-9821')">Manage</button></td>
+                </tr>
+                <tr>
+                  <td><strong>#WL-9822</strong></td>
+                  <td>Capt. Henry Thorne</td>
+                  <td>Swiss Alps Glacier Expedition</td>
+                  <td>Nov 04, 2026</td>
+                  <td><strong>$8,900</strong></td>
+                  <td><span class="status-badge status-pending"><i class="fas fa-clock"></i> 50% Deposit</span></td>
+                  <td><span class="status-badge status-pending">Pending Review</span></td>
+                  <td><button class="btn-action btn-primary" style="padding: 0.35rem 0.75rem;" onclick="confirmBooking('#WL-9822')">Confirm</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 2: TRAVELER MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-travelers">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-users-gear" style="color: var(--primary-ocean);"></i> Traveler Management</h1>
+            <p>View registered travelers, traveler profile details, booking history, travel preferences &amp; traveler enquiries</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addTravelerModal')"><i class="fas fa-user-plus"></i> Register VIP Traveler</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-filter"></i> Sub-Items:</span>
+          <button class="deck-btn active"><i class="fas fa-list"></i> View Registered Travelers</button>
+          <button class="deck-btn" onclick="showToast('Opened Traveler Profile Details drawer')"><i class="fas fa-id-card"></i> Traveler Profile Details</button>
+          <button class="deck-btn" onclick="showToast('Filtered by Booking History')"><i class="fas fa-clock-rotate-left"></i> Booking History</button>
+          <button class="deck-btn" onclick="showToast('Filtered by Travel Preferences')"><i class="fas fa-heart"></i> Travel Preferences</button>
+          <button class="deck-btn" onclick="showToast('Loading Traveler Enquiries queue')"><i class="fas fa-comment-dots"></i> Traveler Enquiries</button>
+          <button class="deck-btn" onclick="showToast('Bulk status manager opened')"><i class="fas fa-user-shield"></i> Activate / Deactivate Accounts</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-address-book"></i> View Registered Travelers</div>
+            <input type="text" class="form-input" style="width: 240px;" placeholder="Search registered travelers...">
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Traveler</th>
+                  <th>Traveler Profile Details</th>
+                  <th>Booking History</th>
+                  <th>Travel Preferences</th>
+                  <th>Traveler Enquiries</th>
+                  <th>Activate / Deactivate Accounts</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Lord Sterling Croft</strong><br>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">croft@wanderlux-vip.com</span>
+                  </td>
+                  <td>Platinum VIP Member · Passport: #GB-89218</td>
+                  <td>8 Expeditions Completed</td>
+                  <td>First Class, Private Helipad, Kosher Dining</td>
+                  <td><span class="status-badge status-departed">0 Active Enquiries</span></td>
+                  <td>
+                    <button class="btn-action btn-secondary" style="padding: 0.3rem 0.6rem;" onclick="toggleAccountStatus(this, 'Sterling Croft')">Deactivate Account</button>
+                  </td>
+                  <td><button class="btn-action btn-primary" style="padding: 0.3rem 0.6rem;" onclick="viewTravelerProfile('Sterling Croft')">Traveler Profile Details</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Lady Vivian Rothschild</strong><br>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">vivian.r@rothschild.ch</span>
+                  </td>
+                  <td>Emerald Club · Passport: #CH-44109</td>
+                  <td>14 Expeditions Completed</td>
+                  <td>Private Villa, Organic Vegan, Sommelier Tours</td>
+                  <td><span class="status-badge status-pending">2 Traveler Enquiries</span></td>
+                  <td>
+                    <button class="btn-action btn-secondary" style="padding: 0.3rem 0.6rem;" onclick="toggleAccountStatus(this, 'Vivian Rothschild')">Deactivate Account</button>
+                  </td>
+                  <td><button class="btn-action btn-primary" style="padding: 0.3rem 0.6rem;" onclick="viewTravelerProfile('Vivian Rothschild')">Traveler Profile Details</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 3: DOMESTIC PACKAGE MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-domestic">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-map-location-dot" style="color: var(--primary-ocean);"></i> Domestic Package Management</h1>
+            <p>Add domestic package, edit package details, manage destinations, configure tour itineraries &amp; set package pricing</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addDomesticModal')"><i class="fas fa-plus"></i> Add Domestic Package</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-sliders"></i> Actions:</span>
+          <button class="deck-btn" onclick="openModal('addDomesticModal')"><i class="fas fa-plus"></i> Add Domestic Package</button>
+          <button class="deck-btn" onclick="showToast('Edit Package Details selected')"><i class="fas fa-pen-to-square"></i> Edit Package Details</button>
+          <button class="deck-btn" onclick="showToast('Manage Destinations modal opened')"><i class="fas fa-location-dot"></i> Manage Destinations</button>
+          <button class="deck-btn" onclick="showToast('Configure Tour Itineraries builder opened')"><i class="fas fa-route"></i> Configure Tour Itineraries</button>
+          <button class="deck-btn" onclick="showToast('Set Package Pricing editor opened')"><i class="fas fa-tag"></i> Set Package Pricing</button>
+          <button class="deck-btn" onclick="showToast('Manage Accommodation Options loaded')"><i class="fas fa-hotel"></i> Manage Accommodation Options</button>
+          <button class="deck-btn" onclick="showToast('Set Travel Dates & Availability calendar opened')"><i class="fas fa-calendar"></i> Set Travel Dates &amp; Availability</button>
+          <button class="deck-btn" onclick="showToast('Publish / Unpublish Packages toggle batch')"><i class="fas fa-bullhorn"></i> Publish / Unpublish Packages</button>
+        </div>
+
+        <div class="module-cards-grid">
+          <div class="item-admin-card">
+            <div class="item-card-body">
+              <div class="item-card-title">Kashmir Royal Shikara &amp; Gulmarg High-Alps</div>
+              <div class="item-card-meta">
+                <span class="meta-tag"><i class="fas fa-location-dot"></i> Manage Destinations: Srinagar &amp; Gulmarg</span>
+                <span class="meta-tag"><i class="fas fa-hotel"></i> Manage Accommodation Options: Heritage Cottages</span>
+                <span class="meta-tag"><i class="fas fa-calendar-days"></i> Set Travel Dates &amp; Availability: 7D/6N</span>
+              </div>
+              <p class="item-card-desc">Configure tour itineraries: Private gondola pass, starlight Dal Lake dining, and chauffeur Mercedes transport.</p>
+              <div class="item-card-foot">
+                <div class="item-price">Set Package Pricing: $2,450</div>
+                <div style="display: flex; gap: 0.4rem;">
+                  <button class="btn-action btn-secondary" style="padding: 0.35rem 0.65rem;" onclick="showToast('Edit Package Details')"><i class="fas fa-pen"></i> Edit Package Details</button>
+                  <button class="btn-action btn-primary" style="padding: 0.35rem 0.65rem;" onclick="togglePublish(this)">Publish / Unpublish Packages</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-admin-card">
+            <div class="item-card-body">
+              <div class="item-card-title">Rajasthan Palace Heritage &amp; Desert Caravans</div>
+              <div class="item-card-meta">
+                <span class="meta-tag"><i class="fas fa-location-dot"></i> Manage Destinations: Udaipur &amp; Jaisalmer</span>
+                <span class="meta-tag"><i class="fas fa-hotel"></i> Manage Accommodation Options: Royal Suites</span>
+                <span class="meta-tag"><i class="fas fa-calendar-days"></i> Set Travel Dates &amp; Availability: 8D/7N</span>
+              </div>
+              <p class="item-card-desc">Configure tour itineraries: Private royal dining in Lake Pichola, dune glamping with traditional sitar serenades.</p>
+              <div class="item-card-foot">
+                <div class="item-price">Set Package Pricing: $3,800</div>
+                <div style="display: flex; gap: 0.4rem;">
+                  <button class="btn-action btn-secondary" style="padding: 0.35rem 0.65rem;" onclick="showToast('Edit Package Details')"><i class="fas fa-pen"></i> Edit Package Details</button>
+                  <button class="btn-action btn-primary" style="padding: 0.35rem 0.65rem;" onclick="togglePublish(this)">Publish / Unpublish Packages</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 4: INTERNATIONAL PACKAGE MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-international">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-plane-up" style="color: var(--primary-ocean);"></i> International Package Management</h1>
+            <p>Add international package, manage countries &amp; destinations, configure flight information, hotels, visa guidance &amp; pricing</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addIntlModal')"><i class="fas fa-plus"></i> Add International Package</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-earth-americas"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="openModal('addIntlModal')"><i class="fas fa-plus"></i> Add International Package</button>
+          <button class="deck-btn" onclick="showToast('Manage Countries & Destinations')"><i class="fas fa-globe"></i> Manage Countries &amp; Destinations</button>
+          <button class="deck-btn" onclick="showToast('Configure Flight Information')"><i class="fas fa-plane"></i> Configure Flight Information</button>
+          <button class="deck-btn" onclick="showToast('Manage Hotels & Transfers')"><i class="fas fa-car-side"></i> Manage Hotels &amp; Transfers</button>
+          <button class="deck-btn" onclick="showToast('Add Visa Guidance document')"><i class="fas fa-passport"></i> Add Visa Guidance</button>
+          <button class="deck-btn" onclick="showToast('Configure Package Inclusions')"><i class="fas fa-circle-check"></i> Configure Package Inclusions</button>
+          <button class="deck-btn" onclick="showToast('Set Currency & Pricing')"><i class="fas fa-money-bill-wave"></i> Set Currency &amp; Pricing</button>
+          <button class="deck-btn" onclick="showToast('Manage Departure Schedules')"><i class="fas fa-clock"></i> Manage Departure Schedules</button>
+        </div>
+
+        <div class="module-cards-grid">
+          <div class="item-admin-card">
+            <div class="item-card-body">
+              <div class="item-card-title">Swiss St. Moritz &amp; Glacier Express Grandeur</div>
+              <div class="item-card-meta">
+                <span class="meta-tag">Manage Countries &amp; Destinations: Switzerland</span>
+                <span class="meta-tag">Configure Flight Information: Swiss First Class</span>
+                <span class="meta-tag">Manage Hotels &amp; Transfers: Badrutt's Palace</span>
+                <span class="meta-tag">Add Visa Guidance: Schengen Assistance</span>
+              </div>
+              <p class="item-card-desc">Configure Package Inclusions: Glacier Express excellence class, private ski concierge, Michelin-starred alpine dining.</p>
+              <div class="item-card-foot">
+                <div class="item-price">Set Currency &amp; Pricing: $7,800 USD</div>
+                <button class="btn-action btn-secondary" onclick="showToast('Manage Departure Schedules')">Manage Departure Schedules</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-admin-card">
+            <div class="item-card-body">
+              <div class="item-card-title">Kyoto Imperial Gardens &amp; Tokyo Penthouse</div>
+              <div class="item-card-meta">
+                <span class="meta-tag">Manage Countries &amp; Destinations: Japan</span>
+                <span class="meta-tag">Configure Flight Information: ANA Suite Class</span>
+                <span class="meta-tag">Manage Hotels &amp; Transfers: Aman Tokyo</span>
+                <span class="meta-tag">Add Visa Guidance: eVisa Guidance</span>
+              </div>
+              <p class="item-card-desc">Configure Package Inclusions: Private tea ceremonies with master monks, bullet train gran class, Kaiseki tours.</p>
+              <div class="item-card-foot">
+                <div class="item-price">Set Currency &amp; Pricing: $9,200 USD</div>
+                <button class="btn-action btn-secondary" onclick="showToast('Manage Departure Schedules')">Manage Departure Schedules</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 5: HONEYMOON & FAMILY TOUR MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-honeymoon-family">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-heart" style="color: var(--accent-rose);"></i> Honeymoon &amp; Family Tour Management</h1>
+            <p>Create honeymoon packages, create family packages, manage romantic experiences, child-friendly services &amp; group size limits</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addHoneymoonModal')"><i class="fas fa-plus"></i> Create Honeymoon Packages</button>
+            <button class="btn-action btn-secondary" onclick="openModal('addFamilyModal')"><i class="fas fa-users"></i> Create Family Packages</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-champagne-glasses"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="openModal('addHoneymoonModal')"><i class="fas fa-heart"></i> Create Honeymoon Packages</button>
+          <button class="deck-btn" onclick="openModal('addFamilyModal')"><i class="fas fa-child"></i> Create Family Packages</button>
+          <button class="deck-btn" onclick="showToast('Manage Romantic Experiences')"><i class="fas fa-wine-glass"></i> Manage Romantic Experiences</button>
+          <button class="deck-btn" onclick="showToast('Configure Child-Friendly Services')"><i class="fas fa-puzzle-piece"></i> Configure Child-Friendly Services</button>
+          <button class="deck-btn" onclick="showToast('Set Group Size Limits modal')"><i class="fas fa-people-group"></i> Set Group Size Limits</button>
+          <button class="deck-btn" onclick="showToast('Manage Custom Tour Requests')"><i class="fas fa-hand-holding-heart"></i> Manage Custom Tour Requests</button>
+          <button class="deck-btn" onclick="showToast('Update Package Availability')"><i class="fas fa-calendar-check"></i> Update Package Availability</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-people-roof"></i> Romantic &amp; Family Packages Roster</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Package Category</th>
+                  <th>Manage Romantic Experiences</th>
+                  <th>Configure Child-Friendly Services</th>
+                  <th>Set Group Size Limits</th>
+                  <th>Manage Custom Tour Requests</th>
+                  <th>Update Package Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Create Honeymoon Packages: Santorini Caldera</strong></td>
+                  <td>Helicopter arrival, candlelit yacht, couples spa</td>
+                  <td>Adults Only Sanctuary</td>
+                  <td>Set Group Size Limits: 2 Guests</td>
+                  <td>Manage Custom Tour Requests: 4 In Review</td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Update Package Availability: 6 slots remaining')">Update Package Availability</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Create Family Packages: Costa Rica Discovery</strong></td>
+                  <td>Sunset Rainforest Strolls</td>
+                  <td>Configure Child-Friendly Services: Kids Nature Lab</td>
+                  <td>Set Group Size Limits: 4–10 Guests</td>
+                  <td>Manage Custom Tour Requests: 2 In Review</td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Update Package Availability: 8 slots remaining')">Update Package Availability</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 6: ADVENTURE & EXPERIENCE MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-adventure">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-mountain" style="color: var(--primary-ocean);"></i> Adventure &amp; Experience Management</h1>
+            <p>Add adventure activities, manage activity categories, set activity prices, age &amp; safety rules &amp; assign providers</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addActivityModal')"><i class="fas fa-plus"></i> Add Adventure Activities</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-compass"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="openModal('addActivityModal')"><i class="fas fa-plus"></i> Add Adventure Activities</button>
+          <button class="deck-btn" onclick="showToast('Manage Activity Categories')"><i class="fas fa-tags"></i> Manage Activity Categories</button>
+          <button class="deck-btn" onclick="showToast('Set Activity Prices')"><i class="fas fa-dollar-sign"></i> Set Activity Prices</button>
+          <button class="deck-btn" onclick="showToast('Configure Age & Safety Requirements')"><i class="fas fa-shield-halved"></i> Configure Age &amp; Safety Requirements</button>
+          <button class="deck-btn" onclick="showToast('Assign Activity Providers')"><i class="fas fa-user-check"></i> Assign Activity Providers</button>
+          <button class="deck-btn" onclick="showToast('Manage Experience Availability')"><i class="fas fa-calendar-check"></i> Manage Experience Availability</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-person-hiking"></i> Add Adventure Activities &amp; Operations</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Add Adventure Activities</th>
+                  <th>Manage Activity Categories</th>
+                  <th>Set Activity Prices</th>
+                  <th>Configure Age &amp; Safety Requirements</th>
+                  <th>Assign Activity Providers</th>
+                  <th>Manage Experience Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Matterhorn Alpine Suspension Bridge Trek</strong></td>
+                  <td>Manage Activity Categories: Alpine High-Wire</td>
+                  <td>Set Activity Prices: $1,250</td>
+                  <td>Configure Age &amp; Safety Requirements: Min Age 12, Harness Level 4</td>
+                  <td>Assign Activity Providers: UIAGM Swiss Guild</td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Manage Experience Availability: Open')">Manage Experience Availability</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Galápagos Marine Kayak &amp; Manta Safari</strong></td>
+                  <td>Manage Activity Categories: Marine Eco-Adventure</td>
+                  <td>Set Activity Prices: $950</td>
+                  <td>Configure Age &amp; Safety Requirements: Min Age 8, PFD Lifejacket</td>
+                  <td>Assign Activity Providers: Marine Naturalists</td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Manage Experience Availability: 14 Slots')">Manage Experience Availability</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 7: BOOKING MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-bookings">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-calendar-check" style="color: var(--primary-ocean);"></i> Booking Management</h1>
+            <p>View all bookings, review new booking requests, confirm / reject bookings, assign booking reference &amp; manage cancellations</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-secondary" onclick="exportData('Bookings Log')"><i class="fas fa-file-csv"></i> Export Bookings</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-book-bookmark"></i> Sub-Items:</span>
+          <button class="deck-btn active"><i class="fas fa-list-check"></i> View All Bookings</button>
+          <button class="deck-btn" onclick="showToast('Review New Booking Requests: 42 Pending')"><i class="fas fa-bell"></i> Review New Booking Requests</button>
+          <button class="deck-btn" onclick="showToast('Confirm / Reject Bookings deck')"><i class="fas fa-check-double"></i> Confirm / Reject Bookings</button>
+          <button class="deck-btn" onclick="showToast('Assign Booking Reference tool')"><i class="fas fa-barcode"></i> Assign Booking Reference</button>
+          <button class="deck-btn" onclick="showToast('Manage Traveler Information')"><i class="fas fa-user-pen"></i> Manage Traveler Information</button>
+          <button class="deck-btn" onclick="showToast('Update Booking Status')"><i class="fas fa-arrows-rotate"></i> Update Booking Status</button>
+          <button class="deck-btn" onclick="showToast('Handle Booking Modifications')"><i class="fas fa-pen-ruler"></i> Handle Booking Modifications</button>
+          <button class="deck-btn" onclick="showToast('Manage Cancellation Requests')"><i class="fas fa-ban"></i> Manage Cancellation Requests</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-table-list"></i> View All Bookings &amp; Status Controls</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Assign Booking Reference</th>
+                  <th>Manage Traveler Information</th>
+                  <th>Package Title</th>
+                  <th>Update Booking Status</th>
+                  <th>Handle Booking Modifications</th>
+                  <th>Confirm / Reject Bookings</th>
+                  <th>Manage Cancellation Requests</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Assign Booking Reference: #WL-9825</strong></td>
+                  <td>Lord Arthur Pendelton (Platinum)</td>
+                  <td>World Private Jet Circumnavigation</td>
+                  <td>Update Booking Status: Confirmed</td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Handle Booking Modifications: Suite Changed')">Handle Booking Modifications</button></td>
+                  <td>
+                    <button class="btn-action btn-primary" onclick="showToast('Confirm / Reject Bookings: Confirmed')">Confirm / Reject Bookings</button>
+                  </td>
+                  <td><button class="btn-action btn-danger" onclick="showToast('Manage Cancellation Requests')">Manage Cancellation Requests</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 8: ITINERARY MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-itineraries">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-route" style="color: var(--primary-ocean);"></i> Itinerary Management</h1>
+            <p>Create day-wise itineraries, add sightseeing activities, update travel schedules, add hotel &amp; transfer details &amp; generate PDFs</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('createItineraryModal')"><i class="fas fa-plus"></i> Create Day-Wise Itineraries</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-calendar-week"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="openModal('createItineraryModal')"><i class="fas fa-plus"></i> Create Day-Wise Itineraries</button>
+          <button class="deck-btn" onclick="showToast('Add Sightseeing Activities')"><i class="fas fa-binoculars"></i> Add Sightseeing Activities</button>
+          <button class="deck-btn" onclick="showToast('Update Travel Schedules')"><i class="fas fa-clock"></i> Update Travel Schedules</button>
+          <button class="deck-btn" onclick="showToast('Add Hotel & Transfer Details')"><i class="fas fa-van-shuttle"></i> Add Hotel &amp; Transfer Details</button>
+          <button class="deck-btn" onclick="showToast('Attach Travel Instructions')"><i class="fas fa-paperclip"></i> Attach Travel Instructions</button>
+          <button class="deck-btn" onclick="showToast('Publish Itineraries to Travelers')"><i class="fas fa-paper-plane"></i> Publish Itineraries to Travelers</button>
+          <button class="deck-btn" onclick="showToast('Generate Itinerary PDFs')"><i class="fas fa-file-pdf"></i> Generate Itinerary PDFs</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-calendar-day"></i> Active Itineraries Matrix</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Create Day-Wise Itineraries</th>
+                  <th>Add Sightseeing Activities</th>
+                  <th>Update Travel Schedules</th>
+                  <th>Add Hotel &amp; Transfer Details</th>
+                  <th>Attach Travel Instructions</th>
+                  <th>Publish Itineraries to Travelers</th>
+                  <th>Generate Itinerary PDFs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Grand Swiss Alpine Odyssey (Day 1 – 10)</strong></td>
+                  <td>Add Sightseeing Activities: Matterhorn Glacier Paradise</td>
+                  <td>Update Travel Schedules: Glacier Express 09:15 AM</td>
+                  <td>Add Hotel &amp; Transfer Details: Badrutt's Palace Suite</td>
+                  <td>Attach Travel Instructions: Thermal Alpine Attire Required</td>
+                  <td><button class="btn-action btn-primary" onclick="showToast('Publish Itineraries to Travelers: Sent')">Publish Itineraries to Travelers</button></td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Generate Itinerary PDFs: Downloaded')">Generate Itinerary PDFs</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 9: TICKET & DOCUMENT MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-documents">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-passport" style="color: var(--primary-ocean);"></i> Ticket &amp; Document Management</h1>
+            <p>Upload flight tickets, upload hotel vouchers, generate tour vouchers, attach booking documents &amp; issue updated tickets</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('uploadDocModal')"><i class="fas fa-upload"></i> Upload Flight Tickets</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-file-contract"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="showToast('Upload Flight Tickets')"><i class="fas fa-plane-up"></i> Upload Flight Tickets</button>
+          <button class="deck-btn" onclick="showToast('Upload Hotel Vouchers')"><i class="fas fa-hotel"></i> Upload Hotel Vouchers</button>
+          <button class="deck-btn" onclick="showToast('Generate Tour Vouchers')"><i class="fas fa-ticket"></i> Generate Tour Vouchers</button>
+          <button class="deck-btn" onclick="showToast('Attach Booking Documents')"><i class="fas fa-paperclip"></i> Attach Booking Documents</button>
+          <button class="deck-btn" onclick="showToast('Manage Traveler Documents')"><i class="fas fa-id-card"></i> Manage Traveler Documents</button>
+          <button class="deck-btn" onclick="showToast('Issue Updated Tickets')"><i class="fas fa-rotate"></i> Issue Updated Tickets</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-folder-open"></i> Document Vault &amp; Vouchers</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Upload Flight Tickets</th>
+                  <th>Upload Hotel Vouchers</th>
+                  <th>Generate Tour Vouchers</th>
+                  <th>Attach Booking Documents</th>
+                  <th>Manage Traveler Documents</th>
+                  <th>Issue Updated Tickets</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Upload Flight Tickets: Emirates_First_DXB.pdf</strong></td>
+                  <td>Upload Hotel Vouchers: FourSeasons_Voucher.pdf</td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Generate Tour Vouchers')">Generate Tour Vouchers</button></td>
+                  <td>Attach Booking Documents: Schengen Visa Waiver attached</td>
+                  <td>Manage Traveler Documents: Passport #GB-89218 Verified</td>
+                  <td><button class="btn-action btn-primary" onclick="showToast('Issue Updated Tickets: New E-Ticket Issued')">Issue Updated Tickets</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 10: PAYMENT & INVOICE MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-payments">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-file-invoice-dollar" style="color: var(--accent-emerald);"></i> Payment &amp; Invoice Management</h1>
+            <p>View payment transactions, track advance payments, monitor outstanding balances, verify payment status &amp; generate invoices</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-secondary" onclick="exportData('Financial Records')"><i class="fas fa-download"></i> Download Financial Records</button>
+            <button class="btn-action btn-primary" onclick="openModal('newInvoiceModal')"><i class="fas fa-plus"></i> Generate Booking Invoices</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-coins"></i> Sub-Items:</span>
+          <button class="deck-btn active"><i class="fas fa-receipt"></i> View Payment Transactions</button>
+          <button class="deck-btn" onclick="showToast('Track Advance Payments: 84 Deposits')"><i class="fas fa-money-bill-transfer"></i> Track Advance Payments</button>
+          <button class="deck-btn" onclick="showToast('Monitor Outstanding Balances: $84,200')"><i class="fas fa-scale-unbalanced"></i> Monitor Outstanding Balances</button>
+          <button class="deck-btn" onclick="showToast('Verify Payment Status')"><i class="fas fa-shield-check"></i> Verify Payment Status</button>
+          <button class="deck-btn" onclick="showToast('Generate Booking Invoices')"><i class="fas fa-file-invoice"></i> Generate Booking Invoices</button>
+          <button class="deck-btn" onclick="showToast('Process Refund Requests')"><i class="fas fa-hand-holding-dollar"></i> Process Refund Requests</button>
+          <button class="deck-btn" onclick="showToast('Download Financial Records')"><i class="fas fa-file-arrow-down"></i> Download Financial Records</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-receipt"></i> View Payment Transactions &amp; Invoicing</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>View Payment Transactions</th>
+                  <th>Track Advance Payments</th>
+                  <th>Monitor Outstanding Balances</th>
+                  <th>Verify Payment Status</th>
+                  <th>Generate Booking Invoices</th>
+                  <th>Process Refund Requests</th>
+                  <th>Download Financial Records</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>View Payment Transactions: TXN-9901</strong></td>
+                  <td>Track Advance Payments: $125,000 Paid</td>
+                  <td>Monitor Outstanding Balances: $0.00</td>
+                  <td><span class="status-badge status-confirmed">Verify Payment Status: Verified</span></td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Generate Booking Invoices: INV-2026-081')">Generate Booking Invoices</button></td>
+                  <td><button class="btn-action btn-danger" onclick="showToast('Process Refund Requests: None')">Process Refund Requests</button></td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Download Financial Records: CSV')">Download Financial Records</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 11: SPECIAL OFFERS MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-offers">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-tags" style="color: var(--accent-gold);"></i> Special Offers Management</h1>
+            <p>Create discount campaigns, configure promo codes, set offer validity, manage seasonal promotions &amp; assign offers to packages</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addOfferModal')"><i class="fas fa-plus"></i> Create Discount Campaigns</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-bullhorn"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="openModal('addOfferModal')"><i class="fas fa-plus"></i> Create Discount Campaigns</button>
+          <button class="deck-btn" onclick="showToast('Configure Promo Codes')"><i class="fas fa-barcode"></i> Configure Promo Codes</button>
+          <button class="deck-btn" onclick="showToast('Set Offer Validity calendar')"><i class="fas fa-calendar-days"></i> Set Offer Validity</button>
+          <button class="deck-btn" onclick="showToast('Manage Seasonal Promotions')"><i class="fas fa-umbrella-beach"></i> Manage Seasonal Promotions</button>
+          <button class="deck-btn" onclick="showToast('Assign Offers to Packages')"><i class="fas fa-link"></i> Assign Offers to Packages</button>
+          <button class="deck-btn" onclick="showToast('Activate / Deactivate Offers')"><i class="fas fa-toggle-on"></i> Activate / Deactivate Offers</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-percent"></i> Campaign Matrix</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Create Discount Campaigns</th>
+                  <th>Configure Promo Codes</th>
+                  <th>Set Offer Validity</th>
+                  <th>Manage Seasonal Promotions</th>
+                  <th>Assign Offers to Packages</th>
+                  <th>Activate / Deactivate Offers</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Create Discount Campaigns: Early Bird 2027</strong></td>
+                  <td>Configure Promo Codes: <code>ALPINE2027</code></td>
+                  <td>Set Offer Validity: Dec 31, 2026</td>
+                  <td>Manage Seasonal Promotions: Winter Solstice</td>
+                  <td>Assign Offers to Packages: Swiss Alps Expedition</td>
+                  <td><button class="btn-action btn-primary" onclick="showToast('Activate / Deactivate Offers: Toggled')">Activate / Deactivate Offers</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 12: DESTINATION & GALLERY MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-destinations">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-images" style="color: var(--primary-ocean);"></i> Destination &amp; Gallery Management</h1>
+            <p>Add destination information, upload destination images, manage travel galleries, update highlights &amp; organize categories</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="openModal('addDestinationModal')"><i class="fas fa-plus"></i> Add Destination Information</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-photo-film"></i> Sub-Items:</span>
+          <button class="deck-btn" onclick="openModal('addDestinationModal')"><i class="fas fa-plus"></i> Add Destination Information</button>
+          <button class="deck-btn" onclick="showToast('Upload Destination Images')"><i class="fas fa-cloud-arrow-up"></i> Upload Destination Images</button>
+          <button class="deck-btn" onclick="showToast('Manage Travel Galleries')"><i class="fas fa-images"></i> Manage Travel Galleries</button>
+          <button class="deck-btn" onclick="showToast('Update Destination Highlights')"><i class="fas fa-sparkles"></i> Update Destination Highlights</button>
+          <button class="deck-btn" onclick="showToast('Organize Destination Categories')"><i class="fas fa-folder-tree"></i> Organize Destination Categories</button>
+        </div>
+
+        <div class="module-cards-grid">
+          <div class="item-admin-card">
+            <div class="item-card-body">
+              <div class="item-card-title">Add Destination Information: Zermatt &amp; Matterhorn</div>
+              <div class="item-card-meta">
+                <span class="meta-tag">Organize Destination Categories: Alpine Luxury</span>
+                <span class="meta-tag">Manage Travel Galleries: 48 Photos</span>
+              </div>
+              <p class="item-card-desc">Update Destination Highlights: Private heli-skiing, 5-star mountain chalets, and Michelin fondue dining.</p>
+              <div class="item-card-foot">
+                <button class="btn-action btn-secondary" onclick="showToast('Upload Destination Images')">Upload Destination Images</button>
+                <button class="btn-action btn-primary" onclick="showToast('Manage Travel Galleries')">Manage Travel Galleries</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 13: REVIEWS & ENQUIRIES MANAGEMENT -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-reviews">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-comments" style="color: var(--primary-ocean);"></i> Reviews &amp; Enquiries Management</h1>
+            <p>View traveler reviews, moderate submitted reviews, manage contact enquiries, respond to custom requests &amp; support tickets</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-secondary" onclick="showToast('Exporting enquiry log...')"><i class="fas fa-download"></i> Export Enquiries</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-star-half-stroke"></i> Sub-Items:</span>
+          <button class="deck-btn active"><i class="fas fa-comments"></i> View Traveler Reviews</button>
+          <button class="deck-btn" onclick="showToast('Moderate Submitted Reviews')"><i class="fas fa-check-to-slot"></i> Moderate Submitted Reviews</button>
+          <button class="deck-btn" onclick="showToast('Manage Contact Enquiries')"><i class="fas fa-envelope"></i> Manage Contact Enquiries</button>
+          <button class="deck-btn" onclick="showToast('Respond to Custom Tour Requests')"><i class="fas fa-reply"></i> Respond to Custom Tour Requests</button>
+          <button class="deck-btn" onclick="showToast('Track Customer Support Requests')"><i class="fas fa-headset"></i> Track Customer Support Requests</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head-bar">
+            <div class="table-head-title"><i class="fas fa-comment-dots"></i> Feedback &amp; Support Matrix</div>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>View Traveler Reviews</th>
+                  <th>Moderate Submitted Reviews</th>
+                  <th>Manage Contact Enquiries</th>
+                  <th>Respond to Custom Tour Requests</th>
+                  <th>Track Customer Support Requests</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sir Reginald Hastings: 5/5 Stars</strong></td>
+                  <td><button class="btn-action btn-secondary" onclick="showToast('Moderate Submitted Reviews: Approved')">Moderate Submitted Reviews</button></td>
+                  <td>Manage Contact Enquiries: General Query</td>
+                  <td><button class="btn-action btn-primary" onclick="showToast('Respond to Custom Tour Requests')">Respond to Custom Tour Requests</button></td>
+                  <td>Track Customer Support Requests: SLA Resolved (<2h)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 14: REPORTS & ANALYTICS -->
+      <!-- ========================================== -->
+      <section class="admin-view-panel" id="view-reports">
+        <div class="module-header">
+          <div class="module-title-group">
+            <h1><i class="fas fa-chart-line" style="color: var(--primary-ocean);"></i> Reports &amp; Analytics</h1>
+            <p>Booking performance reports, destination popularity, package sales, traveler registration &amp; payment reports</p>
+          </div>
+          <div class="module-actions-row">
+            <button class="btn-action btn-primary" onclick="showToast('Generating Master Annual Analytics PDF...')"><i class="fas fa-file-pdf"></i> Annual Report PDF</button>
+          </div>
+        </div>
+
+        <!-- Sub-Items Action Deck -->
+        <div class="subitems-deck-bar">
+          <span class="deck-label"><i class="fas fa-chart-pie"></i> Sub-Items:</span>
+          <button class="deck-btn active"><i class="fas fa-chart-line"></i> Booking Performance Reports</button>
+          <button class="deck-btn" onclick="showToast('Destination Popularity Reports loaded')"><i class="fas fa-map-pin"></i> Destination Popularity Reports</button>
+          <button class="deck-btn" onclick="showToast('Package Sales Reports loaded')"><i class="fas fa-box-archive"></i> Package Sales Reports</button>
+          <button class="deck-btn" onclick="showToast('Traveler Registration Reports loaded')"><i class="fas fa-user-plus"></i> Traveler Registration Reports</button>
+          <button class="deck-btn" onclick="showToast('Payment & Revenue Reports loaded')"><i class="fas fa-money-check-dollar"></i> Payment &amp; Revenue Reports</button>
+          <button class="deck-btn" onclick="showToast('Cancellation & Refund Reports loaded')"><i class="fas fa-ban"></i> Cancellation &amp; Refund Reports</button>
+          <button class="deck-btn" onclick="showToast('Offer Conversion Reports loaded')"><i class="fas fa-percent"></i> Offer Conversion Reports</button>
+        </div>
+
+        <div class="kpi-grid-8" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Booking Performance Reports</div>
+              <span class="kpi-trend trend-up">+14.2% MoM</span>
+            </div>
+            <div class="kpi-val">1,280 Bookings</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Booking Performance Reports</p>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Destination Popularity Reports</div>
+              <span class="kpi-trend trend-up">#1 Swiss Alps</span>
+            </div>
+            <div class="kpi-val">42% Preference</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Destination Popularity Reports</p>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Package Sales Reports</div>
+              <span class="kpi-trend trend-up">248 Sold</span>
+            </div>
+            <div class="kpi-val">$4.89M Volume</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Package Sales Reports</p>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Traveler Registration Reports</div>
+              <span class="kpi-trend trend-up">+340 New</span>
+            </div>
+            <div class="kpi-val">14,820 Total</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Traveler Registration Reports</p>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Payment &amp; Revenue Reports</div>
+              <span class="kpi-trend trend-up">+24.8% YoY</span>
+            </div>
+            <div class="kpi-val">$4,892,500</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Payment &amp; Revenue Reports</p>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Cancellation &amp; Refund Reports</div>
+              <span class="kpi-trend trend-rose">6 Cases</span>
+            </div>
+            <div class="kpi-val">$24,600 Claims</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Cancellation &amp; Refund Reports</p>
+          </div>
+
+          <div class="kpi-card" style="grid-column: span 2;">
+            <div class="kpi-top">
+              <div class="kpi-label">Offer Conversion Reports</div>
+              <span class="kpi-trend trend-up"><code>LUXURY2026</code></span>
+            </div>
+            <div class="kpi-val">18.4% ROI Conversion</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Offer Conversion Reports · $680,000 attributed</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Interactive Modal for New Record Creation -->
+  <div class="admin-modal-backdrop" id="adminModal">
+    <div class="admin-modal-box">
+      <div class="modal-head">
+        <h3 id="modalTitle">Create New Record</h3>
+        <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <div class="form-group">
+          <label class="form-label">Client or Package Title</label>
+          <input type="text" class="form-input" placeholder="e.g. Grand Swiss Alpine Odyssey">
+        </div>
+        <div class="form-group-duo">
+          <div class="form-group">
+            <label class="form-label">Destination</label>
+            <input type="text" class="form-input" placeholder="e.g. Zermatt, Switzerland">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rate / Total Value ($)</label>
+            <input type="number" class="form-input" placeholder="7800">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Special Inclusions &amp; Notes</label>
+          <textarea class="form-textarea" rows="3" placeholder="Enter custom luxury amenities..."></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-action btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn-action btn-primary" onclick="submitModalRecord()">Save Record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="admin-modal-backdrop" id="logoutModal">
+    <div class="admin-modal-box" style="max-width: 440px; text-align: center;">
+      <div class="modal-body" style="padding: 2.2rem 1.8rem; align-items: center;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); color: #f43f5e; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 0.5rem;">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+        </div>
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem;">End Executive Session?</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 1.5rem;">
+          You are about to sign out of the WanderLux Executive Command Deck. Any unsaved edits will remain cached in memory.
+        </p>
+        <div style="display: flex; gap: 0.75rem; width: 100%;">
+          <button class="btn-action btn-secondary" style="flex: 1; justify-content: center;" onclick="closeLogoutModal()">Stay Logged In</button>
+          <a href="login.html" class="btn-action btn-danger" style="flex: 1; justify-content: center;" id="confirmLogoutBtn" onclick="window.location.href='login.html'">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div class="admin-toast" id="adminToast" role="alert">
+    <i class="fas fa-circle-check" style="color: #38bdf8;"></i>
+    <span id="adminToastMsg">Telemetry updated successfully</span>
+  </div>
+
+  <!-- Interactive Administration Controller Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Dynamic Tab / Module Switching (All 14 Modules)
+      const navLinks = document.querySelectorAll('.nav-item-link[data-view]');
+      const viewPanels = document.querySelectorAll('.admin-view-panel');
+      const breadcrumb = document.getElementById('activeBreadcrumb');
+      const sidebar = document.getElementById('adminSidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const hamburger = document.getElementById('adminHamburgerBtn');
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetView = link.getAttribute('data-view');
+          
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          viewPanels.forEach(panel => {
+            panel.classList.remove('active');
+            if (panel.id === targetView) {
+              panel.classList.add('active');
+              const title = link.querySelector('span span') ? link.querySelector('span span').textContent : 'Dashboard';
+              if (breadcrumb) breadcrumb.textContent = title;
+            }
+          });
+
+          // Close mobile drawer on selection in mobile/tablet view
+          if (window.innerWidth <= 1024) {
+            closeMobileDrawer();
+          }
+
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // 2. Mobile Drawer Controls
+      function openMobileDrawer() {
+        if (sidebar) sidebar.classList.add('open');
+        if (overlay) overlay.classList.add('active');
+        if (hamburger) hamburger.classList.add('open');
+      }
+
+      function closeMobileDrawer() {
+        if (sidebar) sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('open');
+      }
+
+      if (hamburger) {
+        hamburger.addEventListener('click', () => {
+          if (sidebar && sidebar.classList.contains('open')) {
+            closeMobileDrawer();
+          } else {
+            openMobileDrawer();
+          }
+        });
+      }
+
+      const drawerCloseBtn = document.getElementById('sidebarDrawerClose');
+      if (drawerCloseBtn) {
+        drawerCloseBtn.addEventListener('click', closeMobileDrawer);
+      }
+
+      if (overlay) {
+        overlay.addEventListener('click', closeMobileDrawer);
+      }
+
+      // 3. Dark Mode Toggle with persistence
+      const darkButtons = [document.getElementById('darkModeToggle'), document.getElementById('mobileDarkToggle')];
+      const savedTheme = localStorage.getItem('wanderlux_theme');
+
+      function updateDarkIcons(isDark) {
+        darkButtons.forEach(btn => {
+          if (btn) {
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            const textSpan = btn.querySelector('.ctrl-pill-text');
+            if (textSpan) textSpan.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+          }
+        });
+      }
+
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        updateDarkIcons(true);
+      }
+
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('wanderlux_theme', isDark ? 'dark' : 'light');
+        updateDarkIcons(isDark);
+        showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled');
+      }
+
+      darkButtons.forEach(btn => {
+        if (btn) btn.addEventListener('click', toggleDarkMode);
+      });
+
+      // 4. RTL Toggle with persistence
+      const rtlButtons = [document.getElementById('rtlToggle'), document.getElementById('mobileRtlToggle')];
+      const savedRTL = localStorage.getItem('wanderlux_rtl');
+
+      function updateRTLIcons(isRtl) {
+        rtlButtons.forEach(btn => {
+          if (btn) {
+            const textSpan = btn.querySelector('.ctrl-pill-text');
+            if (textSpan) textSpan.textContent = isRtl ? 'LTR Layout' : 'RTL Layout';
+          }
+        });
+      }
+
+      if (savedRTL === 'true') {
+        document.body.classList.add('rtl-mode');
+        document.documentElement.dir = 'rtl';
+        updateRTLIcons(true);
+      }
+
+      function toggleRTL() {
+        document.body.classList.toggle('rtl-mode');
+        const isRtl = document.body.classList.contains('rtl-mode');
+        document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+        localStorage.setItem('wanderlux_rtl', isRtl ? 'true' : 'false');
+        updateRTLIcons(isRtl);
+        showToast(isRtl ? 'RTL layout activated' : 'LTR layout activated');
+      }
+
+      rtlButtons.forEach(btn => {
+        if (btn) btn.addEventListener('click', toggleRTL);
+      });
+
+      // 5. Logout Session Handler
+      const logoutBtn = document.getElementById('sidebarLogoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = 'login.html';
+        });
+      }
+      const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+      if (confirmLogoutBtn) {
+        confirmLogoutBtn.addEventListener('click', (e) => {
+          window.location.href = 'login.html';
+        });
+      }
+
+      window.closeLogoutModal = () => {
+        if (logoutModal) logoutModal.classList.remove('open');
+      };
+
+      // 6. Global Toast Notifications
+      const toast = document.getElementById('adminToast');
+      const toastMsg = document.getElementById('adminToastMsg');
+      let toastTimer = null;
+
+      window.showToast = (msg, iconClass = 'fa-circle-check') => {
+        if (!toast || !toastMsg) return;
+        toastMsg.textContent = msg;
+        const icon = toast.querySelector('i');
+        if (icon) icon.className = `fas ${iconClass}`;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+
+      // 7. Modal Handlers
+      const modal = document.getElementById('adminModal');
+      const modalTitle = document.getElementById('modalTitle');
+
+      window.openModal = (type) => {
+        if (modal) {
+          if (modalTitle) {
+            modalTitle.textContent = type === 'addDomesticModal' 
+              ? 'Add Domestic Package' 
+              : type === 'addIntlModal' 
+              ? 'Add International Package' 
+              : type === 'addHoneymoonModal'
+              ? 'Create Honeymoon Packages'
+              : type === 'addFamilyModal'
+              ? 'Create Family Packages'
+              : type === 'addActivityModal'
+              ? 'Add Adventure Activities'
+              : type === 'createItineraryModal'
+              ? 'Create Day-Wise Itineraries'
+              : type === 'addOfferModal'
+              ? 'Create Discount Campaigns'
+              : type === 'addDestinationModal'
+              ? 'Add Destination Information'
+              : 'Create New Reservation / Record';
+          }
+          modal.classList.add('open');
+        }
+      };
+
+      window.closeModal = () => {
+        if (modal) modal.classList.remove('open');
+      };
+
+      window.submitModalRecord = () => {
+        closeModal();
+        showToast('Record saved & published to WanderLux database!', 'fa-cloud-arrow-up');
+      };
+
+      // 8. Quick Actions Simulation
+      window.confirmBooking = (ref) => {
+        showToast(`Booking ${ref} confirmed & notification sent to traveler!`, 'fa-circle-check');
+      };
+      window.viewBooking = (ref) => {
+        showToast(`Opened management drawer for ${ref}`, 'fa-folder-open');
+      };
+      window.processCancellation = (ref) => {
+        showToast(`Cancellation review opened for ${ref}`, 'fa-triangle-exclamation');
+      };
+      window.toggleAccountStatus = (btn, name) => {
+        const isDeact = btn.textContent.includes('Deactivate');
+        btn.textContent = isDeact ? 'Activate Account' : 'Deactivate Account';
+        btn.className = isDeact ? 'btn-action btn-primary' : 'btn-action btn-secondary';
+        showToast(`${name} account is now ${isDeact ? 'Deactivated' : 'Active'}`, 'fa-user-gear');
+      };
+      window.viewTravelerProfile = (name) => {
+        showToast(`Viewing Traveler Profile Details for ${name}`, 'fa-id-card');
+      };
+      window.exportData = (name) => {
+        showToast(`Exported ${name} to CSV successfully`, 'fa-file-excel');
+      };
+      window.togglePublish = (btn) => {
+        const isPub = btn.textContent.trim() === 'Published';
+        btn.textContent = isPub ? 'Unpublished' : 'Published';
+        btn.className = isPub ? 'btn-action btn-secondary' : 'btn-action btn-primary';
+        showToast(`Package is now ${btn.textContent.toLowerCase()}`, 'fa-bullhorn');
+      };
+      window.editPackage = (pkg) => {
+        openModal('addDomesticModal');
+      };
+
+      // 9. UNIQUE CREATIVE BACKGROUND ANIMATION: GLOBAL FLIGHT RADAR & CONSTELLATION
+      (function initAdminBackgroundAnimation() {
+        const canvas = document.getElementById('adminBgCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let width = 0;
+        let height = 0;
+        let dpr = window.devicePixelRatio || 1;
+        let mouse = { x: -9999, y: -9999, active: false };
+        let lastTime = 0;
+        let animFrameId = null;
+
+        function resize() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          dpr = window.devicePixelRatio || 1;
+          canvas.width = Math.floor(width * dpr);
+          canvas.height = Math.floor(height * dpr);
+          canvas.style.width = width + 'px';
+          canvas.style.height = height + 'px';
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.scale(dpr, dpr);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        window.addEventListener('mousemove', (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+          mouse.active = true;
+        });
+        window.addEventListener('mouseleave', () => {
+          mouse.active = false;
+        });
+
+        // 12 Global Luxury Flight Hubs with organic coordinates
+        const HUB_DEFS = [
+          { code: 'JFK', name: 'New York', nx: 0.22, ny: 0.32, color: '#38bdf8' },
+          { code: 'LHR', name: 'London', nx: 0.44, ny: 0.25, color: '#0ea5e9' },
+          { code: 'CDG', name: 'Paris', nx: 0.47, ny: 0.29, color: '#f59e0b' },
+          { code: 'ZRH', name: 'Zurich Alps', nx: 0.49, ny: 0.33, color: '#38bdf8' },
+          { code: 'DXB', name: 'Dubai', nx: 0.58, ny: 0.40, color: '#f59e0b' },
+          { code: 'MLE', name: 'Maldives', nx: 0.63, ny: 0.55, color: '#06b6d4' },
+          { code: 'SIN', name: 'Singapore', nx: 0.72, ny: 0.58, color: '#10b981' },
+          { code: 'HND', name: 'Tokyo', nx: 0.83, ny: 0.33, color: '#f43f5e' },
+          { code: 'SYD', name: 'Sydney', nx: 0.87, ny: 0.76, color: '#8b5cf6' },
+          { code: 'CPT', name: 'Cape Town', nx: 0.51, ny: 0.74, color: '#f59e0b' },
+          { code: 'GIG', name: 'Rio de Janeiro', nx: 0.32, ny: 0.70, color: '#10b981' },
+          { code: 'HNL', name: 'Honolulu', nx: 0.10, ny: 0.48, color: '#f59e0b' }
+        ];
+
+        // Great-circle flight routes connecting major luxury hubs
+        const ROUTE_PAIRS = [
+          [0, 1],  // JFK - LHR
+          [1, 2],  // LHR - CDG
+          [2, 3],  // CDG - ZRH
+          [2, 4],  // CDG - DXB
+          [4, 5],  // DXB - MLE
+          [4, 6],  // DXB - SIN
+          [6, 7],  // SIN - HND
+          [6, 8],  // SIN - SYD
+          [0, 11], // JFK - HNL
+          [11, 7], // HNL - HND
+          [0, 10], // JFK - GIG
+          [4, 9],  // DXB - CPT
+          [5, 6],  // MLE - SIN
+          [1, 4]   // LHR - DXB
+        ];
+
+        // Ambient Stardust Micro-particles
+        const particles = [];
+        const PARTICLE_COUNT = 45;
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.28,
+            vy: (Math.random() - 0.5) * 0.28,
+            size: Math.random() * 2 + 0.8,
+            alpha: Math.random() * 0.6 + 0.2,
+            shimmerSpeed: Math.random() * 0.02 + 0.01,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+
+        // Supersonic Luxury Jet Blips on Arcs
+        const FLIGHT_COUNT = 10;
+        const flights = [];
+        for (let i = 0; i < FLIGHT_COUNT; i++) {
+          flights.push({
+            routeIdx: i % ROUTE_PAIRS.length,
+            t: Math.random(),
+            speed: 0.0007 + Math.random() * 0.0008,
+            trail: [],
+            color: (i % 2 === 0) ? '#f59e0b' : '#38bdf8'
+          });
+        }
+
+        // Expanding Radar Rings
+        let pulses = [];
+        let pulseTimer = 0;
+
+        function getHubPos(h) {
+          return {
+            x: h.nx * width,
+            y: h.ny * height
+          };
+        }
+
+        function getControlPoint(p1, p2) {
+          const mx = (p1.x + p2.x) / 2;
+          const my = (p1.y + p2.y) / 2;
+          const dx = p2.x - p1.x;
+          const dy = p2.y - p1.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const nx = -dy / dist;
+          const ny = dx / dist;
+          const curvature = Math.min(dist * 0.22, 65);
+          return {
+            x: mx + nx * curvature,
+            y: my + ny * curvature
+          };
+        }
+
+        function getQuadraticBezierPoint(p0, p1, p2, t) {
+          const u = 1 - t;
+          const tt = t * t;
+          const uu = u * u;
+          return {
+            x: uu * p0.x + 2 * u * t * p1.x + tt * p2.x,
+            y: uu * p0.y + 2 * u * t * p1.y + tt * p2.y
+          };
+        }
+
+        function draw(timestamp) {
+          if (!lastTime) lastTime = timestamp;
+          const dt = timestamp - lastTime;
+          lastTime = timestamp;
+
+          ctx.clearRect(0, 0, width, height);
+
+          const isDark = document.body.classList.contains('dark-mode');
+          const routeColor = isDark ? 'rgba(56, 189, 248, 0.15)' : 'rgba(2, 132, 199, 0.14)';
+
+          // 1. Draw Curved Great-Circle Flight Routes
+          ROUTE_PAIRS.forEach(([fromIdx, toIdx]) => {
+            const p1 = getHubPos(HUB_DEFS[fromIdx]);
+            const p2 = getHubPos(HUB_DEFS[toIdx]);
+            const cp = getControlPoint(p1, p2);
+
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.quadraticCurveTo(cp.x, cp.y, p2.x, p2.y);
+            ctx.strokeStyle = routeColor;
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+
+            // Animated dash pulses along flight routes
+            ctx.save();
+            ctx.setLineDash([4, 14]);
+            ctx.lineDashOffset = -(timestamp * 0.016);
+            ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(14, 165, 233, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+          });
+
+          // 2. Pulse generation from airport hubs
+          pulseTimer += dt;
+          if (pulseTimer > 1100) {
+            pulseTimer = 0;
+            const randomHub = HUB_DEFS[Math.floor(Math.random() * HUB_DEFS.length)];
+            const pos = getHubPos(randomHub);
+            pulses.push({
+              x: pos.x,
+              y: pos.y,
+              r: 6,
+              maxR: 38,
+              alpha: 0.6,
+              color: randomHub.color
+            });
+          }
+
+          // Update & draw radar waves
+          pulses = pulses.filter(p => {
+            p.r += 0.38;
+            p.alpha = Math.max(0, 0.6 * (1 - p.r / p.maxR));
+            if (p.r >= p.maxR) return false;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.strokeStyle = p.color;
+            ctx.globalAlpha = p.alpha;
+            ctx.lineWidth = 1.3;
+            ctx.stroke();
+            ctx.globalAlpha = 1.0;
+            return true;
+          });
+
+          // 3. Move & Draw Supersonic Jets with glowing trails
+          flights.forEach(f => {
+            f.t += f.speed;
+            if (f.t > 1) {
+              f.t = 0;
+              f.routeIdx = Math.floor(Math.random() * ROUTE_PAIRS.length);
+            }
+            const [fromIdx, toIdx] = ROUTE_PAIRS[f.routeIdx];
+            const p1 = getHubPos(HUB_DEFS[fromIdx]);
+            const p2 = getHubPos(HUB_DEFS[toIdx]);
+            const cp = getControlPoint(p1, p2);
+            const pos = getQuadraticBezierPoint(p1, cp, p2, f.t);
+
+            f.trail.unshift({ x: pos.x, y: pos.y });
+            if (f.trail.length > 14) f.trail.pop();
+
+            // Ion Jet Trail
+            for (let i = 0; i < f.trail.length; i++) {
+              const tr = f.trail[i];
+              const fade = (1 - i / f.trail.length) * 0.45;
+              ctx.beginPath();
+              ctx.arc(tr.x, tr.y, 2.2 * (1 - i / f.trail.length) + 0.4, 0, Math.PI * 2);
+              ctx.fillStyle = f.color;
+              ctx.globalAlpha = fade;
+              ctx.fill();
+              ctx.globalAlpha = 1.0;
+            }
+
+            // Aircraft Blip
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 3.2, 0, Math.PI * 2);
+            ctx.fillStyle = isDark ? '#ffffff' : f.color;
+            ctx.shadowColor = f.color;
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          });
+
+          // 4. Draw Hub Waypoints & Mouse Constellation Connections
+          HUB_DEFS.forEach(h => {
+            const pos = getHubPos(h);
+            const distToMouse = mouse.active ? Math.hypot(pos.x - mouse.x, pos.y - mouse.y) : 9999;
+            const isHovered = distToMouse < 110;
+
+            // Constellation filament from cursor to nearby hub
+            if (isHovered && mouse.active) {
+              ctx.beginPath();
+              ctx.moveTo(pos.x, pos.y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.strokeStyle = h.color;
+              ctx.globalAlpha = (1 - distToMouse / 110) * 0.45;
+              ctx.lineWidth = 1.1;
+              ctx.stroke();
+              ctx.globalAlpha = 1.0;
+            }
+
+            // Hub center core
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, isHovered ? 6 : 4, 0, Math.PI * 2);
+            ctx.fillStyle = h.color;
+            ctx.shadowColor = h.color;
+            ctx.shadowBlur = isHovered ? 14 : 6;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Outer target ring
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, isHovered ? 13 : 9, 0, Math.PI * 2);
+            ctx.strokeStyle = h.color;
+            ctx.globalAlpha = isHovered ? 0.7 : 0.28;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.globalAlpha = 1.0;
+
+            // Airport IATA Monospace Code Label
+            ctx.font = '700 9px monospace';
+            ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)';
+            ctx.fillText(h.code, pos.x + 8, pos.y + 3);
+          });
+
+          // 5. Draw Drifting Stardust Particles
+          particles.forEach(pt => {
+            pt.x += pt.vx;
+            pt.y += pt.vy;
+            if (pt.x < 0) pt.x = width;
+            if (pt.x > width) pt.x = 0;
+            if (pt.y < 0) pt.y = height;
+            if (pt.y > height) pt.y = 0;
+
+            pt.phase += pt.shimmerSpeed;
+            const shimmer = (Math.sin(pt.phase) + 1) / 2;
+            const alpha = pt.alpha * (0.5 + 0.5 * shimmer);
+
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2);
+            ctx.fillStyle = isDark ? '#ffffff' : '#0284c7';
+            ctx.globalAlpha = isDark ? alpha * 0.4 : alpha * 0.25;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+          });
+
+          animFrameId = requestAnimationFrame(draw);
+        }
+
+        animFrameId = requestAnimationFrame(draw);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            cancelAnimationFrame(animFrameId);
+          } else {
+            lastTime = 0;
+            animFrameId = requestAnimationFrame(draw);
+          }
+        });
+      })();
+    });
+  </script>
+</body>
+</html>

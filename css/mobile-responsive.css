@@ -1,0 +1,576 @@
+/* ==========================================================================
+   WANDERLUX LUXURY TRAVEL - UNIVERSAL MOBILE RESPONSIVE ENGINE
+   Mobile Breakpoints: 320px · 480px · 768px · 1024px
+   Ensures zero overflow, responsive flexbox/grid, fluid typography,
+   adaptive cards, touch-optimized controls, and flawless RTL & Dark Mode.
+   ========================================================================== */
+
+/* ---------- 1. GLOBAL RESET & OVERFLOW PREVENTION ---------- */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+html {
+  max-width: 100% !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: 100% !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  width: 100% !important;
+  position: relative;
+}
+
+/* ==========================================================================
+   UNIVERSAL STICKY NAVBAR ENGINE
+   Guarantees the navbar remains sticky & visible at the top during scrolling
+   across all screen widths (Desktop, Laptop, Tablet, Mobile).
+   ========================================================================== */
+.navbar {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 1rem !important;
+  z-index: 1000 !important;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, top 0.3s ease !important;
+}
+
+.admin-navbar,
+.user-navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* Enhanced luxury frosted-glass elevation when scrolled */
+.navbar.scrolled,
+.navbar.is-sticky {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-color: rgba(2, 132, 199, 0.3) !important;
+  box-shadow: 0 16px 38px -10px rgba(2, 132, 199, 0.28), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.dark-mode .navbar.scrolled,
+body.dark-mode .navbar.is-sticky {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.22) !important;
+}
+
+/* Fluid Media Resizing */
+img, svg, video, canvas {
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* Text Word Wrap & Break Protection */
+h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Prevent Decorative Background Overflows */
+.travel-background-aurora,
+.admin-ambient-aurora,
+.user-ambient-aurora,
+.ambient-aurora-nebula,
+.flight-trail-decor,
+.bg-celestial-canvas,
+.flight-route-map,
+.astrolabe-system,
+.shooting-star,
+.sky-stars {
+  max-width: 100vw !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Container safety */
+.app,
+.container,
+.main-wrapper,
+.login-viewport-wrapper,
+.lost-viewport-wrapper,
+.admin-app-layout,
+.user-app-layout {
+  width: 100% !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   BREAKPOINT 1: <= 1024px (Tablets Landscape & Small Laptops)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .app {
+    max-width: 100% !important;
+    padding: 0.85rem 1.25rem !important;
+  }
+
+  .navbar {
+    top: 0.85rem !important;
+  }
+
+  /* Multi-column Grids collapse to 2 columns */
+  .trending-grid,
+  .hill-stations-grid,
+  .asian-destinations-grid,
+  .packages-grid,
+  .offers-grid,
+  .category-grid,
+  .features-grid,
+  .stats-grid,
+  .destinations-grid,
+  .kpi-grid-8,
+  .kpi-grid-6,
+  .module-cards-grid,
+  .user-cards-grid,
+  .philosophy-grid,
+  .honeymoon-hero-grid,
+  .deal-ticket-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Dashboard Portals Sidebar Drawer */
+  .admin-sidebar,
+  .user-sidebar {
+    width: min(340px, 90vw) !important;
+    max-width: 90vw !important;
+    box-shadow: -15px 0 50px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  .admin-main-viewport,
+  .user-main-viewport {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 1.5rem 1.25rem !important;
+    margin-top: 66px !important;
+  }
+
+  /* Footer 2 columns */
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 2: <= 768px (Tablets Portrait & Phablets)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .app {
+    padding: 0.65rem 1rem !important;
+  }
+
+  /* Sticky Navbar on Mobile */
+  .navbar {
+    position: sticky !important;
+    top: 0.5rem !important;
+    padding: 0.4rem 0.85rem !important;
+    border-radius: 2rem !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .nav-center {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+
+  /* Mobile Slide-down Menu */
+  .mobile-menu {
+    position: fixed !important;
+    top: 4.8rem !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    max-width: calc(100vw - 2rem) !important;
+    max-height: calc(85vh - 5rem) !important;
+    z-index: 1001 !important;
+  }
+
+  /* Fluid Responsive Typography */
+  h1, .hero-title, .dossier-hero-title, .inter-hero-title, .about-hero-title {
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem) !important;
+    line-height: 1.18 !important;
+  }
+  h2, .section-heading, .title-block h2 {
+    font-size: clamp(1.45rem, 5vw, 2rem) !important;
+    line-height: 1.25 !important;
+  }
+  h3, .card-title, .item-card-title, .module-title-group h1 {
+    font-size: 1.2rem !important;
+    line-height: 1.3 !important;
+  }
+  .hero-description, .about-hero-desc, .inter-hero-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* All Grids Collapse to 1 Column */
+  .trending-grid,
+  .hill-stations-grid,
+  .asian-destinations-grid,
+  .packages-grid,
+  .offers-grid,
+  .category-grid,
+  .features-grid,
+  .stats-grid,
+  .destinations-grid,
+  .module-cards-grid,
+  .user-cards-grid,
+  .philosophy-grid,
+  .honeymoon-hero-grid,
+  .deal-ticket-grid,
+  .footer-grid,
+  .testimonial-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Horizontal Cards Stack Vertically */
+  .pkg-horizontal-card,
+  .asian-card-wide,
+  .deal-ticket-card,
+  .hero-card,
+  .partner-card-horizontal {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .pkg-horizontal-card img,
+  .asian-card-wide img,
+  .deal-ticket-card img,
+  .card-media img,
+  .subcard-img-wrap img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 220px !important;
+    object-fit: cover !important;
+  }
+
+  /* Search & Filter Forms Stack Vertically */
+  .search-form,
+  .hero-search-box,
+  .filter-search-container,
+  .dossier-search-bar {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+    align-items: stretch !important;
+  }
+  .search-form input,
+  .search-form select,
+  .search-form button,
+  .hero-search-box input,
+  .hero-search-box select,
+  .hero-search-box button {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Card Footers Wrap Cleanly */
+  .exp-card-footer,
+  .guide-card-footer,
+  .offer-card-footer,
+  .asian-footer-row,
+  .card-footer-row {
+    flex-wrap: wrap !important;
+    gap: 0.65rem !important;
+    justify-content: space-between !important;
+  }
+
+  /* Responsive Data Tables */
+  .table-responsive {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    display: block !important;
+  }
+  .table-head-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  .table-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Dashboard Viewport Header & Actions */
+  .admin-main-viewport,
+  .user-main-viewport {
+    padding: 1.25rem 0.85rem !important;
+  }
+  .module-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.85rem !important;
+  }
+  .module-actions-row {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Auth Pages (Login & Registration) */
+  body.auth-page,
+  .auth-body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+  .login-viewport-wrapper {
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 5rem 1rem 2rem 1rem !important;
+  }
+  .login-stage {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .login-card {
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+    padding: 2rem 1.5rem !important;
+  }
+  .input-row-duo {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* 404 Page */
+  .lost-viewport-wrapper {
+    padding: 1.5rem 1rem !important;
+  }
+  .lost-card {
+    padding: 1.75rem 1.25rem !important;
+    max-width: 100% !important;
+  }
+  .action-row {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .btn-action-primary,
+  .btn-action-secondary,
+  .btn-action-tertiary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 3: <= 480px (Standard Smartphones)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .app {
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .navbar {
+    top: 0.4rem !important;
+    padding: 0.35rem 0.65rem !important;
+  }
+  .logo-text {
+    font-size: 1.05rem !important;
+  }
+  .logo-subtitle {
+    display: none !important;
+  }
+  .logo-badge {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .logo-svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .mobile-menu {
+    top: 4.2rem !important;
+    left: 0.65rem !important;
+    right: 0.65rem !important;
+    padding: 1rem 0.85rem !important;
+    max-width: calc(100vw - 1.3rem) !important;
+  }
+
+  /* Single Column KPIs */
+  .kpi-grid-8,
+  .kpi-grid-6,
+  .kpi-grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .kpi-card {
+    padding: 1rem 0.85rem !important;
+  }
+
+  /* Buttons Expand to Full Width for Ease of Tapping */
+  .btn-action,
+  .btn-book,
+  .btn-submit-login,
+  .btn-create-account {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Social Auth Grid stack */
+  .social-auth-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.55rem !important;
+  }
+
+  /* Modals */
+  .user-modal-box,
+  .admin-modal-box {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    padding: 1.25rem 0.95rem !important;
+    border-radius: 16px !important;
+  }
+  .form-group-duo {
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+  }
+
+  /* Filter pills wrap */
+  .filter-pills,
+  .quick-filters,
+  .tag-cloud {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.4rem !important;
+  }
+  .filter-pill,
+  .q-pill {
+    font-size: 0.76rem !important;
+    padding: 0.35rem 0.75rem !important;
+  }
+
+  /* Spacing */
+  section,
+  .section-block {
+    margin-bottom: 2rem !important;
+    padding: 1.5rem 0 !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINT 4: <= 320px (Ultra-Small Screens e.g. iPhone SE 1st, Folders)
+   ========================================================================== */
+@media (max-width: 320px) {
+  .app {
+    padding: 0.35rem 0.45rem !important;
+  }
+
+  .navbar {
+    top: 0.25rem !important;
+    padding: 0.3rem 0.5rem !important;
+    border-radius: 1.5rem !important;
+  }
+  .logo {
+    gap: 6px !important;
+  }
+  .logo-badge,
+  .logo-svg {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 10px !important;
+  }
+  .logo-text {
+    font-size: 0.92rem !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .mobile-menu {
+    top: 3.8rem !important;
+    left: 0.35rem !important;
+    right: 0.35rem !important;
+    padding: 0.85rem 0.65rem !important;
+    max-width: calc(100vw - 0.7rem) !important;
+  }
+  .mobile-menu .nav-link {
+    font-size: 0.88rem !important;
+    padding: 0.6rem 0.65rem !important;
+  }
+
+  /* Dashboard Drawers */
+  .admin-sidebar,
+  .user-sidebar {
+    width: 280px !important;
+    max-width: 88vw !important;
+    padding: 1rem 0.65rem !important;
+  }
+
+  .admin-main-viewport,
+  .user-main-viewport {
+    padding: 0.75rem 0.45rem !important;
+  }
+
+  /* Hero & Headings */
+  h1, .hero-title, .about-hero-title {
+    font-size: 1.45rem !important;
+  }
+  h2, .section-heading {
+    font-size: 1.25rem !important;
+  }
+  .code-digit {
+    font-size: 3.2rem !important;
+  }
+
+  /* Card Padding */
+  .card,
+  .item-admin-card,
+  .item-user-card,
+  .login-card,
+  .lost-card {
+    padding: 1rem 0.75rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* All buttons & inputs strictly fit */
+  button, input, select, textarea {
+    font-size: 0.82rem !important;
+  }
+}
+
+/* ==========================================================================
+   RTL LAYOUT ALIGNMENTS ACROSS MOBILE
+   ========================================================================== */
+body.rtl-mode .navbar {
+  flex-direction: row-reverse !important;
+}
+body.rtl-mode .mobile-menu .nav-link {
+  text-align: right !important;
+  border-left: none !important;
+  border-right: 4px solid transparent;
+}
+body.rtl-mode .mobile-menu .nav-link.active {
+  border-right-color: var(--primary-ocean) !important;
+  padding-right: calc(1rem - 4px) !important;
+}
+body.rtl-mode .nav-item-link {
+  flex-direction: row-reverse !important;
+  text-align: right !important;
+}
+body.rtl-mode .admin-sidebar,
+body.rtl-mode .user-sidebar {
+  left: 0 !important;
+  right: auto !important;
+}

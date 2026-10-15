@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register · WanderLux Luxury Travel &amp; Holidays</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="images/favicon.svg">
+  <!-- Universal Mobile Responsive Engine (320px, 480px, 768px, 1024px) -->
+  <link rel="stylesheet" href="css/mobile-responsive.css">
+
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Framer Motion via ESM CDN -->
+  <script type="module">
+    import { motion, animate, stagger, spring } from 'https://cdn.skypack.dev/framer-motion@11.0.2';
+    window.motion = motion;
+    window.framerAnimate = animate;
+    window.framerStagger = stagger;
+    window.framerSpring = spring;
+  </script>
+  <style>
+    /* ---------- COLOR PALETTE & SYSTEM VARIABLES ---------- */
+    :root {
+      --primary-ocean: #0284c7;
+      --primary-azure: #0ea5e9;
+      --primary-cyan: #06b6d4;
+      --accent-gold: #f59e0b;
+      --accent-sunset: #f97316;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --page-bg: #f0f7fd;
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(14, 165, 233, 0.22);
+      --card-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.2), 0 4px 20px rgba(15, 23, 42, 0.05);
+      --input-bg: rgba(248, 250, 252, 0.95);
+      --input-border: rgba(203, 213, 225, 0.85);
+      --input-focus: #0ea5e9;
+      --input-text: #0f172a;
+      --social-bg: #ffffff;
+      --social-border: rgba(203, 213, 225, 0.7);
+      --social-text: #334155;
+      --divider-line: rgba(203, 213, 225, 0.7);
+      --control-btn-bg: rgba(255, 255, 255, 0.75);
+      --control-btn-border: rgba(14, 165, 233, 0.22);
+      --astrolabe-opacity: 0.5;
+    }
+
+    body.dark-mode {
+      --text-main: #f0f9ff;
+      --text-muted: #94a3b8;
+      --page-bg: #06111f;
+      --card-bg: rgba(13, 27, 46, 0.85);
+      --card-border: rgba(56, 189, 248, 0.28);
+      --card-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 32px rgba(14, 165, 233, 0.16);
+      --input-bg: rgba(15, 23, 42, 0.75);
+      --input-border: rgba(56, 189, 248, 0.22);
+      --input-focus: #38bdf8;
+      --input-text: #f8fafc;
+      --social-bg: rgba(255, 255, 255, 0.05);
+      --social-border: rgba(255, 255, 255, 0.12);
+      --social-text: #e2e8f0;
+      --divider-line: rgba(255, 255, 255, 0.12);
+      --control-btn-bg: rgba(15, 23, 42, 0.75);
+      --control-btn-border: rgba(56, 189, 248, 0.25);
+      --astrolabe-opacity: 0.38;
+    }
+
+    /* ---------- ZERO SCROLLBAR RESET ---------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden !important;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--page-bg);
+      color: var(--text-main);
+      transition: background-color 0.4s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Full-screen wrapper layout */
+    .login-viewport-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    /* ---------- UNIQUE ANIMATED BACKGROUND LAYERS ---------- */
+    .ambient-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* 1. Interactive Flight Sky Canvas (Star routes & moving aircraft) */
+    #flightSkyCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 2. Undulating Aurora Ribbons */
+    .aurora-ribbon {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(75px);
+      pointer-events: none;
+      opacity: 0.75;
+      mix-blend-mode: normal;
+      transition: opacity 0.5s ease;
+    }
+    .aurora-1 {
+      top: -20%;
+      left: 10%;
+      width: 750px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.28) 0%, rgba(6, 182, 212, 0.12) 50%, transparent 75%);
+      animation: auroraWave1 18s ease-in-out infinite alternate;
+    }
+    .aurora-2 {
+      bottom: -20%;
+      right: 5%;
+      width: 800px;
+      height: 520px;
+      background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.16) 0%, rgba(249, 115, 22, 0.08) 50%, transparent 70%);
+      animation: auroraWave2 22s ease-in-out infinite alternate;
+    }
+    .aurora-3 {
+      top: 40%;
+      left: 60%;
+      width: 550px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.18) 0%, rgba(56, 189, 248, 0.08) 60%, transparent 75%);
+      animation: auroraWave3 15s ease-in-out infinite alternate;
+    }
+    body.dark-mode .aurora-1 {
+      background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.35) 0%, rgba(2, 132, 199, 0.18) 55%, transparent 75%);
+      opacity: 0.95;
+    }
+    body.dark-mode .aurora-2 {
+      background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.14) 0%, rgba(14, 165, 233, 0.1) 50%, transparent 70%);
+    }
+
+    @keyframes auroraWave1 {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(80px, 45px) scale(1.12) rotate(8deg); }
+      100% { transform: translate(-40px, 70px) scale(0.95) rotate(-6deg); }
+    }
+    @keyframes auroraWave2 {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(-60px, -50px) scale(1.15) rotate(-10deg); }
+      100% { transform: translate(40px, -30px) scale(1.05) rotate(5deg); }
+    }
+    @keyframes auroraWave3 {
+      0% { transform: translate(0, 0) scale(0.9); }
+      100% { transform: translate(-70px, -40px) scale(1.2); }
+    }
+
+    /* 3. Background Meridian & Coordinate Grid */
+    .bg-meridian-lines {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+        linear-gradient(to right, rgba(14, 165, 233, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 165, 233, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px, 80px 80px, 80px 80px;
+      mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+      pointer-events: none;
+    }
+
+    /* 4. Celestial Astrolabe Rotating Rings */
+    .astrolabe-system {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 760px;
+      height: 760px;
+      pointer-events: none;
+      opacity: var(--astrolabe-opacity);
+      transition: opacity 0.4s ease;
+      z-index: 2;
+    }
+    .astrolabe-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .astro-ring-outer {
+      transform-origin: center;
+      animation: spinClockwise 110s linear infinite;
+    }
+    .astro-ring-mid {
+      transform-origin: center;
+      animation: spinCounterClockwise 80s linear infinite;
+    }
+    .astro-ring-inner {
+      transform-origin: center;
+      animation: spinClockwise 50s linear infinite;
+    }
+
+    @keyframes spinClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spinCounterClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    /* 5. Floating Destination Waypoint Badges */
+    .waypoint-node {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(14, 165, 233, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--primary-ocean);
+      letter-spacing: 0.06em;
+      pointer-events: none;
+      animation: waypointBob 6s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+    body.dark-mode .waypoint-node {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(56, 189, 248, 0.28);
+      color: #38bdf8;
+    }
+    .wp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #0ea5e9;
+      box-shadow: 0 0 8px #0ea5e9;
+      animation: dotPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.45; }
+    }
+    @keyframes waypointBob {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-14px); }
+    }
+    .wp-1 { top: 18%; left: 14%; animation-delay: 0s; }
+    .wp-2 { top: 22%; right: 12%; animation-delay: 1.5s; }
+    .wp-3 { bottom: 20%; left: 16%; animation-delay: 3s; }
+    .wp-4 { bottom: 22%; right: 14%; animation-delay: 4.5s; }
+
+    /* ---------- TOP-RIGHT CONTROLS: DARK MODE & RTL ---------- */
+    .top-right-bar {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      z-index: 30;
+    }
+    body.rtl-mode .top-right-bar {
+      right: auto;
+      left: 1.75rem;
+    }
+    .nav-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--control-btn-border);
+      background: var(--control-btn-bg);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    body.dark-mode .nav-icon-btn {
+      color: #e0f2fe;
+    }
+    .nav-icon-btn:hover {
+      color: var(--primary-ocean);
+      border-color: var(--primary-azure);
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);
+    }
+    body.dark-mode .nav-icon-btn:hover {
+      color: #38bdf8;
+      border-color: #38bdf8;
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+    }
+    .nav-icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* ---------- MAIN REGISTRATION STAGE (NO SCROLL BAR) ---------- */
+    .login-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      overflow: hidden;
+      position: relative;
+      perspective: 1200px;
+    }
+
+    /* THE REGISTRATION CARD (WITH 3D PARALLAX TILT & GLASS SHEEN) */
+    .login-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      box-shadow: var(--card-shadow);
+      padding: 1.45rem 2rem;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      position: relative;
+      z-index: 10;
+      transform-style: preserve-3d;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    /* Interactive Specular Glare/Sheen */
+    .card-sheen {
+      position: absolute;
+      inset: 0;
+      border-radius: 26px;
+      pointer-events: none;
+      z-index: 2;
+      transition: background 0.15s ease;
+      mix-blend-mode: overlay;
+    }
+
+    /* Card Header */
+    .card-head {
+      text-align: center;
+      margin-bottom: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateZ(20px);
+    }
+
+    /* ---------- EXACT NAVBAR LOGO FROM INDEX.HTML ---------- */
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    }
+
+    .logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 8px 18px -4px rgba(2, 132, 199, 0.4),
+        0 2px 6px rgba(245, 158, 11, 0.15),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.12);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .logo:hover .logo-badge {
+      transform: translateY(-2px) rotate(4deg) scale(1.06);
+      box-shadow: 
+        0 12px 24px -4px rgba(2, 132, 199, 0.5),
+        0 4px 10px rgba(245, 158, 11, 0.3),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .logo-svg {
+      width: 38px;
+      height: 38px;
+      display: block;
+    }
+
+    .logo-svg .logo-plane {
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      animation: logoPlaneBob 3.5s ease-in-out infinite alternate;
+    }
+
+    .logo-svg .flight-trail {
+      animation: flightTrailDash 3s linear infinite;
+    }
+
+    .logo-svg .logo-sun-aura {
+      animation: sunAuraBreath 4s ease-in-out infinite alternate;
+      transform-origin: 28px 13px;
+    }
+
+    @keyframes logoPlaneBob {
+      0% { transform: translate(29px, 11px) rotate(42deg) scale(0.7); }
+      100% { transform: translate(31px, 9px) rotate(48deg) scale(0.76); }
+    }
+
+    @keyframes flightTrailDash {
+      to { stroke-dashoffset: -20; }
+    }
+
+    @keyframes sunAuraBreath {
+      0% { transform: scale(1); opacity: 0.25; }
+      100% { transform: scale(1.35); opacity: 0.65; }
+    }
+
+    .logo-title-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      text-align: left;
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.28rem;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 40%, #0c4a6e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: filter 0.3s ease;
+    }
+
+    .logo:hover .logo-text {
+      filter: drop-shadow(0 2px 8px rgba(14, 165, 233, 0.35));
+    }
+
+    body.dark-mode .logo-text {
+      background: linear-gradient(135deg, #f0f9ff 0%, #38bdf8 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-subtitle {
+      font-size: 0.56rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #f59e0b;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    .logo-subtitle i {
+      font-size: 0.6rem;
+      color: #0ea5e9;
+      display: inline-block;
+      animation: umbrellaSway 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes umbrellaSway {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    /* Registration Heading */
+    .card-title {
+      font-size: 1.42rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.2rem;
+    }
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* Form Fields */
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transform: translateZ(15px);
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      text-align: left;
+    }
+    .input-row-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+    .input-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+    }
+    .input-control-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-icon {
+      position: absolute;
+      left: 0.9rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    .auth-input {
+      width: 100%;
+      height: 39px;
+      padding: 0 2.2rem 0 2.4rem;
+      background: var(--input-bg);
+      border: 1.5px solid var(--input-border);
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      color: var(--input-text);
+      outline: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .auth-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.75;
+      font-size: 0.8rem;
+    }
+    .auth-input:focus {
+      border-color: var(--input-focus);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+      transform: translateY(-1px);
+    }
+    body.dark-mode .auth-input:focus {
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+    }
+    .input-control-wrap:focus-within .input-icon {
+      color: var(--primary-azure);
+      transform: scale(1.18);
+    }
+
+    /* Password toggle button */
+    .pwd-toggle-btn {
+      position: absolute;
+      right: 0.65rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+    }
+    .pwd-toggle-btn:hover {
+      color: var(--primary-ocean);
+      transform: scale(1.15);
+    }
+    body.dark-mode .pwd-toggle-btn:hover {
+      color: #38bdf8;
+    }
+
+    /* Agreement Checkbox */
+    .form-extras-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 0.74rem;
+      margin-top: -0.1rem;
+      margin-bottom: 0.15rem;
+    }
+    .remember-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      line-height: 1.3;
+    }
+    .remember-wrap a {
+      color: var(--primary-ocean);
+      text-decoration: underline;
+    }
+    body.dark-mode .remember-wrap a {
+      color: #38bdf8;
+    }
+    .remember-wrap input[type="checkbox"] {
+      accent-color: var(--primary-ocean);
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* PRIMARY SUBMIT BUTTON WITH SHIMMER SWEEP */
+    .btn-submit-login {
+      width: 100%;
+      height: 42px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      box-shadow: 0 10px 22px -6px rgba(2, 132, 199, 0.45);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Dynamic Shimmer Light Sweep */
+    .btn-submit-login::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 80%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: rotate(25deg);
+      animation: btnShimmer 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes btnShimmer {
+      0%, 75% { left: -100%; }
+      100% { left: 160%; }
+    }
+    .btn-submit-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -6px rgba(2, 132, 199, 0.6);
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    }
+    .btn-submit-login:hover .btn-icon-fly {
+      transform: translateX(4px) scale(1.1);
+    }
+    .btn-icon-fly {
+      transition: transform 0.25s ease;
+    }
+    .btn-submit-login:active {
+      transform: scale(0.98);
+    }
+
+    /* DIVIDER */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      margin: 0.75rem 0;
+      text-align: center;
+      transform: translateZ(10px);
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--divider-line);
+    }
+    .auth-divider span {
+      padding: 0 0.8rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* SIGN UP WITH OTHER OPTIONS: GOOGLE, FACEBOOK, APPLE */
+    .social-auth-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 0.85rem;
+      transform: translateZ(15px);
+    }
+    .social-btn {
+      height: 36px;
+      border: 1px solid var(--social-border);
+      background: var(--social-bg);
+      color: var(--social-text);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .social-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
+    }
+    .social-google:hover {
+      border-color: rgba(234, 67, 53, 0.45);
+      box-shadow: 0 6px 18px rgba(234, 67, 53, 0.2);
+    }
+    .social-facebook:hover {
+      border-color: rgba(24, 119, 242, 0.45);
+      box-shadow: 0 6px 18px rgba(24, 119, 242, 0.2);
+    }
+    .social-apple:hover {
+      border-color: rgba(14, 165, 233, 0.45);
+      box-shadow: 0 6px 18px rgba(14, 165, 233, 0.2);
+    }
+    body.dark-mode .social-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+    .social-btn:active {
+      transform: scale(0.96);
+    }
+    .social-google i {
+      color: #ea4335;
+      font-size: 0.88rem;
+      transition: transform 0.25s ease;
+    }
+    .social-facebook i {
+      color: #1877f2;
+      font-size: 0.88rem;
+      transition: transform 0.25s ease;
+    }
+    .social-apple i {
+      font-size: 0.92rem;
+      color: #0f172a;
+      transition: transform 0.25s ease;
+    }
+    body.dark-mode .social-apple i {
+      color: #f8fafc;
+    }
+    .social-btn:hover i {
+      transform: scale(1.15);
+    }
+
+    /* REDIRECT TO LOGIN BUTTON */
+    .auth-create-account-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--divider-line);
+      transform: translateZ(15px);
+    }
+    .create-account-prompt {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .btn-create-account {
+      width: 100%;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(14, 165, 233, 0.08);
+      border: 1.5px solid rgba(14, 165, 233, 0.32);
+      border-radius: 12px;
+      color: var(--primary-ocean);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    body.dark-mode .btn-create-account {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.32);
+      color: #38bdf8;
+    }
+    .btn-create-account:hover {
+      background: rgba(14, 165, 233, 0.18);
+      border-color: var(--primary-ocean);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.3);
+    }
+    body.dark-mode .btn-create-account:hover {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: #38bdf8;
+      box-shadow: 0 8px 24px -4px rgba(56, 189, 248, 0.35);
+    }
+    .btn-create-account:hover i {
+      transform: scale(1.15);
+    }
+    .btn-create-account i {
+      transition: transform 0.25s ease;
+    }
+    .btn-create-account:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------- TOAST NOTIFICATION ---------- */
+    .login-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s;
+    }
+    .login-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    body.dark-mode .login-toast {
+      background: #0b192e;
+      border-color: #38bdf8;
+    }
+
+    /* ---------- RTL STYLING SUPPORT ---------- */
+    body.rtl-mode {
+      direction: rtl;
+    }
+    body.rtl-mode .logo-title-group {
+      text-align: right;
+    }
+    body.rtl-mode .input-group {
+      text-align: right;
+    }
+    body.rtl-mode .input-icon {
+      left: auto;
+      right: 0.9rem;
+    }
+    body.rtl-mode .auth-input {
+      padding: 0 2.4rem 0 2.2rem;
+      text-align: right;
+    }
+    body.rtl-mode .pwd-toggle-btn {
+      right: auto;
+      left: 0.65rem;
+    }
+    body.rtl-mode .btn-submit-login i {
+      transform: rotate(180deg);
+    }
+    body.rtl-mode .login-toast {
+      right: auto;
+      left: 24px;
+    }
+
+    /* ---------- RESPONSIVE TUNING (ALWAYS FIT 100VH) ---------- */
+    @media (max-height: 760px) {
+      .top-right-bar {
+        top: 0.7rem;
+        right: 1.2rem;
+      }
+      body.rtl-mode .top-right-bar {
+        right: auto;
+        left: 1.2rem;
+      }
+      .nav-icon-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+      }
+      .login-card {
+        padding: 1.15rem 1.6rem;
+        max-width: 440px;
+      }
+      .card-head {
+        margin-bottom: 0.75rem;
+      }
+      .logo {
+        margin-bottom: 0.4rem;
+      }
+      .logo-badge {
+        width: 34px;
+        height: 34px;
+      }
+      .logo-svg {
+        width: 34px;
+        height: 34px;
+      }
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      .card-title {
+        font-size: 1.3rem;
+      }
+      .auth-form {
+        gap: 0.5rem;
+      }
+      .auth-input {
+        height: 36px;
+        font-size: 0.82rem;
+      }
+      .btn-submit-login {
+        height: 38px;
+      }
+      .social-auth-grid {
+        margin-bottom: 0.65rem;
+      }
+      .social-btn {
+        height: 32px;
+        font-size: 0.72rem;
+      }
+      .btn-create-account {
+        height: 35px;
+        font-size: 0.8rem;
+      }
+      .astrolabe-system {
+        width: 580px;
+        height: 580px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .top-right-bar {
+        top: 0.7rem;
+        right: 1rem;
+      }
+      body.rtl-mode .top-right-bar {
+        right: auto;
+        left: 1rem;
+      }
+      .logo-subtitle {
+        display: none;
+      }
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      .input-row-duo {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .login-card {
+        padding: 1.25rem 1.15rem;
+        border-radius: 20px;
+      }
+      .social-btn span {
+        font-size: 0.7rem;
+      }
+      .waypoint-node {
+        display: none;
+      }
+    }
+  
+    /* ==========================================================================
+       UNIVERSAL MOBILE RESPONSIVE ENGINE (320px, 480px, 768px, 1024px)
+       Strict Overflow Prevention · Fluid Media · Equal Spacing · Zero Clipping
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      max-width: 100% !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      max-width: 100% !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+      width: 100% !important;
+      position: relative;
+    }
+
+    /* Universal Sticky Navbar Engine across all screen sizes */
+    .navbar {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, top 0.3s ease !important;
+    }
+
+    .admin-navbar,
+    .user-navbar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1000 !important;
+    }
+
+    .navbar.scrolled,
+    .navbar.is-sticky {
+      background: rgba(255, 255, 255, 0.94) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-color: rgba(2, 132, 199, 0.3) !important;
+      box-shadow: 0 16px 38px -10px rgba(2, 132, 199, 0.28), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.dark-mode .navbar.scrolled,
+    body.dark-mode .navbar.is-sticky {
+      background: rgba(15, 23, 42, 0.94) !important;
+      border-color: rgba(56, 189, 248, 0.4) !important;
+      box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.22) !important;
+    }
+
+    img, svg, video, canvas {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    /* Prevent Decorative Background Overflows */
+    .travel-background-aurora,
+    .admin-ambient-aurora,
+    .user-ambient-aurora,
+    .ambient-aurora-nebula,
+    .flight-trail-decor,
+    .bg-celestial-canvas,
+    .flight-route-map,
+    .astrolabe-system,
+    .shooting-star,
+    .sky-stars {
+      max-width: 100vw !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* Container safety */
+    .app,
+    .container,
+    .main-wrapper,
+    .login-viewport-wrapper,
+    .lost-viewport-wrapper,
+    .admin-app-layout,
+    .user-app-layout {
+      width: 100% !important;
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Breakpoint 1: <= 1024px */
+    @media (max-width: 1024px) {
+      .app {
+        max-width: 100% !important;
+        padding: 0.85rem 1.25rem !important;
+      }
+      .trending-grid,
+      .hill-stations-grid,
+      .asian-destinations-grid,
+      .packages-grid,
+      .offers-grid,
+      .category-grid,
+      .features-grid,
+      .stats-grid,
+      .destinations-grid,
+      .kpi-grid-8,
+      .kpi-grid-6,
+      .module-cards-grid,
+      .user-cards-grid,
+      .philosophy-grid,
+      .honeymoon-hero-grid,
+      .deal-ticket-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.25rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+      }
+    }
+
+    /* Breakpoint 2: <= 768px */
+    @media (max-width: 768px) {
+      .app {
+        padding: 0.65rem 1rem !important;
+      }
+      .navbar {
+        position: sticky !important;
+        top: 0.5rem !important;
+        padding: 0.4rem 0.85rem !important;
+        border-radius: 2rem !important;
+        z-index: 1000 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .nav-center {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .mobile-menu {
+        position: fixed !important;
+        top: 4.8rem !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        width: auto !important;
+        max-width: calc(100vw - 2rem) !important;
+        max-height: calc(85vh - 5rem) !important;
+        z-index: 1001 !important;
+      }
+      h1, .hero-title, .dossier-hero-title, .inter-hero-title, .about-hero-title {
+        font-size: clamp(1.85rem, 6.5vw, 2.6rem) !important;
+        line-height: 1.18 !important;
+      }
+      h2, .section-heading, .title-block h2 {
+        font-size: clamp(1.45rem, 5vw, 2rem) !important;
+        line-height: 1.25 !important;
+      }
+      h3, .card-title, .item-card-title, .module-title-group h1 {
+        font-size: 1.2rem !important;
+        line-height: 1.3 !important;
+      }
+      .hero-description, .about-hero-desc, .inter-hero-desc {
+        font-size: 0.95rem !important;
+        line-height: 1.55 !important;
+      }
+      .trending-grid,
+      .hill-stations-grid,
+      .asian-destinations-grid,
+      .packages-grid,
+      .offers-grid,
+      .category-grid,
+      .features-grid,
+      .stats-grid,
+      .destinations-grid,
+      .module-cards-grid,
+      .user-cards-grid,
+      .philosophy-grid,
+      .honeymoon-hero-grid,
+      .deal-ticket-grid,
+      .footer-grid,
+      .testimonial-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      .pkg-horizontal-card,
+      .asian-card-wide,
+      .deal-ticket-card,
+      .hero-card,
+      .partner-card-horizontal {
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .pkg-horizontal-card img,
+      .asian-card-wide img,
+      .deal-ticket-card img,
+      .card-media img,
+      .subcard-img-wrap img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 220px !important;
+        object-fit: cover !important;
+      }
+      .search-form,
+      .hero-search-box,
+      .filter-search-container,
+      .dossier-search-bar {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+      }
+      .search-form input,
+      .search-form select,
+      .search-form button,
+      .hero-search-box input,
+      .hero-search-box select,
+      .hero-search-box button {
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      .exp-card-footer,
+      .guide-card-footer,
+      .offer-card-footer,
+      .asian-footer-row,
+      .card-footer-row {
+        flex-wrap: wrap !important;
+        gap: 0.65rem !important;
+        justify-content: space-between !important;
+      }
+      .table-responsive {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: block !important;
+      }
+      .table-head-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+      }
+      .table-actions {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .admin-main-viewport,
+      .user-main-viewport {
+        padding: 1.25rem 0.85rem !important;
+      }
+      .module-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.85rem !important;
+      }
+      .module-actions-row {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .login-viewport-wrapper {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding: 5rem 1rem 2rem 1rem !important;
+      }
+      .login-stage {
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      .login-card {
+        width: 100% !important;
+        max-width: 440px !important;
+        margin: 0 auto !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .input-row-duo {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+      .lost-viewport-wrapper {
+        padding: 1.5rem 1rem !important;
+      }
+      .lost-card {
+        padding: 1.75rem 1.25rem !important;
+        max-width: 100% !important;
+      }
+      .action-row {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      .btn-action-primary,
+      .btn-action-secondary,
+      .btn-action-tertiary {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* Breakpoint 3: <= 480px */
+    @media (max-width: 480px) {
+      .app {
+        padding: 0.5rem 0.75rem !important;
+      }
+      .navbar {
+        top: 0.4rem !important;
+        padding: 0.35rem 0.65rem !important;
+      }
+      .logo-text {
+        font-size: 1.05rem !important;
+      }
+      .logo-subtitle {
+        display: none !important;
+      }
+      .logo-badge {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .logo-svg {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .mobile-menu {
+        top: 4.2rem !important;
+        left: 0.65rem !important;
+        right: 0.65rem !important;
+        padding: 1rem 0.85rem !important;
+        max-width: calc(100vw - 1.3rem) !important;
+      }
+      .kpi-grid-8,
+      .kpi-grid-6,
+      .kpi-grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      .kpi-card {
+        padding: 1rem 0.85rem !important;
+      }
+      .btn-action,
+      .btn-book,
+      .btn-submit-login,
+      .btn-create-account {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .social-auth-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.55rem !important;
+      }
+      .user-modal-box,
+      .admin-modal-box {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        padding: 1.25rem 0.95rem !important;
+        border-radius: 16px !important;
+      }
+      .form-group-duo {
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+      }
+      .filter-pills,
+      .quick-filters,
+      .tag-cloud {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+      }
+      .filter-pill,
+      .q-pill {
+        font-size: 0.76rem !important;
+        padding: 0.35rem 0.75rem !important;
+      }
+      section,
+      .section-block {
+        margin-bottom: 2rem !important;
+        padding: 1.5rem 0 !important;
+      }
+    }
+
+    /* Breakpoint 4: <= 320px */
+    @media (max-width: 320px) {
+      .app {
+        padding: 0.35rem 0.45rem !important;
+      }
+      .navbar {
+        top: 0.25rem !important;
+        padding: 0.3rem 0.5rem !important;
+        border-radius: 1.5rem !important;
+      }
+      .logo {
+        gap: 6px !important;
+      }
+      .logo-badge,
+      .logo-svg {
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 10px !important;
+      }
+      .logo-text {
+        font-size: 0.92rem !important;
+        letter-spacing: -0.02em !important;
+      }
+      .mobile-menu {
+        top: 3.8rem !important;
+        left: 0.35rem !important;
+        right: 0.35rem !important;
+        padding: 0.85rem 0.65rem !important;
+        max-width: calc(100vw - 0.7rem) !important;
+      }
+      .mobile-menu .nav-link {
+        font-size: 0.88rem !important;
+        padding: 0.6rem 0.65rem !important;
+      }
+      .admin-sidebar,
+      .user-sidebar {
+        width: 280px !important;
+        max-width: 88vw !important;
+        padding: 1rem 0.65rem !important;
+      }
+      .admin-main-viewport,
+      .user-main-viewport {
+        padding: 0.75rem 0.45rem !important;
+      }
+      h1, .hero-title, .about-hero-title {
+        font-size: 1.45rem !important;
+      }
+      h2, .section-heading {
+        font-size: 1.25rem !important;
+      }
+      .code-digit {
+        font-size: 3.2rem !important;
+      }
+      .card,
+      .item-admin-card,
+      .item-user-card,
+      .login-card,
+      .lost-card {
+        padding: 1rem 0.75rem !important;
+        border-radius: 14px !important;
+      }
+      button, input, select, textarea {
+        font-size: 0.82rem !important;
+      }
+    }
+
+    /* RTL Layout Compatibility */
+    body.rtl-mode .navbar {
+      flex-direction: row-reverse !important;
+    }
+    body.rtl-mode .mobile-menu .nav-link {
+      text-align: right !important;
+      border-left: none !important;
+      border-right: 4px solid transparent;
+    }
+    body.rtl-mode .mobile-menu .nav-link.active {
+      border-right-color: var(--primary-ocean) !important;
+      padding-right: calc(1rem - 4px) !important;
+    }
+    body.rtl-mode .nav-item-link {
+      flex-direction: row-reverse !important;
+      text-align: right !important;
+    }
+    body.rtl-mode .admin-sidebar,
+    body.rtl-mode .user-sidebar {
+      left: 0 !important;
+      right: auto !important;
+    }
+
+  
+    @media (max-width: 768px), (max-height: 750px) {
+      html, body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        max-height: none !important;
+      }
+      .login-viewport-wrapper {
+        height: auto !important;
+        min-height: 100vh !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+        padding: 5rem 1rem 2.5rem 1rem !important;
+      }
+      .login-stage {
+        padding: 0 !important;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Unique Ambient Canvas: Flight Sky, Auroras & Celestial Astrolabe -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <!-- Moving Aurora Ribbons -->
+    <div class="aurora-ribbon aurora-1"></div>
+    <div class="aurora-ribbon aurora-2"></div>
+    <div class="aurora-ribbon aurora-3"></div>
+
+    <!-- Coordinate Grid Lines -->
+    <div class="bg-meridian-lines"></div>
+
+    <!-- Interactive HTML5 Flight Routes & Star Constellations Canvas -->
+    <canvas id="flightSkyCanvas"></canvas>
+
+    <!-- Animated Celestial Astrolabe Navigation Rings -->
+    <div class="astrolabe-system" id="astrolabeSystem">
+      <svg class="astrolabe-svg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="astroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.38"/>
+            <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.18"/>
+          </linearGradient>
+          <linearGradient id="astroGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#0284c7" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Outer Rotating Astrolabe Ring with Degree Increments -->
+        <g class="astro-ring-outer">
+          <circle cx="400" cy="400" r="370" stroke="url(#astroGrad1)" stroke-width="1.5" stroke-dasharray="6 8"/>
+          <circle cx="400" cy="400" r="350" stroke="rgba(14, 165, 233, 0.22)" stroke-width="1" stroke-dasharray="2 12"/>
+        </g>
+
+        <!-- Middle Counter-Rotating Dial -->
+        <g class="astro-ring-mid">
+          <circle cx="400" cy="400" r="280" stroke="url(#astroGrad2)" stroke-width="1.2" stroke-dasharray="16 10"/>
+          <circle cx="400" cy="400" r="240" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" stroke-dasharray="4 8"/>
+        </g>
+
+        <!-- Inner Clockwise Ring -->
+        <g class="astro-ring-inner">
+          <circle cx="400" cy="400" r="180" stroke="rgba(245, 158, 11, 0.25)" stroke-width="1" stroke-dasharray="8 6"/>
+        </g>
+
+        <!-- Cardinal Navigation Axis Lines -->
+        <line x1="20" y1="400" x2="780" y2="400" stroke="rgba(14, 165, 233, 0.12)" stroke-width="1" stroke-dasharray="10 8"/>
+        <line x1="400" y1="20" x2="400" y2="780" stroke="rgba(14, 165, 233, 0.12)" stroke-width="1" stroke-dasharray="10 8"/>
+
+        <!-- Great-Circle Flight Trajectory Arc -->
+        <path d="M 120 600 C 240 200, 560 160, 680 500" stroke="rgba(56, 189, 248, 0.38)" stroke-width="2"/>
+      </svg>
+
+      <!-- Floating Destination Waypoints -->
+      <div class="waypoint-node wp-1"><span class="wp-dot"></span><span>LHR 51°N</span></div>
+      <div class="waypoint-node wp-2"><span class="wp-dot"></span><span>HND 35°N</span></div>
+      <div class="waypoint-node wp-3"><span class="wp-dot"></span><span>MLE 04°N</span></div>
+      <div class="waypoint-node wp-4"><span class="wp-dot"></span><span>JFK 40°N</span></div>
+    </div>
+  </div>
+
+  <!-- Viewport Flex Container (Guaranteed 100vh with Zero Scroll Bar) -->
+  <div class="login-viewport-wrapper">
+
+    <!-- TOP-RIGHT CONTROLS: DARK MODE AND RTL ICONS -->
+    <header class="top-right-bar" id="topRightBar" aria-label="Page controls">
+      <button class="nav-icon-btn" id="darkModeToggle" aria-label="Toggle Dark Mode" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="nav-icon-btn" id="rtlToggle" aria-label="Toggle RTL Direction" title="Toggle RTL/LTR Direction">
+        <i class="fas fa-arrow-right-arrow-left"></i>
+      </button>
+    </header>
+
+    <!-- 2. REGISTRATION STAGE (CENTERED FORM CARD) -->
+    <main class="login-stage">
+      <div class="login-card" id="loginCard">
+        <!-- Interactive 3D Card Sheen Glare -->
+        <div class="card-sheen" id="cardSheen" aria-hidden="true"></div>
+        
+        <!-- Header: EXACT NAVBAR LOGO FROM INDEX.HTML ON TOP, FOLLOWED BY REGISTRATION TEXT -->
+        <div class="card-head">
+          
+          <!-- EXACT NAVBAR LOGO FROM INDEX.HTML (Click redirects to index.html) -->
+          <a href="index.html" class="logo" id="logo" aria-label="WanderLux Travel Agency and Holidays">
+            <div class="logo-badge" id="logoBadge">
+              <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="travelBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="50%" stop-color="#0ea5e9"/>
+                    <stop offset="100%" stop-color="#06b6d4"/>
+                  </linearGradient>
+                  <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fef08a"/>
+                    <stop offset="100%" stop-color="#f59e0b"/>
+                  </linearGradient>
+                  <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="100%" stop-color="#ffffff"/>
+                  </linearGradient>
+                </defs>
+                <!-- Rounded squircle badge base -->
+                <rect width="40" height="40" rx="13" fill="url(#travelBadgeGrad)"/>
+                <rect x="0.5" y="0.5" width="39" height="39" rx="12.5" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+                <!-- Tropical golden sun with warm aura -->
+                <circle class="logo-sun-aura" cx="28" cy="13" r="8.5" fill="url(#sunGrad)"/>
+                <circle cx="28" cy="13" r="6" fill="url(#sunGrad)"/>
+                <!-- Globe latitude/navigation meridian -->
+                <path d="M 6 22 A 16 16 0 0 1 34 22" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" stroke-dasharray="2 2" fill="none"/>
+                <!-- Tropical ocean wave layers -->
+                <path d="M0 27 C 8 23, 14 31, 22 27 C 30 23, 34 29, 40 26 L 40 40 L 0 40 Z" fill="url(#waveGrad)" opacity="0.45"/>
+                <path d="M0 31 C 8 28, 16 34, 24 30 C 32 27, 36 32, 40 29 L 40 40 L 0 40 Z" fill="#ffffff" opacity="0.85"/>
+                <!-- Dashed flight trajectory -->
+                <path class="flight-trail" d="M 5 35 Q 16 23 29 11" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-dasharray="2.5 2.5" fill="none"/>
+                <!-- Miniature supersonic passenger jet taking off -->
+                <g class="logo-plane" transform="translate(29, 11) rotate(45) scale(0.72)">
+                  <path d="M0 -9 L4 3 L10 5 L10 7 L4 6 L2 11 L5 14 L5 15 L0 14 L-5 15 L-5 14 L-2 11 L-4 6 L-10 7 L-10 5 L-4 3 Z" fill="#ffffff" filter="drop-shadow(0 2px 3px rgba(0,20,50,0.35))"/>
+                </g>
+              </svg>
+            </div>
+            <div class="logo-title-group">
+              <span class="logo-text">WanderLux</span>
+              <span class="logo-subtitle"><i class="fas fa-umbrella-beach"></i> HOLIDAYS &amp; TRAVEL</span>
+            </div>
+          </a>
+
+          <!-- REGISTRATION HEADINGS -->
+          <h1 class="card-title">Begin Your Expedition</h1>
+          <p class="card-subtitle">Create a WanderLux VIP account for bespoke itineraries &amp; perks</p>
+        </div>
+
+        <!-- Form -->
+        <form class="auth-form" id="registerForm" autocomplete="on">
+          
+          <!-- Full Name -->
+          <div class="input-group">
+            <label for="travelerName" class="input-label">Traveler Name</label>
+            <div class="input-control-wrap">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="travelerName" class="auth-input" placeholder="e.g. Lord Alexander Vance" required autocomplete="name">
+            </div>
+          </div>
+
+          <!-- Email Address -->
+          <div class="input-group">
+            <label for="travelerEmail" class="input-label">Email Address</label>
+            <div class="input-control-wrap">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="travelerEmail" class="auth-input" placeholder="e.g. voyager@wanderlux.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <!-- Password & Confirm Password Duo -->
+          <div class="input-row-duo">
+            <div class="input-group">
+              <label for="regPassword" class="input-label">Password</label>
+              <div class="input-control-wrap">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="regPassword" class="auth-input" placeholder="••••••••" required autocomplete="new-password">
+                <button type="button" class="pwd-toggle-btn" id="toggleRegPwdBtn" aria-label="Toggle password visibility">
+                  <i class="fas fa-eye" id="regEyeIcon"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="regConfirmPassword" class="input-label">Confirm</label>
+              <div class="input-control-wrap">
+                <i class="fas fa-shield-halved input-icon"></i>
+                <input type="password" id="regConfirmPassword" class="auth-input" placeholder="••••••••" required autocomplete="new-password">
+                <button type="button" class="pwd-toggle-btn" id="toggleConfirmPwdBtn" aria-label="Toggle confirm password visibility">
+                  <i class="fas fa-eye" id="confirmEyeIcon"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <div class="form-extras-row">
+            <label class="remember-wrap">
+              <input type="checkbox" id="agreeTerms" required>
+              <span>I accept WanderLux <a href="javascript:void(0)" id="termsLink">Terms</a> &amp; <a href="javascript:void(0)" id="privacyLink">Privacy Policy</a></span>
+            </label>
+          </div>
+
+          <!-- Submit Button with Shimmer and Interactive Jet Icon -->
+          <button type="submit" class="btn-submit-login" id="submitRegBtn">
+            <span>Create WanderLux Account</span>
+            <i class="fas fa-plane-departure btn-icon-fly"></i>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <span>Or sign up with other options</span>
+        </div>
+
+        <!-- SIGN UP WITH OTHER OPTIONS: GOOGLE, FACEBOOK, APPLE -->
+        <div class="social-auth-grid" id="socialAuthGrid">
+          <button type="button" class="social-btn social-google" id="googleRegBtn" aria-label="Sign up with Google">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+          </button>
+          <button type="button" class="social-btn social-facebook" id="facebookRegBtn" aria-label="Sign up with Facebook">
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook</span>
+          </button>
+          <button type="button" class="social-btn social-apple" id="appleRegBtn" aria-label="Sign up with Apple">
+            <i class="fab fa-apple"></i>
+            <span>Apple</span>
+          </button>
+        </div>
+
+        <!-- SIGN IN REDIRECT BUTTON (Redirects to login.html) -->
+        <div class="auth-create-account-wrap">
+          <span class="create-account-prompt">Already have an expedition account?</span>
+          <a href="login.html" class="btn-create-account" id="signInRedirectBtn">
+            <i class="fas fa-right-to-bracket"></i>
+            <span>Sign In to Account</span>
+          </a>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Interactive Feedback Toast -->
+  <div class="login-toast" id="loginToast" role="alert">
+    <i class="fas fa-circle-check" style="color: #38bdf8;"></i>
+    <span id="toastMessage">Creating your VIP member portfolio...</span>
+  </div>
+
+  <!-- Interactive Logic & Background Canvas Flight Simulator Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. UNIQUE BACKGROUND FLIGHT SKY CANVAS ANIMATION
+      const canvas = document.getElementById('flightSkyCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          initFlightNetwork();
+        });
+
+        // Interactive mouse coordinate tracking
+        let mouseX = -1000;
+        let mouseY = -1000;
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+          mouseX = -1000;
+          mouseY = -1000;
+        });
+
+        // Stars & Waypoint Nodes
+        let stars = [];
+        const starCount = 45;
+        for (let i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 1.5 + 0.6,
+            alpha: Math.random() * 0.7 + 0.2,
+            speed: Math.random() * 0.02 + 0.01,
+            pulseOffset: Math.random() * Math.PI * 2
+          });
+        }
+
+        // Curved Great-Circle Flight Routes with Moving Airplanes
+        let flightRoutes = [];
+        function initFlightNetwork() {
+          flightRoutes = [
+            {
+              start: { x: width * 0.08, y: height * 0.25 },
+              cp1: { x: width * 0.35, y: height * 0.08 },
+              cp2: { x: width * 0.65, y: height * 0.12 },
+              end: { x: width * 0.92, y: height * 0.35 },
+              progress: 0.15,
+              speed: 0.0018,
+              trail: []
+            },
+            {
+              start: { x: width * 0.05, y: height * 0.75 },
+              cp1: { x: width * 0.3, y: height * 0.92 },
+              cp2: { x: width * 0.7, y: height * 0.82 },
+              end: { x: width * 0.95, y: height * 0.68 },
+              progress: 0.65,
+              speed: 0.0014,
+              trail: []
+            },
+            {
+              start: { x: width * 0.18, y: height * 0.88 },
+              cp1: { x: width * 0.22, y: height * 0.4 },
+              cp2: { x: width * 0.78, y: height * 0.3 },
+              end: { x: width * 0.85, y: height * 0.82 },
+              progress: 0.4,
+              speed: 0.002,
+              trail: []
+            }
+          ];
+        }
+        initFlightNetwork();
+
+        // Cubic Bezier evaluation helper
+        function getBezierPoint(t, p0, p1, p2, p3) {
+          const cx = 3 * (p1.x - p0.x);
+          const bx = 3 * (p2.x - p1.x) - cx;
+          const ax = p3.x - p0.x - cx - bx;
+
+          const cy = 3 * (p1.y - p0.y);
+          const by = 3 * (p2.y - p1.y) - cy;
+          const ay = p3.y - p0.y - cy - by;
+
+          const xt = ax * Math.pow(t, 3) + bx * Math.pow(t, 2) + cx * t + p0.x;
+          const yt = ay * Math.pow(t, 3) + by * Math.pow(t, 2) + cy * t + p0.y;
+
+          return { x: xt, y: yt };
+        }
+
+        // Draw miniature supersonic jet on canvas
+        function drawMiniJet(ctx, x, y, angle, isDark) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle);
+
+          ctx.fillStyle = isDark ? '#38bdf8' : '#0284c7';
+          ctx.shadowColor = isDark ? '#38bdf8' : '#0ea5e9';
+          ctx.shadowBlur = 10;
+
+          ctx.beginPath();
+          ctx.moveTo(8, 0);
+          ctx.lineTo(-5, -4);
+          ctx.lineTo(-3, 0);
+          ctx.lineTo(-5, 4);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.restore();
+        }
+
+        let animTime = 0;
+        function animateFlightCanvas() {
+          ctx.clearRect(0, 0, width, height);
+          const isDark = document.body.classList.contains('dark-mode');
+          animTime += 0.02;
+
+          // 1. Draw twinkling starlight particles with mouse interactivity
+          for (let star of stars) {
+            const dist = Math.hypot(star.x - mouseX, star.y - mouseY);
+            let glowAlpha = star.alpha * (0.6 + 0.4 * Math.sin(animTime + star.pulseOffset));
+            if (dist < 140) {
+              glowAlpha = Math.min(1, glowAlpha + (1 - dist / 140) * 0.6);
+            }
+
+            ctx.fillStyle = isDark 
+              ? `rgba(224, 242, 254, ${glowAlpha})` 
+              : `rgba(2, 132, 199, ${glowAlpha * 0.75})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // 2. Draw flight routes & airplanes
+          for (let route of flightRoutes) {
+            ctx.beginPath();
+            ctx.moveTo(route.start.x, route.start.y);
+            ctx.bezierCurveTo(route.cp1.x, route.cp1.y, route.cp2.x, route.cp2.y, route.end.x, route.end.y);
+            ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.18)' : 'rgba(2, 132, 199, 0.15)';
+            ctx.lineWidth = 1.2;
+            ctx.setLineDash([4, 6]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            route.progress += route.speed;
+            if (route.progress > 1) route.progress = 0;
+
+            const currentPos = getBezierPoint(route.progress, route.start, route.cp1, route.cp2, route.end);
+            const nextPos = getBezierPoint(Math.min(1, route.progress + 0.01), route.start, route.cp1, route.cp2, route.end);
+            const angle = Math.atan2(nextPos.y - currentPos.y, nextPos.x - currentPos.x);
+
+            route.trail.push({ x: currentPos.x, y: currentPos.y, alpha: 0.8 });
+            if (route.trail.length > 25) route.trail.shift();
+
+            for (let i = 0; i < route.trail.length; i++) {
+              const pt = route.trail[i];
+              pt.alpha *= 0.94;
+              ctx.fillStyle = isDark ? `rgba(56, 189, 248, ${pt.alpha * 0.6})` : `rgba(14, 165, 233, ${pt.alpha * 0.5})`;
+              ctx.beginPath();
+              ctx.arc(pt.x, pt.y, (i / route.trail.length) * 2, 0, Math.PI * 2);
+              ctx.fill();
+            }
+
+            drawMiniJet(ctx, currentPos.x, currentPos.y, angle, isDark);
+          }
+
+          requestAnimationFrame(animateFlightCanvas);
+        }
+        animateFlightCanvas();
+      }
+
+      // 2. Dark Mode Toggle with persistence
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const darkIcon = darkModeToggle ? darkModeToggle.querySelector('i') : null;
+
+      const savedTheme = localStorage.getItem('wanderlux_theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        if (darkIcon) {
+          darkIcon.classList.remove('fa-moon');
+          darkIcon.classList.add('fa-sun');
+        }
+      }
+
+      function handleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('wanderlux_theme', isDark ? 'dark' : 'light');
+        if (darkIcon) {
+          if (isDark) {
+            darkIcon.classList.remove('fa-moon');
+            darkIcon.classList.add('fa-sun');
+          } else {
+            darkIcon.classList.remove('fa-sun');
+            darkIcon.classList.add('fa-moon');
+          }
+        }
+        if (window.framerAnimate && darkModeToggle) {
+          window.framerAnimate(darkModeToggle, { scale: [1, 1.25, 1], rotate: [0, 20, 0] }, { duration: 0.35 });
+        }
+      }
+
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', handleDarkMode);
+      }
+
+      // 3. RTL Toggle with persistence
+      const rtlToggle = document.getElementById('rtlToggle');
+
+      const savedRTL = localStorage.getItem('wanderlux_rtl');
+      if (savedRTL === 'true') {
+        document.body.classList.add('rtl-mode');
+        document.documentElement.dir = 'rtl';
+      }
+
+      function handleRTL() {
+        document.body.classList.toggle('rtl-mode');
+        const isRtl = document.body.classList.contains('rtl-mode');
+        document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+        localStorage.setItem('wanderlux_rtl', isRtl ? 'true' : 'false');
+        if (window.framerAnimate && rtlToggle) {
+          window.framerAnimate(rtlToggle, { scale: [1, 1.25, 1], rotateY: [0, 180, 0] }, { duration: 0.4 });
+        }
+      }
+
+      if (rtlToggle) {
+        rtlToggle.addEventListener('click', handleRTL);
+      }
+
+      // 4. Password Visibility Toggles
+      const toggleRegPwdBtn = document.getElementById('toggleRegPwdBtn');
+      const regPassword = document.getElementById('regPassword');
+      const regEyeIcon = document.getElementById('regEyeIcon');
+
+      if (toggleRegPwdBtn && regPassword && regEyeIcon) {
+        toggleRegPwdBtn.addEventListener('click', () => {
+          const isPassword = regPassword.getAttribute('type') === 'password';
+          regPassword.setAttribute('type', isPassword ? 'text' : 'password');
+          regEyeIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+          if (window.framerAnimate) {
+            window.framerAnimate(regEyeIcon, { rotate: [0, 180, 360], scale: [0.8, 1.2, 1] }, { duration: 0.35 });
+          }
+        });
+      }
+
+      const toggleConfirmPwdBtn = document.getElementById('toggleConfirmPwdBtn');
+      const regConfirmPassword = document.getElementById('regConfirmPassword');
+      const confirmEyeIcon = document.getElementById('confirmEyeIcon');
+
+      if (toggleConfirmPwdBtn && regConfirmPassword && confirmEyeIcon) {
+        toggleConfirmPwdBtn.addEventListener('click', () => {
+          const isPassword = regConfirmPassword.getAttribute('type') === 'password';
+          regConfirmPassword.setAttribute('type', isPassword ? 'text' : 'password');
+          confirmEyeIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+          if (window.framerAnimate) {
+            window.framerAnimate(confirmEyeIcon, { rotate: [0, 180, 360], scale: [0.8, 1.2, 1] }, { duration: 0.35 });
+          }
+        });
+      }
+
+      // 5. Toast Notification Helper
+      const toast = document.getElementById('loginToast');
+      const toastMsg = document.getElementById('toastMessage');
+      let toastTimer = null;
+
+      function showToast(message, iconClass = 'fa-circle-check', iconColor = '#38bdf8') {
+        if (!toast || !toastMsg) return;
+        toastMsg.textContent = message;
+        const icon = toast.querySelector('i');
+        if (icon) {
+          icon.className = `fas ${iconClass}`;
+          icon.style.color = iconColor;
+        }
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      }
+
+      // 6. Registration Form Submission Simulation
+      const registerForm = document.getElementById('registerForm');
+      if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const p1 = document.getElementById('regPassword').value;
+          const p2 = document.getElementById('regConfirmPassword').value;
+          if (p1 !== p2) {
+            showToast('Passwords do not match. Please verify.', 'fa-triangle-exclamation', '#f43f5e');
+            return;
+          }
+
+          const name = document.getElementById('travelerName').value;
+          showToast(`Welcome, ${name}! Issuing your WanderLux VIP passport...`, 'fa-circle-notch fa-spin', '#0ea5e9');
+          setTimeout(() => {
+            showToast('Account created successfully! Redirecting to login...', 'fa-circle-check', '#10b981');
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 1100);
+          }, 1300);
+        });
+      }
+
+      // 7. Social Buttons Click Simulation
+      const socialButtons = document.querySelectorAll('.social-btn');
+      socialButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const provider = btn.querySelector('span') ? btn.querySelector('span').textContent.trim() : 'Social account';
+          showToast(`Authorizing sign up with ${provider}...`, 'fa-spinner fa-spin', '#0ea5e9');
+          setTimeout(() => {
+            showToast(`${provider} account linked! Redirecting to login...`, 'fa-circle-check', '#10b981');
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 1100);
+          }, 1200);
+        });
+      });
+
+      // 8. 3D GYROSCOPE / PARALLAX TILT & SPECULAR SHEEN ANIMATION
+      const card = document.getElementById('loginCard');
+      const stage = document.querySelector('.login-stage');
+      const sheen = document.getElementById('cardSheen');
+
+      if (stage && card) {
+        let isHovered = false;
+
+        stage.addEventListener('mouseenter', () => {
+          isHovered = true;
+          card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+        });
+
+        stage.addEventListener('mousemove', (e) => {
+          if (!isHovered) return;
+          const rect = card.getBoundingClientRect();
+          const cardCenterX = rect.left + rect.width / 2;
+          const cardCenterY = rect.top + rect.height / 2;
+          const mouseX = e.clientX - cardCenterX;
+          const mouseY = e.clientY - cardCenterY;
+          
+          const rotateX = (-(mouseY / (rect.height / 2)) * 5.5).toFixed(2);
+          const rotateY = ((mouseX / (rect.width / 2)) * 5.5).toFixed(2);
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          
+          if (sheen) {
+            const sheenX = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+            const sheenY = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
+            sheen.style.background = `radial-gradient(circle at ${sheenX}% ${sheenY}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 65%)`;
+          }
+        });
+
+        stage.addEventListener('mouseleave', () => {
+          isHovered = false;
+          card.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease';
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+          if (sheen) sheen.style.background = 'transparent';
+        });
+      }
+
+      // 9. FRAMER MOTION ENTRANCE CHOREOGRAPHY
+      if (window.framerAnimate) {
+        if (card) {
+          window.framerAnimate(
+            card,
+            { opacity: [0, 1], scale: [0.92, 1], y: [35, 0] },
+            { duration: 0.75, easing: window.framerSpring ? window.framerSpring({ stiffness: 100, damping: 14 }) : 'ease-out' }
+          );
+        }
+
+        const astrolabe = document.getElementById('astrolabeSystem');
+        if (astrolabe) {
+          window.framerAnimate(astrolabe, { opacity: [0, 1], scale: [0.85, 1] }, { duration: 1.2, easing: 'ease-out' });
+        }
+
+        const topBar = document.getElementById('topRightBar');
+        if (topBar) {
+          window.framerAnimate(topBar, { opacity: [0, 1], y: [-15, 0] }, { duration: 0.5, delay: 0.2, easing: 'ease-out' });
+        }
+
+        const formItems = document.querySelectorAll('.input-group, .input-row-duo, .btn-submit-login, .social-btn');
+        if (formItems.length && window.framerStagger) {
+          window.framerAnimate(
+            formItems,
+            { opacity: [0, 1], y: [15, 0] },
+            { delay: window.framerStagger(0.05, { start: 0.25 }), duration: 0.45, easing: 'ease-out' }
+          );
+        }
+      }
+    });
+  </script>
+</body>
+</html>
