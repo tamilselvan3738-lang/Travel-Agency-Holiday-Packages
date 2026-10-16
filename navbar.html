@@ -3157,7 +3157,8 @@
 /* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
 body.mobile-menu-open,
 body.menu-open {
-  overflow: hidden !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   scrollbar-width: none !important;
 }
 
@@ -3174,6 +3175,13 @@ body.menu-open::-webkit-scrollbar {
   @media (max-width: 768px) { .navbar { top: 0.5rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   @media (max-width: 480px) { .navbar { top: 0.4rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   @media (max-width: 320px) { .navbar { top: 0.25rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+    /* ZERO-JUMP STICKY NAVBAR ENGINE */
+  .navbar { position: -webkit-sticky !important; position: sticky !important; top: 0.75rem !important; left: auto !important; right: auto !important; margin-left: auto !important; margin-right: auto !important; z-index: 1000 !important; }
+  body.mobile-menu-open, body.menu-open { overflow-x: clip !important; overflow-y: visible !important; }
+  @media (max-width: 1024px) { .navbar { top: 0.65rem !important; } }
+  @media (max-width: 768px) { .navbar { top: 0.5rem !important; } .mobile-menu { top: 4.2rem !important; } }
+  @media (max-width: 480px) { .navbar { top: 0.4rem !important; } .mobile-menu { top: 3.8rem !important; } }
+  @media (max-width: 320px) { .navbar { top: 0.25rem !important; } .mobile-menu { top: 3.4rem !important; } }
   </style>
 </head>
 <body>
@@ -3796,10 +3804,22 @@ body.menu-open::-webkit-scrollbar {
       }
 
       // ---------- hamburger toggle ----------
-      function toggleMobileMenu() {
-        mobileMenu.classList.toggle('active');
-          document.body.classList.toggle('mobile-menu-open', mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open'));
-        hamburger.classList.toggle('open');
+      function toggleMobileMenu(e) {
+        if (e && e.preventDefault) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        var willBeOpen = !mobileMenu.classList.contains('active');
+        mobileMenu.classList.toggle('active', willBeOpen);
+        mobileMenu.classList.toggle('open', willBeOpen);
+        document.body.classList.toggle('mobile-menu-open', willBeOpen);
+        hamburger.classList.toggle('open', willBeOpen);
+        hamburger.classList.toggle('active', willBeOpen);
+        hamburger.setAttribute('aria-expanded', willBeOpen ? 'true' : 'false');
+        if (window.scrollY !== currentScrollY) {
+          window.scrollTo(0, currentScrollY);
+        }
         if (window.motion && window.motion.animate && mobileMenu.classList.contains('active')) {
           window.motion.animate(mobileMenu, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.25 });
         }

@@ -6607,7 +6607,8 @@
 /* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
 body.mobile-menu-open,
 body.menu-open {
-  overflow: hidden !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   scrollbar-width: none !important;
 }
 
@@ -6624,6 +6625,13 @@ body.menu-open::-webkit-scrollbar {
   @media (max-width: 768px) { .navbar { top: 0.5rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   @media (max-width: 480px) { .navbar { top: 0.4rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   @media (max-width: 320px) { .navbar { top: 0.25rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+    /* ZERO-JUMP STICKY NAVBAR ENGINE */
+  .navbar { position: -webkit-sticky !important; position: sticky !important; top: 0.75rem !important; left: auto !important; right: auto !important; margin-left: auto !important; margin-right: auto !important; z-index: 1000 !important; }
+  body.mobile-menu-open, body.menu-open { overflow-x: clip !important; overflow-y: visible !important; }
+  @media (max-width: 1024px) { .navbar { top: 0.65rem !important; } }
+  @media (max-width: 768px) { .navbar { top: 0.5rem !important; } .mobile-menu { top: 4.2rem !important; } }
+  @media (max-width: 480px) { .navbar { top: 0.4rem !important; } .mobile-menu { top: 3.8rem !important; } }
+  @media (max-width: 320px) { .navbar { top: 0.25rem !important; } .mobile-menu { top: 3.4rem !important; } }
   </style>
 </head>
 <body>
@@ -7751,12 +7759,21 @@ body.menu-open::-webkit-scrollbar {
 
       if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', (e) => {
+        if (e && e.preventDefault) {
+          e.preventDefault();
           e.stopPropagation();
-          const isOpen = mobileMenu.classList.toggle('active');
-          document.body.classList.toggle('mobile-menu-open', mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open'));
-          hamburger.classList.toggle('active', isOpen);
-          hamburger.setAttribute('aria-expanded', isOpen);
-        });
+        }
+        var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        var isOpen = mobileMenu.classList.toggle('active');
+        mobileMenu.classList.toggle('open', isOpen);
+        document.body.classList.toggle('mobile-menu-open', isOpen);
+        hamburger.classList.toggle('active', isOpen);
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (window.scrollY !== currentScrollY) {
+          window.scrollTo(0, currentScrollY);
+        }
+      });
 
         document.addEventListener('click', (e) => {
           if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {

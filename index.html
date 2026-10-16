@@ -6652,12 +6652,14 @@
     }
     .ticket-barcode {
       font-family: monospace !important;
-      font-size: 0.95rem !important;
-      letter-spacing: 2px !important;
+      font-size: 0.8rem !important;
+      letter-spacing: 1px !important;
       color: var(--text-muted) !important;
       opacity: 0.7 !important;
       white-space: nowrap !important;
-      flex-shrink: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      text-overflow: clip !important;
     }
     .ticket-claim-btn {
       white-space: nowrap !important;
@@ -6768,7 +6770,8 @@
 /* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
 body.mobile-menu-open,
 body.menu-open {
-  overflow: hidden !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   scrollbar-width: none !important;
 }
 
@@ -6785,6 +6788,230 @@ body.menu-open::-webkit-scrollbar {
   @media (max-width: 768px) { .navbar { top: 0.5rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   @media (max-width: 480px) { .navbar { top: 0.4rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   @media (max-width: 320px) { .navbar { top: 0.25rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  
+  /* ==========================================================================
+     SECTION 4 DUAL SHOWCASE & VIP TICKET CARD BULLETPROOF MOBILE ENGINE
+     Completely resolves horizontal blowout, cut-off text, & cards on mobile
+     ========================================================================== */
+  .section-dual-showcase {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  .dual-showcase-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+  .showcase-col-deals,
+  .showcase-col-adventures {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .showcase-title,
+  .showcase-desc {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    box-sizing: border-box !important;
+  }
+  .deal-ticket-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  .ticket-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .ticket-badge {
+    font-size: clamp(0.68rem, 2.5vw, 0.75rem) !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+  .ticket-code {
+    font-size: clamp(0.72rem, 2.5vw, 0.85rem) !important;
+    white-space: nowrap !important;
+  }
+  .ticket-headline {
+    font-size: clamp(1.05rem, 3.5vw, 1.35rem) !important;
+    line-height: 1.3 !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  .ticket-sub {
+    font-size: clamp(0.78rem, 2.5vw, 0.86rem) !important;
+    line-height: 1.45 !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  .ticket-benefits {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding-left: 0 !important;
+  }
+  .ticket-benefits li {
+    font-size: clamp(0.78rem, 2.4vw, 0.88rem) !important;
+    line-height: 1.4 !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  .ticket-barcode {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 1px !important;
+    box-sizing: border-box !important;
+    opacity: 0.7 !important;
+    padding: 0 4px !important;
+  }
+  .ticket-barcode span,
+  .ticket-barcode .barcode-lines {
+    display: inline-block !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    letter-spacing: 1px !important;
+    white-space: nowrap !important;
+  }
+  .ticket-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding-top: 1rem !important;
+  }
+  .ticket-claim-btn {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    padding: 0.65rem 1rem !important;
+  }
+  .adventures-cards-stack {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    box-sizing: border-box !important;
+  }
+  .adv-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  .adv-info {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .adv-name {
+    font-size: clamp(0.98rem, 3.2vw, 1.15rem) !important;
+    line-height: 1.3 !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+  .adv-text {
+    font-size: clamp(0.76rem, 2.4vw, 0.85rem) !important;
+    line-height: 1.45 !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+  .adv-footer-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .adv-price {
+    font-size: 0.84rem !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+  }
+  .adv-link-btn {
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.76rem !important;
+    min-height: 34px !important;
+    box-sizing: border-box !important;
+  }
+  @media (max-width: 768px) {
+    .deal-ticket-card {
+      padding: 1.35rem 1.1rem !important;
+      border-radius: 1.5rem !important;
+    }
+  }
+  @media (max-width: 480px) {
+    .deal-ticket-card {
+      padding: 1rem 0.8rem !important;
+      border-radius: 1.25rem !important;
+    }
+    .adv-info {
+      padding: 0.85rem !important;
+    }
+    .ticket-barcode {
+      font-size: 0.62rem !important;
+      letter-spacing: 0.5px !important;
+    }
+  }
+  @media (max-width: 360px) {
+    .deal-ticket-card {
+      padding: 0.85rem 0.6rem !important;
+      border-radius: 1rem !important;
+    }
+    .adv-footer-row {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 8px !important;
+    }
+    .adv-link-btn {
+      width: 100% !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+  }
+
+    /* ZERO-JUMP STICKY NAVBAR ENGINE */
+  .navbar { position: -webkit-sticky !important; position: sticky !important; top: 0.75rem !important; left: auto !important; right: auto !important; margin-left: auto !important; margin-right: auto !important; z-index: 1000 !important; }
+  body.mobile-menu-open, body.menu-open { overflow-x: clip !important; overflow-y: visible !important; }
+  @media (max-width: 1024px) { .navbar { top: 0.65rem !important; } }
+  @media (max-width: 768px) { .navbar { top: 0.5rem !important; } .mobile-menu { top: 4.2rem !important; } }
+  @media (max-width: 480px) { .navbar { top: 0.4rem !important; } .mobile-menu { top: 3.8rem !important; } }
+  @media (max-width: 320px) { .navbar { top: 0.25rem !important; } .mobile-menu { top: 3.4rem !important; } }
   </style>
 </head>
 <body>
@@ -8135,10 +8362,22 @@ body.menu-open::-webkit-scrollbar {
       }
 
       // ---------- hamburger toggle ----------
-      function toggleMobileMenu() {
-        mobileMenu.classList.toggle('active');
-          document.body.classList.toggle('mobile-menu-open', mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open'));
-        hamburger.classList.toggle('open');
+      function toggleMobileMenu(e) {
+        if (e && e.preventDefault) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        var willBeOpen = !mobileMenu.classList.contains('active');
+        mobileMenu.classList.toggle('active', willBeOpen);
+        mobileMenu.classList.toggle('open', willBeOpen);
+        document.body.classList.toggle('mobile-menu-open', willBeOpen);
+        hamburger.classList.toggle('open', willBeOpen);
+        hamburger.classList.toggle('active', willBeOpen);
+        hamburger.setAttribute('aria-expanded', willBeOpen ? 'true' : 'false');
+        if (window.scrollY !== currentScrollY) {
+          window.scrollTo(0, currentScrollY);
+        }
         if (window.motion && window.motion.animate && mobileMenu.classList.contains('active')) {
           window.motion.animate(mobileMenu, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.25 });
         }

@@ -1627,7 +1627,8 @@
 /* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
 body.mobile-menu-open,
 body.menu-open {
-  overflow: hidden !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   scrollbar-width: none !important;
 }
 

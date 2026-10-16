@@ -465,8 +465,8 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
     position: -webkit-sticky !important;
     position: sticky !important;
     top: 0.5rem !important;
-    left: 0 !important;
-    right: 0 !important;
+    left: auto !important;
+    right: auto !important;
     margin-left: auto !important;
     margin-right: auto !important;
     margin-top: 0 !important;
@@ -1076,7 +1076,9 @@ body.rtl-mode .user-sidebar {
 .ticket-barcode {
   font-family: monospace !important;
   white-space: nowrap !important;
-  flex-shrink: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
 }
 .ticket-claim-btn {
   white-space: nowrap !important;
@@ -1711,7 +1713,9 @@ section, .family-section, [id] {
 /* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
 body.mobile-menu-open,
 body.menu-open {
-  overflow: hidden !important;
+  /* Prevent scroll jump or reset when hamburger menu opens */
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   scrollbar-width: none !important;
 }
 
@@ -1816,6 +1820,258 @@ body:not(.dark-mode) .navbar.is-sticky {
     margin-right: auto !important;
     width: 100% !important;
     max-width: 100% !important;
+  }
+}
+
+
+
+/* ==========================================================================
+   UNIVERSAL COMPONENT ALIGNMENT & HORIZONTAL OVERFLOW PREVENTION ENGINE
+   Addresses Image 1 (Ticket card & barcode), Image 2 (Adventure cards),
+   Image 3 (Atelier stepper pills & grids), and all responsive layouts
+   ========================================================================== */
+.section-dual-showcase,
+.dual-showcase-container,
+.showcase-col-deals,
+.showcase-col-adventures,
+.deal-ticket-card,
+.adventures-cards-stack,
+.adv-card,
+.home2-atelier-workbench,
+.home2-stepper-tab-group {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.ticket-barcode {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-align: center !important;
+  letter-spacing: 1px !important;
+  font-size: 0.72rem !important;
+  white-space: nowrap !important;
+  text-overflow: clip !important;
+  box-sizing: border-box !important;
+}
+
+.ticket-barcode span,
+.ticket-barcode .barcode-lines {
+  display: inline-block !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+.home2-stepper-tab-group {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  overflow-x: visible !important;
+  gap: 8px !important;
+  scrollbar-width: none !important;
+}
+
+.home2-stepper-tab-group::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .deal-ticket-card {
+    padding: 1.35rem 1.1rem !important;
+    border-radius: 1.5rem !important;
+  }
+  .ticket-header {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .adv-footer-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+  .home2-step-pill {
+    flex: 1 1 calc(50% - 8px) !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    padding: 9px 10px !important;
+    font-size: 0.8rem !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    box-sizing: border-box !important;
+  }
+  .contact-form-studio div[style*="grid-template-columns"],
+  .contact-form-card div[style*="grid-template-columns"],
+  .exp-card div[style*="grid-template-columns"],
+  .home2-modal-card div[style*="grid-template-columns"],
+  .modal-dialog div[style*="grid-template-columns"],
+  .modal-body div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .deal-ticket-card {
+    padding: 1rem 0.8rem !important;
+    border-radius: 1.25rem !important;
+  }
+  .ticket-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+  .ticket-barcode {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.5px !important;
+  }
+  .adv-info {
+    padding: 0.85rem !important;
+  }
+  .home2-atelier-workbench {
+    padding: 1rem 0.75rem !important;
+    border-radius: 16px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .deal-ticket-card {
+    padding: 0.85rem 0.6rem !important;
+    border-radius: 1rem !important;
+  }
+  .adv-footer-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .adv-link-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  .home2-step-pill {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+  }
+}
+
+
+/* ==========================================================================
+   DEFINITIVE BULLETPROOF STICKY NAVBAR & ZERO-JUMP MOBILE MENU ENGINE
+   ========================================================================== */
+.navbar {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0.75rem !important;
+  left: auto !important;
+  right: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 1360px !important;
+  border-radius: 9999px !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+}
+
+body.mobile-menu-open,
+body.menu-open {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  scrollbar-width: none !important;
+}
+
+.mobile-menu {
+  position: fixed !important;
+  top: 4.8rem !important;
+  left: 1rem !important;
+  right: 1rem !important;
+  width: auto !important;
+  max-width: calc(100vw - 2rem) !important;
+  max-height: calc(85vh - 5rem) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  z-index: 99999 !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0.65rem !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0.5rem !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+  }
+  .mobile-menu {
+    top: 4.2rem !important;
+    left: 0.65rem !important;
+    right: 0.65rem !important;
+    max-width: calc(100vw - 1.3rem) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0.4rem !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+  }
+  .mobile-menu {
+    top: 3.8rem !important;
+    left: 0.35rem !important;
+    right: 0.35rem !important;
+    max-width: calc(100vw - 0.7rem) !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0.25rem !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+  }
+  .mobile-menu {
+    top: 3.4rem !important;
   }
 }
 
