@@ -1388,7 +1388,8 @@
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    .mobile-menu.active {
+    .mobile-menu.active,
+    .mobile-menu.open {
       display: flex;
     }
 
@@ -1452,10 +1453,9 @@
       border-top: 1px solid rgba(0,0,0,0.1);
     }
 
-    .mobile-menu .mobile-controls .icon-btn,
-    .mobile-menu .mobile-controls .login-btn {
-      width: auto;
-    }
+    .mobile-icon-group { display: flex !important; align-items: center !important; gap: 0.65rem !important; flex-shrink: 0 !important; }
+    .mobile-menu .mobile-controls .icon-btn, .mobile-controls .icon-btn, .nav-right .icon-btn { width: 40px !important; min-width: 40px !important; max-width: 40px !important; height: 40px !important; min-height: 40px !important; max-height: 40px !important; aspect-ratio: 1 / 1 !important; border-radius: 50% !important; padding: 0 !important; margin: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; box-sizing: border-box !important; }
+    .mobile-menu .mobile-controls .login-btn { height: 38px !important; padding: 0 1.25rem !important; border-radius: 9999px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; white-space: nowrap !important; width: auto !important; }
 
     /* ---------- RESPONSIVE (tablet & mobile) ---------- */
     /* Tablet & Mobile View (<= 1150px): Logo strictly on LEFT, Hamburger strictly on RIGHT */
@@ -6468,7 +6468,18 @@
         font-size: 1.05rem !important;
       }
       .logo-subtitle {
-        display: none !important;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 0.48rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.07em !important;
+        gap: 3px !important;
+        white-space: nowrap !important;
+        line-height: 1 !important;
+      }
+      .logo-subtitle i {
+        display: inline-block !important;
+        font-size: 0.52rem !important;
       }
       .logo-badge {
         width: 36px !important;
@@ -6624,6 +6635,156 @@
       right: auto !important;
     }
 
+  
+    /* ==========================================================================
+       TICKET CLAIM BUTTON & FOOTER NO-WRAP ENGINE (FIX FOR USER SCREENSHOT)
+       ========================================================================== */
+    .ticket-footer {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 12px !important;
+      border-top: 1px dashed var(--nav-border) !important;
+      padding-top: 1.2rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .ticket-barcode {
+      font-family: monospace !important;
+      font-size: 0.95rem !important;
+      letter-spacing: 2px !important;
+      color: var(--text-muted) !important;
+      opacity: 0.7 !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    .ticket-claim-btn {
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      flex-shrink: 0 !important;
+      line-height: 1 !important;
+    }
+    @media (max-width: 480px) {
+      .ticket-footer {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+      .ticket-claim-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+      }
+    }
+
+    html { scroll-padding-top: 5.5rem !important; }
+  section, .family-section, [id] { scroll-margin-top: 5.5rem !important; }
+  .mobile-dropdown.mobile-dashboard-dropdown, .mobile-menu .mobile-dashboard-dropdown, .mobile-menu .mobile-dropdown:last-of-type { margin-top: 1.25rem !important; margin-bottom: 0.65rem !important; padding-top: 0.85rem !important; border-top: 1px dashed var(--card-border, rgba(14, 165, 233, 0.25)) !important; }
+  
+/* ==========================================================================
+   UNIVERSAL SCROLLBAR REMOVAL ENGINE (WHEREVER HAMBURGER MENU IS PRESENT)
+   Removes visual scrollbars completely on mobile menus, dropdowns, sidebars,
+   and mobile viewports while preserving 100% full touch & wheel scrollability.
+   ========================================================================== */
+
+/* 1. Mobile Menu Popup & Submenus: Remove Scrollbar */
+.mobile-menu,
+.mobile-menu *,
+.mobile-submenu,
+.mobile-dropdown,
+.mobile-controls {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and Edge */
+}
+
+.mobile-menu::-webkit-scrollbar,
+.mobile-menu *::-webkit-scrollbar,
+.mobile-submenu::-webkit-scrollbar,
+.mobile-dropdown::-webkit-scrollbar,
+.mobile-controls::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, WebKit */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Admin & User Dashboard Sidebars (Toggled via Hamburger): Remove Scrollbar */
+.admin-sidebar,
+.admin-sidebar *,
+.user-sidebar,
+.user-sidebar *,
+.sidebar-nav,
+.sidebar-nav * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-sidebar *::-webkit-scrollbar,
+.user-sidebar::-webkit-scrollbar,
+.user-sidebar *::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.sidebar-nav *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 3. Wherever Hamburger Menu is Present (<= 1024px Viewports): Remove Page Scrollbar */
+@media (max-width: 1024px) {
+  html,
+  body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-x: clip !important; overflow-y: visible !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  .mobile-menu {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .mobile-menu::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
+body.mobile-menu-open,
+body.menu-open {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+
+body.mobile-menu-open::-webkit-scrollbar,
+body.menu-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+    /* DEFINITIVE UNIVERSAL CENTERED STICKY NAVBAR CAPSULE */
+  .navbar { position: -webkit-sticky !important; position: sticky !important; top: 0.75rem !important; margin-left: auto !important; margin-right: auto !important; margin-top: 0 !important; margin-bottom: 0 !important; width: 100% !important; max-width: 1360px !important; border-radius: 9999px !important; z-index: 1000 !important; }
+  @media (max-width: 1024px) { .navbar { top: 0.65rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 768px) { .navbar { top: 0.5rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 480px) { .navbar { top: 0.4rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 320px) { .navbar { top: 0.25rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   </style>
 </head>
 <body>
@@ -7002,7 +7163,7 @@
       <a href="special-offers.html" class="nav-link">Special Offers</a>
       <a href="guide.html" class="nav-link">Guide</a>
       <a href="contact.html" class="nav-link">Contact</a>
-      <div class="mobile-dropdown">
+      <div class="mobile-dropdown mobile-dashboard-dropdown">
         <a href="#" class="nav-link mobile-dropdown-toggle">
           <span>Dashboard</span>
           <i class="fas fa-chevron-down dropdown-arrow"></i>
@@ -7019,8 +7180,10 @@
         </div>
       </div>
       <div class="mobile-controls">
-        <button class="icon-btn" id="mobileDarkToggle" aria-label="Dark mode"><i class="fas fa-moon"></i></button>
-        <button class="icon-btn" id="mobileRtlToggle" aria-label="Right left toggle"><i class="fas fa-arrow-right-arrow-left"></i></button>
+        <div class="mobile-icon-group">
+          <button class="icon-btn" id="mobileDarkToggle" aria-label="Dark mode"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" id="mobileRtlToggle" aria-label="Right left toggle"><i class="fas fa-arrow-right-arrow-left"></i></button>
+        </div>
         <a href="login.html" class="login-btn" id="mobileLoginBtn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Log in</a>
       </div>
     </div>
@@ -7974,6 +8137,7 @@
       // ---------- hamburger toggle ----------
       function toggleMobileMenu() {
         mobileMenu.classList.toggle('active');
+          document.body.classList.toggle('mobile-menu-open', mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open'));
         hamburger.classList.toggle('open');
         if (window.motion && window.motion.animate && mobileMenu.classList.contains('active')) {
           window.motion.animate(mobileMenu, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.25 });

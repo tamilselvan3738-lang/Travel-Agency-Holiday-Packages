@@ -1392,7 +1392,8 @@
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    .mobile-menu.active {
+    .mobile-menu.active,
+    .mobile-menu.open {
       display: flex;
     }
 
@@ -1456,10 +1457,9 @@
       border-top: 1px solid rgba(0,0,0,0.1);
     }
 
-    .mobile-menu .mobile-controls .icon-btn,
-    .mobile-menu .mobile-controls .login-btn {
-      width: auto;
-    }
+    .mobile-icon-group { display: flex !important; align-items: center !important; gap: 0.65rem !important; flex-shrink: 0 !important; }
+    .mobile-menu .mobile-controls .icon-btn, .mobile-controls .icon-btn, .nav-right .icon-btn { width: 40px !important; min-width: 40px !important; max-width: 40px !important; height: 40px !important; min-height: 40px !important; max-height: 40px !important; aspect-ratio: 1 / 1 !important; border-radius: 50% !important; padding: 0 !important; margin: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; box-sizing: border-box !important; }
+    .mobile-menu .mobile-controls .login-btn { height: 38px !important; padding: 0 1.25rem !important; border-radius: 9999px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; white-space: nowrap !important; width: auto !important; }
 
     /* ---------- RESPONSIVE (tablet & mobile) ---------- */
     /* Tablet & Mobile View (<= 1150px): Logo strictly on LEFT, Hamburger strictly on RIGHT */
@@ -4937,7 +4937,18 @@
         font-size: 1.05rem !important;
       }
       .logo-subtitle {
-        display: none !important;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 0.48rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.07em !important;
+        gap: 3px !important;
+        white-space: nowrap !important;
+        line-height: 1 !important;
+      }
+      .logo-subtitle i {
+        display: inline-block !important;
+        font-size: 0.52rem !important;
       }
       .logo-badge {
         width: 36px !important;
@@ -5093,6 +5104,421 @@
       right: auto !important;
     }
 
+  
+    /* ==========================================================================
+       UNIFORM IMAGE HEIGHT & WIDTH ENGINE (ALL IMAGES EXACT SAME SIZE)
+       ========================================================================== */
+    .asian-card-media,
+    .euro-card-media,
+    .me-media,
+    .americas-media,
+    .luxury-escapes-media,
+    .dossier-hero-banner {
+      position: relative !important;
+      width: 100% !important;
+      height: 240px !important;
+      min-height: 240px !important;
+      max-height: 240px !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      border-radius: 1.8rem 1.8rem 0 0 !important;
+    }
+
+    .dossier-hero-banner {
+      border-radius: 1.6rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+
+    .asian-card-media img,
+    .euro-card-media img,
+    .me-media img,
+    .americas-media img,
+    .luxury-escapes-media img,
+    .dossier-hero-banner img {
+      width: 100% !important;
+      height: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Transform European cards to standard vertical layout matching Asian & Americas */
+    .euro-card {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      border-radius: 1.8rem !important;
+      overflow: hidden !important;
+    }
+
+    .euro-card-body {
+      padding: 1.35rem 1.2rem 1.2rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex-grow: 1 !important;
+    }
+
+    /* All destination cards sharing exact uniform structure & height */
+    .asian-dest-card,
+    .euro-card,
+    .me-card,
+    .americas-card {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      border-radius: 1.8rem !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .asian-card-body,
+    .euro-card-body,
+    .me-body,
+    .americas-body {
+      padding: 1.35rem 1.2rem 1.2rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex-grow: 1 !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Prevent abnormal description stretching causing blank space */
+    .asian-card-desc,
+    .euro-card-desc,
+    .me-desc,
+    .americas-desc {
+      flex-grow: 0 !important;
+      margin-bottom: 1rem !important;
+      line-height: 1.6 !important;
+      font-size: 0.88rem !important;
+      color: var(--text-muted) !important;
+    }
+
+    .asian-meta-row,
+    .euro-meta-row,
+    .me-meta-row,
+    .americas-meta-row {
+      margin-top: auto !important;
+      margin-bottom: 0.85rem !important;
+      padding-top: 0.75rem !important;
+      border-top: 1px solid rgba(14, 165, 233, 0.15) !important;
+    }
+
+    .asian-footer-row,
+    .euro-footer-row,
+    .me-footer,
+    .americas-footer {
+      margin-top: 0 !important;
+      padding-top: 0.85rem !important;
+      border-top: 1px solid rgba(14, 165, 233, 0.2) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Symmetrical Grids across all screen sizes */
+    .asian-destinations-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 1.8rem !important;
+    }
+    .euro-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1.8rem !important;
+    }
+    .me-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 1.8rem !important;
+    }
+    .americas-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1.8rem !important;
+    }
+
+    /* Section 7 Dossier & Booking Console Layout */
+    .inter-details-booking-layout {
+      display: grid !important;
+      grid-template-columns: 1.2fr 0.8fr !important;
+      gap: 2.5rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+
+    .dossier-card,
+    .booking-console-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+    }
+
+    .dossier-spec-matrix {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 1.2rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .spec-matrix-box {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      word-break: break-word !important;
+      overflow-wrap: break-word !important;
+    }
+
+    .booking-grid-duo {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 10px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .inter-pricing-banner {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 1rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .inter-itinerary-timeline {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .inter-day-item,
+    .inter-day-title,
+    .inter-day-desc {
+      word-break: break-word !important;
+      overflow-wrap: break-word !important;
+    }
+
+    /* Breakpoint <= 1100px (Tablets & Nest Hub Max) */
+    @media (max-width: 1100px) {
+      .asian-destinations-grid,
+      .me-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.4rem !important;
+      }
+      .euro-grid,
+      .americas-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.4rem !important;
+      }
+      .inter-details-booking-layout {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .booking-console-card {
+        position: static !important;
+      }
+    }
+
+    /* Breakpoint <= 768px (Mobile & Small Tablets) */
+    @media (max-width: 768px) {
+      .asian-destinations-grid,
+      .euro-grid,
+      .me-grid,
+      .americas-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      .asian-card-media,
+      .euro-card-media,
+      .me-media,
+      .americas-media,
+      .luxury-escapes-media,
+      .dossier-hero-banner {
+        height: 220px !important;
+        min-height: 220px !important;
+        max-height: 220px !important;
+      }
+      .booking-grid-duo {
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
+      }
+      .dossier-spec-matrix {
+        grid-template-columns: 1fr !important;
+        gap: 0.9rem !important;
+      }
+      .dossier-card,
+      .booking-console-card {
+        padding: 1.5rem 1.2rem !important;
+        border-radius: 1.6rem !important;
+      }
+      .inter-pricing-banner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 1.2rem 1.1rem !important;
+      }
+      .inter-price-val {
+        font-size: 1.6rem !important;
+      }
+    }
+
+    /* Breakpoint <= 480px (Compact Mobile) */
+    @media (max-width: 480px) {
+      .asian-card-media,
+      .euro-card-media,
+      .me-media,
+      .americas-media,
+      .luxury-escapes-media,
+      .dossier-hero-banner {
+        height: 200px !important;
+        min-height: 200px !important;
+        max-height: 200px !important;
+      }
+      .dossier-card,
+      .booking-console-card {
+        padding: 1.2rem 0.85rem !important;
+        border-radius: 1.25rem !important;
+      }
+      .spec-matrix-box {
+        padding: 1rem 0.85rem !important;
+      }
+      .inter-itinerary-timeline {
+        padding-left: 1.4rem !important;
+      }
+      .inter-day-dot {
+        left: -1.4rem !important;
+        width: 14px !important;
+        height: 14px !important;
+      }
+      .asian-footer-row,
+      .euro-footer-row,
+      .me-footer,
+      .americas-footer {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+      }
+      .dest-action-btn.btn-3d {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+    }
+
+    html { scroll-padding-top: 5.5rem !important; }
+  section, .family-section, [id] { scroll-margin-top: 5.5rem !important; }
+  .mobile-dropdown.mobile-dashboard-dropdown, .mobile-menu .mobile-dashboard-dropdown, .mobile-menu .mobile-dropdown:last-of-type { margin-top: 1.25rem !important; margin-bottom: 0.65rem !important; padding-top: 0.85rem !important; border-top: 1px dashed var(--card-border, rgba(14, 165, 233, 0.25)) !important; }
+  
+/* ==========================================================================
+   UNIVERSAL SCROLLBAR REMOVAL ENGINE (WHEREVER HAMBURGER MENU IS PRESENT)
+   Removes visual scrollbars completely on mobile menus, dropdowns, sidebars,
+   and mobile viewports while preserving 100% full touch & wheel scrollability.
+   ========================================================================== */
+
+/* 1. Mobile Menu Popup & Submenus: Remove Scrollbar */
+.mobile-menu,
+.mobile-menu *,
+.mobile-submenu,
+.mobile-dropdown,
+.mobile-controls {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and Edge */
+}
+
+.mobile-menu::-webkit-scrollbar,
+.mobile-menu *::-webkit-scrollbar,
+.mobile-submenu::-webkit-scrollbar,
+.mobile-dropdown::-webkit-scrollbar,
+.mobile-controls::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, WebKit */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Admin & User Dashboard Sidebars (Toggled via Hamburger): Remove Scrollbar */
+.admin-sidebar,
+.admin-sidebar *,
+.user-sidebar,
+.user-sidebar *,
+.sidebar-nav,
+.sidebar-nav * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-sidebar *::-webkit-scrollbar,
+.user-sidebar::-webkit-scrollbar,
+.user-sidebar *::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.sidebar-nav *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 3. Wherever Hamburger Menu is Present (<= 1024px Viewports): Remove Page Scrollbar */
+@media (max-width: 1024px) {
+  html,
+  body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-x: clip !important; overflow-y: visible !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  .mobile-menu {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .mobile-menu::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
+body.mobile-menu-open,
+body.menu-open {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+
+body.mobile-menu-open::-webkit-scrollbar,
+body.menu-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+    /* DEFINITIVE UNIVERSAL CENTERED STICKY NAVBAR CAPSULE */
+  .navbar { position: -webkit-sticky !important; position: sticky !important; top: 0.75rem !important; margin-left: auto !important; margin-right: auto !important; margin-top: 0 !important; margin-bottom: 0 !important; width: 100% !important; max-width: 1360px !important; border-radius: 9999px !important; z-index: 1000 !important; }
+  @media (max-width: 1024px) { .navbar { top: 0.65rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 768px) { .navbar { top: 0.5rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 480px) { .navbar { top: 0.4rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 320px) { .navbar { top: 0.25rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   </style>
 </head>
 <body>
@@ -5471,7 +5897,7 @@
       <a href="special-offers.html" class="nav-link">Special Offers</a>
       <a href="guide.html" class="nav-link">Guide</a>
       <a href="contact.html" class="nav-link">Contact</a>
-      <div class="mobile-dropdown">
+      <div class="mobile-dropdown mobile-dashboard-dropdown">
         <a href="#" class="nav-link mobile-dropdown-toggle">
           <span>Dashboard</span>
           <i class="fas fa-chevron-down dropdown-arrow"></i>
@@ -5488,8 +5914,10 @@
         </div>
       </div>
       <div class="mobile-controls">
-        <button class="icon-btn" id="mobileDarkToggle" aria-label="Dark mode"><i class="fas fa-moon"></i></button>
-        <button class="icon-btn" id="mobileRtlToggle" aria-label="Right left toggle"><i class="fas fa-arrow-right-arrow-left"></i></button>
+        <div class="mobile-icon-group">
+          <button class="icon-btn" id="mobileDarkToggle" aria-label="Dark mode"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" id="mobileRtlToggle" aria-label="Right left toggle"><i class="fas fa-arrow-right-arrow-left"></i></button>
+        </div>
         <a href="login.html" class="login-btn" id="mobileLoginBtn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Log in</a>
       </div>
     </div>
@@ -5684,7 +6112,7 @@
           </div>
 
           <!-- 5. Japan & South Korea -->
-          <div class="asian-dest-card" style="grid-column: span 2;">
+          <div class="asian-dest-card">
             <div class="asian-card-media">
               <img src="images/inter-asia-japan-korea.jpg" alt="Japan &amp; South Korea Mount Fuji &amp; Pagodas" loading="lazy">
               <span class="asian-flight-badge"><i class="fas fa-plane"></i> 8h Direct</span>
@@ -6248,7 +6676,7 @@
                 </select>
               </div>
 
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+              <div class="booking-grid-duo">
                 <div class="b-input-group">
                   <label class="b-label" for="interDepartureDate">Departure Date</label>
                   <input type="date" id="interDepartureDate" class="b-control" required>
@@ -6504,6 +6932,7 @@
       // ---------- hamburger toggle ----------
       function toggleMobileMenu() {
         mobileMenu.classList.toggle('active');
+          document.body.classList.toggle('mobile-menu-open', mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open'));
         hamburger.classList.toggle('open');
         if (window.motion && window.motion.animate && mobileMenu.classList.contains('active')) {
           window.motion.animate(mobileMenu, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.25 });

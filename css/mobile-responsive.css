@@ -264,8 +264,146 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
     padding: 0.85rem 1.25rem !important;
   }
 
+  /* Universal Centered Floating Sticky Navbar Capsule (<= 1024px) */
   .navbar {
-    top: 0.85rem !important;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0.65rem !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-direction: row !important;
+    box-sizing: border-box !important;
+    padding: 0.45rem 1.25rem !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
+    box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.18), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    z-index: 1000 !important;
+  }
+
+  body.dark-mode .navbar {
+    background: rgba(10, 24, 40, 0.96) !important;
+    border-bottom-color: rgba(56, 189, 248, 0.28) !important;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .admin-navbar,
+  .user-navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 1.25rem !important;
+    height: 66px !important;
+  }
+
+  /* LEFT SLOT: EXACT LOGO (Badge + WanderLux + HOLIDAYS & TRAVEL) */
+  .navbar .logo,
+  .admin-navbar .logo,
+  .user-navbar .logo,
+  .navbar-logo-left {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    margin-right: auto !important;
+    margin-left: 0 !important;
+    gap: 9px !important;
+    flex-shrink: 0 !important;
+    text-decoration: none !important;
+  }
+
+  .navbar .logo-badge,
+  .navbar .logo-svg,
+  .admin-navbar .logo-badge,
+  .admin-navbar .logo-svg,
+  .user-navbar .logo-badge,
+  .user-navbar .logo-svg {
+    display: block !important;
+    width: 38px !important;
+    height: 38px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .logo-title-group {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .logo-text {
+    display: block !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+  }
+
+  .logo-subtitle {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 0.58rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: #f59e0b !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    gap: 4px !important;
+  }
+
+  body.dark-mode .logo-subtitle {
+    color: #fbbf24 !important;
+  }
+
+  .logo-subtitle i {
+    display: inline-block !important;
+    font-size: 0.62rem !important;
+    color: #0ea5e9 !important;
+  }
+
+  body.dark-mode .logo-subtitle i {
+    color: #38bdf8 !important;
+  }
+
+  /* MIDDLE & DESKTOP CONTROLS: STRICTLY HIDDEN */
+  .nav-center,
+  .nav-right,
+  .nav-center-slot,
+  .nav-desktop-actions {
+    display: none !important;
+  }
+
+  /* RIGHT SLOT: HAMBURGER MENU */
+  .hamburger,
+  .hamburger-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    z-index: 1002 !important;
   }
 
   /* Multi-column Grids collapse to 2 columns */
@@ -322,21 +460,65 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
     padding: 0.65rem 1rem !important;
   }
 
-  /* Sticky Navbar on Mobile */
+  /* Sticky Centered Capsule Navbar on Mobile & Tablet Portrait */
   .navbar {
+    position: -webkit-sticky !important;
     position: sticky !important;
     top: 0.5rem !important;
-    padding: 0.4rem 0.85rem !important;
-    border-radius: 2rem !important;
-    z-index: 1000 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    padding: 0.4rem 1rem !important;
+    border-radius: 9999px !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
   }
-  .nav-center {
+  .admin-navbar,
+  .user-navbar {
+    padding: 0 1rem !important;
+  }
+  .navbar .logo-badge,
+  .navbar .logo-svg,
+  .admin-navbar .logo-badge,
+  .admin-navbar .logo-svg,
+  .user-navbar .logo-badge,
+  .user-navbar .logo-svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .logo-text {
+    font-size: 1.15rem !important;
+  }
+  .logo-subtitle {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 0.52rem !important;
+    letter-spacing: 0.09em !important;
+    gap: 3px !important;
+    white-space: nowrap !important;
+  }
+  .logo-subtitle i {
+    display: inline-block !important;
+    font-size: 0.56rem !important;
+  }
+  .nav-center,
+  .nav-right,
+  .nav-center-slot,
+  .nav-desktop-actions {
     display: none !important;
   }
-  .hamburger {
+  .hamburger,
+  .hamburger-btn {
     display: flex !important;
+    margin-left: auto !important;
   }
 
   /* Mobile Slide-down Menu */
@@ -534,22 +716,64 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
   }
 
   .navbar {
+    position: -webkit-sticky !important;
+    position: sticky !important;
     top: 0.4rem !important;
-    padding: 0.35rem 0.65rem !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.35rem 0.85rem !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
+  }
+  .admin-navbar,
+  .user-navbar {
+    padding: 0 0.85rem !important;
+    height: 60px !important;
+  }
+  .logo,
+  .navbar-logo-left {
+    gap: 7px !important;
+  }
+  .logo-badge,
+  .logo-svg {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 11px !important;
   }
   .logo-text {
     font-size: 1.05rem !important;
+    line-height: 1.1 !important;
   }
   .logo-subtitle {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 0.48rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.07em !important;
+    gap: 3px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+  }
+  .logo-subtitle i {
+    display: inline-block !important;
+    font-size: 0.52rem !important;
+  }
+  .nav-center,
+  .nav-right,
+  .nav-center-slot,
+  .nav-desktop-actions {
     display: none !important;
   }
-  .logo-badge {
-    width: 36px !important;
-    height: 36px !important;
-  }
-  .logo-svg {
-    width: 36px !important;
-    height: 36px !important;
+  .hamburger,
+  .hamburger-btn {
+    display: flex !important;
+    margin-left: auto !important;
   }
 
   .mobile-menu {
@@ -630,22 +854,65 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
   }
 
   .navbar {
+    position: -webkit-sticky !important;
+    position: sticky !important;
     top: 0.25rem !important;
-    padding: 0.3rem 0.5rem !important;
-    border-radius: 1.5rem !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.3rem 0.65rem !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(14, 165, 233, 0.25) !important;
   }
-  .logo {
+  .admin-navbar,
+  .user-navbar {
+    padding: 0 0.6rem !important;
+    height: 56px !important;
+  }
+  .logo,
+  .navbar-logo-left {
     gap: 6px !important;
   }
   .logo-badge,
   .logo-svg {
-    width: 30px !important;
-    height: 30px !important;
-    border-radius: 10px !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 9px !important;
   }
   .logo-text {
     font-size: 0.92rem !important;
     letter-spacing: -0.02em !important;
+    line-height: 1.1 !important;
+  }
+  .logo-subtitle {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 0.42rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    gap: 2px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+  }
+  .logo-subtitle i {
+    display: inline-block !important;
+    font-size: 0.46rem !important;
+  }
+  .nav-center,
+  .nav-right,
+  .nav-center-slot,
+  .nav-desktop-actions {
+    display: none !important;
+  }
+  .hamburger,
+  .hamburger-btn {
+    display: flex !important;
+    margin-left: auto !important;
   }
 
   .mobile-menu {
@@ -703,8 +970,21 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, li, td, th, button, div {
 /* ==========================================================================
    RTL LAYOUT ALIGNMENTS ACROSS MOBILE
    ========================================================================== */
-body.rtl-mode .navbar {
+body.rtl-mode .navbar,
+body.rtl-mode .admin-navbar,
+body.rtl-mode .user-navbar {
   flex-direction: row-reverse !important;
+}
+body.rtl-mode .logo,
+body.rtl-mode .navbar-logo-left {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  justify-content: flex-start !important;
+}
+body.rtl-mode .hamburger,
+body.rtl-mode .hamburger-btn {
+  margin-right: auto !important;
+  margin-left: 0 !important;
 }
 body.rtl-mode .mobile-menu .nav-link {
   text-align: right !important;
@@ -724,3 +1004,818 @@ body.rtl-mode .user-sidebar {
   left: 0 !important;
   right: auto !important;
 }
+
+/* ==========================================================================
+   GLOBAL ALIGNMENT & UNIFORM CARD/IMAGE DIMENSIONS ENGINE
+   ========================================================================== */
+.dossier-sub-grid,
+.booking-grid-duo {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 768px) {
+  .dossier-sub-grid,
+  .booking-grid-duo {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+}
+.asian-card-media,
+.euro-card-media,
+.me-media,
+.americas-media,
+.luxury-escapes-media {
+  width: 100% !important;
+  height: 240px !important;
+  min-height: 240px !important;
+  max-height: 240px !important;
+  overflow: hidden !important;
+}
+.asian-card-media img,
+.euro-card-media img,
+.me-media img,
+.americas-media img,
+.luxury-escapes-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+@media (max-width: 768px) {
+  .asian-card-media,
+  .euro-card-media,
+  .me-media,
+  .americas-media,
+  .luxury-escapes-media {
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+  }
+}
+@media (max-width: 480px) {
+  .asian-card-media,
+  .euro-card-media,
+  .me-media,
+  .americas-media,
+  .luxury-escapes-media {
+    height: 200px !important;
+    min-height: 200px !important;
+    max-height: 200px !important;
+  }
+}
+
+/* Ticket footer and claim button responsive no-wrap */
+.ticket-footer {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.ticket-barcode {
+  font-family: monospace !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+.ticket-claim-btn {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+}
+@media (max-width: 480px) {
+  .ticket-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  .ticket-claim-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+/* ==========================================================================
+   CROSS-PAGE RESPONSIVE ENHANCEMENTS (INTERNATIONAL, GUIDE, FAMILY, CONTACT)
+   ========================================================================== */
+
+/* 1. International Packages & Booking Console Engine */
+.inter-details-booking-layout {
+  display: grid !important;
+  grid-template-columns: 1.2fr 0.8fr !important;
+  gap: 2.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  align-items: start !important;
+}
+
+.dossier-card,
+.booking-console-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.dossier-spec-matrix {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1.2rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.spec-matrix-box {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.inter-pricing-banner {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.inter-itinerary-timeline {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.inter-day-item,
+.inter-day-title,
+.inter-day-desc {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* 2. Guide Almanac Components */
+.guide-page-main,
+.guide-almanac-masthead,
+.guide-section,
+.guide-masthead-box,
+.guide-atlas-split,
+.guide-atlas-sheet,
+.guide-season-grid,
+.guide-ledger-deck,
+.guide-luggage-studio,
+.guide-luggage-box,
+.guide-culture-split,
+.guide-protocol-board,
+.guide-consular-grid,
+.guide-consular-shield {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 3. Family Tours & Groups Engine */
+.family-page-main,
+.family-section,
+.honeymoon-hero-grid,
+.honeymoon-spotlight-card,
+.honeymoon-cards-grid,
+.family-packages-grid,
+.family-pkg-card,
+.family-educational-banner,
+.squad-odyssey-card,
+.senior-sanctuary-wrap,
+.senior-pledge-banner,
+.senior-showcase-grid,
+.bespoke-wings-grid,
+.bespoke-wing-card,
+.studio-architect-box,
+.vip-terminal-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Responsive Breakpoints <= 1080px */
+@media (max-width: 1080px) {
+  .inter-details-booking-layout {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .booking-console-card {
+    position: static !important;
+  }
+  .guide-masthead-box,
+  .guide-atlas-split,
+  .guide-season-grid,
+  .guide-luggage-studio,
+  .guide-culture-split,
+  .guide-consular-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .honeymoon-hero-grid,
+  .squad-layout-grid,
+  .senior-showcase-grid,
+  .studio-grid-layout,
+  .terminal-columns,
+  .family-educational-banner {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .contact-enterprise-inner {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+/* 5. Responsive Breakpoints <= 768px */
+@media (max-width: 768px) {
+  .dossier-hero-banner {
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+  }
+  .dossier-spec-matrix {
+    grid-template-columns: 1fr !important;
+    gap: 0.9rem !important;
+  }
+  .dossier-card,
+  .booking-console-card {
+    padding: 1.5rem 1.2rem !important;
+    border-radius: 1.6rem !important;
+  }
+  .inter-pricing-banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 1.2rem 1.1rem !important;
+  }
+  .guide-section,
+  .guide-almanac-masthead {
+    padding: 40px 16px !important;
+  }
+  .guide-masthead-box {
+    padding: 24px 18px !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .guide-stats-strip {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+  .guide-ledger-table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .guide-checklist-grid,
+  .guide-protocol-board {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .honeymoon-cards-grid,
+  .stay-options-grid,
+  .senior-amenities-list,
+  .wing-features-grid,
+  .travelers-counter-row,
+  .dates-input-row,
+  .form-group-duo,
+  .terminal-guarantees-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+  .senior-pledge-banner {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+  .squad-odyssey-card,
+  .senior-sanctuary-wrap,
+  .studio-architect-box,
+  .vip-terminal-box {
+    padding: 1.5rem 1.2rem !important;
+    border-radius: 22px !important;
+  }
+  .squad-size-selector {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .squad-btn-pill {
+    flex: 1 1 calc(50% - 0.5rem) !important;
+    min-width: 120px !important;
+  }
+  .contact-masthead-top {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .contact-cockpit-box,
+  .contact-form-studio,
+  .contact-card {
+    padding: 24px 20px !important;
+    border-radius: 20px !important;
+  }
+}
+
+/* 6. Responsive Breakpoints <= 480px */
+@media (max-width: 480px) {
+  .dossier-hero-banner {
+    height: 200px !important;
+    min-height: 200px !important;
+    max-height: 200px !important;
+  }
+  .dossier-card,
+  .booking-console-card {
+    padding: 1.2rem 0.85rem !important;
+    border-radius: 1.25rem !important;
+  }
+  .spec-matrix-box {
+    padding: 1rem 0.85rem !important;
+  }
+  .inter-itinerary-timeline {
+    padding-left: 1.4rem !important;
+  }
+  .inter-day-dot {
+    left: -1.4rem !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .guide-section,
+  .guide-almanac-masthead {
+    padding: 28px 12px !important;
+  }
+  .guide-masthead-box {
+    padding: 20px 14px !important;
+    border-radius: 18px !important;
+  }
+  .guide-stats-strip {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .squad-odyssey-card,
+  .senior-sanctuary-wrap,
+  .studio-architect-box,
+  .vip-terminal-box,
+  .family-educational-banner {
+    padding: 1.25rem 0.9rem !important;
+    border-radius: 18px !important;
+  }
+  .squad-discount-display {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+  .contact-status-badge {
+    padding: 8px 14px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .contact-status-text {
+    font-size: 0.74rem !important;
+    word-break: break-word !important;
+  }
+  .contact-cockpit-box,
+  .contact-form-studio,
+  .contact-card {
+    padding: 18px 14px !important;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .nav-center {
+    display: none !important;
+  }
+  .nav-right {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+    margin-left: auto !important;
+  }
+  .navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+
+/* ==========================================================================
+   UNIVERSAL BULLETPROOF HAMBURGER & CONTROLS ALIGNMENT ENGINE
+   Guarantees 100% circular geometry (aspect-ratio: 1/1) & zero oval squish
+   ========================================================================== */
+.icon-btn,
+.mobile-controls .icon-btn,
+.nav-right .icon-btn {
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.icon-btn i,
+.mobile-controls .icon-btn i,
+.nav-right .icon-btn i {
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  width: 1em !important;
+  text-align: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.mobile-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 0.5rem !important;
+  padding-top: 1rem !important;
+  border-top: 1px solid var(--card-border, rgba(14, 165, 233, 0.2)) !important;
+  gap: 0.75rem !important;
+}
+
+.mobile-icon-group {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  flex-shrink: 0 !important;
+}
+
+.mobile-controls .login-btn {
+  height: 40px !important;
+  padding: 0 1.35rem !important;
+  border-radius: 9999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9) !important;
+  color: #ffffff !important;
+  border: none !important;
+  text-decoration: none !important;
+}
+
+body.rtl-mode .mobile-controls {
+  flex-direction: row-reverse !important;
+}
+
+body.rtl-mode .mobile-icon-group {
+  flex-direction: row-reverse !important;
+}
+
+/* Hamburger button styling */
+.hamburger {
+  display: none;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+  width: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 9px !important;
+  background: rgba(14, 165, 233, 0.08) !important;
+  border: 1px solid rgba(14, 165, 233, 0.22) !important;
+  border-radius: 12px !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  z-index: 10001 !important;
+}
+
+.hamburger span {
+  width: 22px !important;
+  height: 2.5px !important;
+  background: var(--text-main, #0f172a) !important;
+  border-radius: 4px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform-origin: center !important;
+  display: block !important;
+}
+
+body.dark-mode .hamburger span {
+  background: #f0f9ff !important;
+}
+
+.hamburger.open span:nth-child(1),
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg) !important;
+}
+
+.hamburger.open span:nth-child(2),
+.hamburger.active span:nth-child(2) {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+}
+
+.hamburger.open span:nth-child(3),
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg) !important;
+}
+
+/* Mobile menu display and active state */
+.mobile-menu {
+  display: none;
+  position: fixed !important;
+  top: 4.8rem !important;
+  left: 1rem !important;
+  right: 1rem !important;
+  width: auto !important;
+  max-width: calc(100vw - 2rem) !important;
+  max-height: calc(85vh - 5rem) !important;
+  overflow-y: auto !important;
+  z-index: 99999 !important;
+  box-sizing: border-box !important;
+}
+
+.mobile-menu.active,
+.mobile-menu.open {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+@media (max-width: 1024px) {
+  .nav-center {
+    display: none !important;
+  }
+  .nav-right {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+    margin-left: auto !important;
+  }
+  body.rtl-mode .hamburger {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+  .navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hamburger {
+    display: none !important;
+  }
+  .mobile-menu,
+  .mobile-menu.active,
+  .mobile-menu.open {
+    display: none !important;
+  }
+}
+
+
+
+/* ==========================================================================
+   MOBILE MENU DASHBOARD GAP & ISOLATION ENGINE
+   Provides a clear, elegant separation between standard links & Dashboard
+   ========================================================================== */
+.mobile-dropdown.mobile-dashboard-dropdown,
+.mobile-menu .mobile-dashboard-dropdown,
+.mobile-menu .mobile-dropdown:last-of-type {
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.65rem !important;
+  padding-top: 0.85rem !important;
+  border-top: 1px dashed var(--card-border, rgba(14, 165, 233, 0.25)) !important;
+}
+
+.mobile-dropdown.mobile-dashboard-dropdown > .mobile-dropdown-toggle,
+.mobile-menu .mobile-dashboard-dropdown > .mobile-dropdown-toggle,
+.mobile-menu .mobile-dropdown:last-of-type > .mobile-dropdown-toggle {
+  font-weight: 700 !important;
+}
+
+/* Ensure smooth section scrolling without sticky navbar occlusion */
+html {
+  scroll-padding-top: 5.5rem !important;
+}
+section, .family-section, [id] {
+  scroll-margin-top: 5.5rem !important;
+}
+
+
+
+/* ==========================================================================
+   UNIVERSAL SCROLLBAR REMOVAL ENGINE (WHEREVER HAMBURGER MENU IS PRESENT)
+   Removes visual scrollbars completely on mobile menus, dropdowns, sidebars,
+   and mobile viewports while preserving 100% full touch & wheel scrollability.
+   ========================================================================== */
+
+/* 1. Mobile Menu Popup & Submenus: Remove Scrollbar */
+.mobile-menu,
+.mobile-menu *,
+.mobile-submenu,
+.mobile-dropdown,
+.mobile-controls {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and Edge */
+}
+
+.mobile-menu::-webkit-scrollbar,
+.mobile-menu *::-webkit-scrollbar,
+.mobile-submenu::-webkit-scrollbar,
+.mobile-dropdown::-webkit-scrollbar,
+.mobile-controls::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, WebKit */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Admin & User Dashboard Sidebars (Toggled via Hamburger): Remove Scrollbar */
+.admin-sidebar,
+.admin-sidebar *,
+.user-sidebar,
+.user-sidebar *,
+.sidebar-nav,
+.sidebar-nav * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-sidebar *::-webkit-scrollbar,
+.user-sidebar::-webkit-scrollbar,
+.user-sidebar *::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.sidebar-nav *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 3. Wherever Hamburger Menu is Present (<= 1024px Viewports): Remove Page Scrollbar */
+@media (max-width: 1024px) {
+  html,
+  body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  .mobile-menu {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .mobile-menu::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
+body.mobile-menu-open,
+body.menu-open {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+
+body.mobile-menu-open::-webkit-scrollbar,
+body.menu-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+
+
+/* ==========================================================================
+   DEFINITIVE UNIVERSAL CENTERED STICKY NAVBAR CAPSULE ENGINE
+   Guarantees 100% center alignment, perfect floating capsule shape,
+   and bulletproof sticky behavior across all viewports and devices.
+   ========================================================================== */
+.navbar {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0.75rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 1360px !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+  padding: 0.45rem 1.4rem !important;
+  z-index: 1000 !important;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, top 0.3s ease !important;
+}
+
+.navbar.scrolled,
+.navbar.is-sticky,
+body.dark-mode .navbar.scrolled,
+body.dark-mode .navbar.is-sticky {
+  background: rgba(10, 24, 40, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.8), 0 0 25px rgba(14, 165, 233, 0.25) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+body:not(.dark-mode) .navbar.scrolled,
+body:not(.dark-mode) .navbar.is-sticky {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 16px 40px -8px rgba(2, 132, 199, 0.25), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(14, 165, 233, 0.35) !important;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    top: 0.65rem !important;
+    padding: 0.45rem 1.25rem !important;
+    border-radius: 9999px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 0.5rem !important;
+    padding: 0.4rem 1rem !important;
+    border-radius: 9999px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    top: 0.4rem !important;
+    padding: 0.35rem 0.85rem !important;
+    border-radius: 9999px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar {
+    top: 0.25rem !important;
+    padding: 0.3rem 0.65rem !important;
+    border-radius: 9999px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+

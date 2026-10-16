@@ -829,7 +829,11 @@
         left: 1rem;
       }
       .logo-subtitle {
-        display: none;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 0.52rem !important;
+        gap: 3px !important;
+        white-space: nowrap !important;
       }
       .lost-card {
         padding: 1.35rem 1.25rem;
@@ -1176,7 +1180,18 @@
         font-size: 1.05rem !important;
       }
       .logo-subtitle {
-        display: none !important;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 0.48rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.07em !important;
+        gap: 3px !important;
+        white-space: nowrap !important;
+        line-height: 1 !important;
+      }
+      .logo-subtitle i {
+        display: inline-block !important;
+        font-size: 0.52rem !important;
       }
       .logo-badge {
         width: 36px !important;
@@ -1331,6 +1346,101 @@
       left: 0 !important;
       right: auto !important;
     }
+
+  
+/* ==========================================================================
+   UNIVERSAL SCROLLBAR REMOVAL ENGINE (WHEREVER HAMBURGER MENU IS PRESENT)
+   Removes visual scrollbars completely on mobile menus, dropdowns, sidebars,
+   and mobile viewports while preserving 100% full touch & wheel scrollability.
+   ========================================================================== */
+
+/* 1. Mobile Menu Popup & Submenus: Remove Scrollbar */
+.mobile-menu,
+.mobile-menu *,
+.mobile-submenu,
+.mobile-dropdown,
+.mobile-controls {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and Edge */
+}
+
+.mobile-menu::-webkit-scrollbar,
+.mobile-menu *::-webkit-scrollbar,
+.mobile-submenu::-webkit-scrollbar,
+.mobile-dropdown::-webkit-scrollbar,
+.mobile-controls::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, WebKit */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Admin & User Dashboard Sidebars (Toggled via Hamburger): Remove Scrollbar */
+.admin-sidebar,
+.admin-sidebar *,
+.user-sidebar,
+.user-sidebar *,
+.sidebar-nav,
+.sidebar-nav * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-sidebar *::-webkit-scrollbar,
+.user-sidebar::-webkit-scrollbar,
+.user-sidebar *::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.sidebar-nav *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 3. Wherever Hamburger Menu is Present (<= 1024px Viewports): Remove Page Scrollbar */
+@media (max-width: 1024px) {
+  html,
+  body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-x: hidden !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  .mobile-menu {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .mobile-menu::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
+body.mobile-menu-open,
+body.menu-open {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+
+body.mobile-menu-open::-webkit-scrollbar,
+body.menu-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
 
   </style>
 </head>

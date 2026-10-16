@@ -1392,8 +1392,9 @@
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    .mobile-menu.active {
-      display: flex;
+    .mobile-menu.active,
+    .mobile-menu.open {
+      display: flex !important;
     }
 
     .mobile-menu .nav-link {
@@ -1448,17 +1449,38 @@
     }
 
     .mobile-menu .mobile-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(0,0,0,0.1);
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-top: 0.5rem !important;
+      padding-top: 1rem !important;
+      border-top: 1px solid var(--card-border, rgba(0,0,0,0.1)) !important;
+      gap: 0.75rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
 
-    .mobile-menu .mobile-controls .icon-btn,
+    .mobile-menu .mobile-controls .mobile-icon-group {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.65rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .mobile-menu .mobile-controls .icon-btn, .mobile-controls .icon-btn, .nav-right .icon-btn { width: 40px !important; min-width: 40px !important; max-width: 40px !important; height: 40px !important; min-height: 40px !important; max-height: 40px !important; aspect-ratio: 1 / 1 !important; border-radius: 50% !important; padding: 0 !important; margin: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; box-sizing: border-box !important; }
+
     .mobile-menu .mobile-controls .login-btn {
-      width: auto;
+      width: auto !important;
+      height: 38px !important;
+      padding: 0 1.25rem !important;
+      border-radius: 9999px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      font-size: 0.85rem !important;
+      font-weight: 700 !important;
     }
 
     /* ---------- RESPONSIVE (tablet & mobile) ---------- */
@@ -3844,7 +3866,28 @@
       justify-content: center;
     }
 
-    /* ---------- RESPONSIVE BREAKPOINTS ---------- */
+    /* ---------- RESPONSIVE BREAKPOINTS (ALL SCREEN SIZES) ---------- */
+    .family-page-main,
+    .family-section,
+    .honeymoon-hero-grid,
+    .honeymoon-spotlight-card,
+    .honeymoon-cards-grid,
+    .family-packages-grid,
+    .family-pkg-card,
+    .family-educational-banner,
+    .squad-odyssey-card,
+    .senior-sanctuary-wrap,
+    .senior-pledge-banner,
+    .senior-showcase-grid,
+    .bespoke-wings-grid,
+    .bespoke-wing-card,
+    .studio-architect-box,
+    .vip-terminal-box {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
     @media (max-width: 1024px) {
       .honeymoon-hero-grid,
       .squad-layout-grid,
@@ -3852,24 +3895,25 @@
       .studio-grid-layout,
       .terminal-columns,
       .family-educational-banner {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
       }
       .family-packages-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
       }
       .senior-pledge-banner {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
       }
       .bespoke-wings-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
       }
     }
 
     @media (max-width: 768px) {
       .family-page-main {
-        padding-top: 4.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-top: 4.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
       }
       .honeymoon-cards-grid,
       .family-packages-grid,
@@ -3880,24 +3924,119 @@
       .dates-input-row,
       .form-group-duo,
       .terminal-guarantees-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
       }
       .senior-pledge-banner {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
       }
       .squad-odyssey-card,
       .senior-sanctuary-wrap,
       .studio-architect-box,
       .vip-terminal-box {
-        padding: 1.5rem;
+        padding: 1.5rem 1.2rem !important;
+        border-radius: 22px !important;
       }
       .honeymoon-body {
-        padding: 1.5rem;
+        padding: 1.5rem 1.2rem !important;
       }
       .honeymoon-img-wrap,
       .squad-img-container,
-      .senior-img-pane {
-        height: 260px;
+      .senior-img-pane,
+      .wing-img-wrap,
+      .edu-img-wrap {
+        height: 240px !important;
+      }
+      .family-filter-bar {
+        flex-wrap: wrap !important;
+        gap: 0.45rem !important;
+        justify-content: center !important;
+      }
+      .squad-size-selector {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      .squad-btn-pill {
+        flex: 1 1 calc(50% - 0.5rem) !important;
+        min-width: 120px !important;
+      }
+      .family-pkg-foot {
+        flex-wrap: wrap !important;
+        gap: 0.65rem !important;
+      }
+      .dest-options-pills {
+        flex-wrap: wrap !important;
+        gap: 0.45rem !important;
+      }
+      .section-title {
+        font-size: 1.85rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .family-page-main {
+        padding-top: 4rem !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      .squad-odyssey-card,
+      .senior-sanctuary-wrap,
+      .studio-architect-box,
+      .vip-terminal-box,
+      .family-educational-banner {
+        padding: 1.25rem 0.9rem !important;
+        border-radius: 18px !important;
+      }
+      .honeymoon-img-wrap,
+      .squad-img-container,
+      .senior-img-pane,
+      .wing-img-wrap,
+      .edu-img-wrap {
+        height: 200px !important;
+      }
+      .honeymoon-floating-badge {
+        max-width: calc(100% - 2rem) !important;
+        word-break: break-word !important;
+      }
+      .squad-discount-display {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+      }
+      .counter-card {
+        padding: 0.75rem 0.85rem !important;
+      }
+      .concierge-avatar-box {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+      }
+      .section-title {
+        font-size: 1.55rem !important;
+      }
+      .section-subtitle {
+        font-size: 0.88rem !important;
+      }
+      .live-quote-price-box .price-value {
+        font-size: 1.8rem !important;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .family-page-main {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+      .squad-btn-pill {
+        flex: 1 1 100% !important;
+      }
+      .dest-opt-pill {
+        width: 100% !important;
+        text-align: center !important;
+      }
+      .section-title {
+        font-size: 1.35rem !important;
       }
     }
 
@@ -4414,7 +4553,18 @@
         font-size: 1.05rem !important;
       }
       .logo-subtitle {
-        display: none !important;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 0.48rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.07em !important;
+        gap: 3px !important;
+        white-space: nowrap !important;
+        line-height: 1 !important;
+      }
+      .logo-subtitle i {
+        display: inline-block !important;
+        font-size: 0.52rem !important;
       }
       .logo-badge {
         width: 36px !important;
@@ -4570,6 +4720,186 @@
       right: auto !important;
     }
 
+    html { scroll-padding-top: 5.5rem !important; }
+  section, .family-section, [id] { scroll-margin-top: 5.5rem !important; }
+  .mobile-dropdown.mobile-dashboard-dropdown, .mobile-menu .mobile-dashboard-dropdown, .mobile-menu .mobile-dropdown:last-of-type { margin-top: 1.25rem !important; margin-bottom: 0.65rem !important; padding-top: 0.85rem !important; border-top: 1px dashed var(--card-border, rgba(14, 165, 233, 0.25)) !important; }
+  
+  /* Mobile padding & Section 6 Tour Customization Studio enhancements */
+  @media (max-width: 768px) {
+    .family-page-main {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .studio-architect-box {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 1.5rem 1rem !important;
+      margin: 0 auto !important;
+    }
+    .studio-grid-layout {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+      width: 100% !important;
+    }
+    .travelers-counter-row {
+      grid-template-columns: 1fr !important;
+      gap: 0.85rem !important;
+    }
+    .stay-options-grid {
+      grid-template-columns: 1fr !important;
+      gap: 0.75rem !important;
+    }
+    .dates-input-row {
+      grid-template-columns: 1fr !important;
+      gap: 0.85rem !important;
+    }
+    .dest-options-pills {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 0.5rem !important;
+    }
+    .dest-opt-pill {
+      flex: 1 1 calc(50% - 0.5rem) !important;
+      min-width: 120px !important;
+      text-align: center !important;
+    }
+    .activities-chips-cloud {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 0.5rem !important;
+    }
+    .act-chip {
+      flex: 1 1 calc(50% - 0.5rem) !important;
+      min-width: 130px !important;
+    }
+    .studio-summary-sidebar {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 1.5rem 1.15rem !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .family-page-main {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    .studio-architect-box {
+      padding: 1.25rem 0.75rem !important;
+      border-radius: 20px !important;
+    }
+    .dest-opt-pill,
+    .act-chip {
+      flex: 1 1 100% !important;
+      width: 100% !important;
+    }
+  }
+
+  
+/* ==========================================================================
+   UNIVERSAL SCROLLBAR REMOVAL ENGINE (WHEREVER HAMBURGER MENU IS PRESENT)
+   Removes visual scrollbars completely on mobile menus, dropdowns, sidebars,
+   and mobile viewports while preserving 100% full touch & wheel scrollability.
+   ========================================================================== */
+
+/* 1. Mobile Menu Popup & Submenus: Remove Scrollbar */
+.mobile-menu,
+.mobile-menu *,
+.mobile-submenu,
+.mobile-dropdown,
+.mobile-controls {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and Edge */
+}
+
+.mobile-menu::-webkit-scrollbar,
+.mobile-menu *::-webkit-scrollbar,
+.mobile-submenu::-webkit-scrollbar,
+.mobile-dropdown::-webkit-scrollbar,
+.mobile-controls::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, WebKit */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 2. Admin & User Dashboard Sidebars (Toggled via Hamburger): Remove Scrollbar */
+.admin-sidebar,
+.admin-sidebar *,
+.user-sidebar,
+.user-sidebar *,
+.sidebar-nav,
+.sidebar-nav * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-sidebar *::-webkit-scrollbar,
+.user-sidebar::-webkit-scrollbar,
+.user-sidebar *::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.sidebar-nav *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* 3. Wherever Hamburger Menu is Present (<= 1024px Viewports): Remove Page Scrollbar */
+@media (max-width: 1024px) {
+  html,
+  body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    overflow-x: clip !important; overflow-y: visible !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  .mobile-menu {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .mobile-menu::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* 4. When Mobile Menu is Open: Prevent Background Page Scrollbar & Scrolling */
+body.mobile-menu-open,
+body.menu-open {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+
+body.mobile-menu-open::-webkit-scrollbar,
+body.menu-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+    /* DEFINITIVE UNIVERSAL CENTERED STICKY NAVBAR CAPSULE */
+  .navbar { position: -webkit-sticky !important; position: sticky !important; top: 0.75rem !important; margin-left: auto !important; margin-right: auto !important; margin-top: 0 !important; margin-bottom: 0 !important; width: 100% !important; max-width: 1360px !important; border-radius: 9999px !important; z-index: 1000 !important; }
+  @media (max-width: 1024px) { .navbar { top: 0.65rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 768px) { .navbar { top: 0.5rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 480px) { .navbar { top: 0.4rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
+  @media (max-width: 320px) { .navbar { top: 0.25rem !important; border-radius: 9999px !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important; } }
   </style>
 </head>
 <body>
@@ -4952,7 +5282,7 @@
       <a href="special-offers.html" class="nav-link">Special Offers</a>
       <a href="guide.html" class="nav-link">Guide</a>
       <a href="contact.html" class="nav-link">Contact</a>
-      <div class="mobile-dropdown">
+      <div class="mobile-dropdown mobile-dashboard-dropdown">
         <a href="#" class="nav-link mobile-dropdown-toggle">
           <span>Dashboard</span>
           <i class="fas fa-chevron-down dropdown-arrow"></i>
@@ -4969,8 +5299,10 @@
         </div>
       </div>
       <div class="mobile-controls">
-        <button class="icon-btn" id="mobileDarkToggle" aria-label="Dark mode"><i class="fas fa-moon"></i></button>
-        <button class="icon-btn" id="mobileRtlToggle" aria-label="Right left toggle"><i class="fas fa-arrow-right-arrow-left"></i></button>
+        <div class="mobile-icon-group">
+          <button class="icon-btn" id="mobileDarkToggle" aria-label="Dark mode"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" id="mobileRtlToggle" aria-label="Right left toggle"><i class="fas fa-arrow-right-arrow-left"></i></button>
+        </div>
         <a href="login.html" class="login-btn" id="mobileLoginBtn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Log in</a>
       </div>
     </div>
@@ -6140,19 +6472,54 @@
 
       // Mobile Menu
       if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isOpen = hamburger.classList.toggle('open');
-          mobileMenu.classList.toggle('open', isOpen);
-          hamburger.setAttribute('aria-expanded', isOpen);
-        });
+        function toggleMobileMenu(e) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          const isCurrentlyActive = mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open');
+          const willBeOpen = !isCurrentlyActive;
+          
+          mobileMenu.classList.toggle('active', willBeOpen);
+          document.body.classList.toggle('mobile-menu-open', mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open'));
+          mobileMenu.classList.toggle('open', willBeOpen);
+          hamburger.classList.toggle('active', willBeOpen);
+          hamburger.classList.toggle('open', willBeOpen);
+          hamburger.setAttribute('aria-expanded', willBeOpen ? 'true' : 'false');
+          
+          if (willBeOpen) {
+            mobileMenu.style.display = 'flex';
+            if (window.motion && window.motion.animate) {
+              window.motion.animate(mobileMenu, { opacity: [0, 1], scale: [0.96, 1], y: [-8, 0] }, { duration: 0.22 });
+            }
+          } else {
+            mobileMenu.style.display = 'none';
+          }
+        }
+
+        hamburger.addEventListener('click', toggleMobileMenu);
 
         document.addEventListener('click', (e) => {
-          if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-            mobileMenu.classList.remove('open');
-            hamburger.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', 'false');
+          if (mobileMenu.classList.contains('active') || mobileMenu.classList.contains('open')) {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+              mobileMenu.classList.remove('active', 'open');
+              document.body.classList.remove('mobile-menu-open');
+              hamburger.classList.remove('active', 'open');
+              hamburger.setAttribute('aria-expanded', 'false');
+              mobileMenu.style.display = 'none';
+            }
           }
+        });
+
+        // Close on clicking links inside mobile menu
+        document.querySelectorAll('.mobile-menu .nav-link:not(.mobile-dropdown-toggle), .mobile-menu .dropdown-item').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active', 'open');
+              document.body.classList.remove('mobile-menu-open');
+            hamburger.classList.remove('active', 'open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            mobileMenu.style.display = 'none';
+          });
         });
       }
 
